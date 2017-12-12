@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>	
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous" />
+</head>
+<style> 
+	.form-signin{
+		max-width: 330px;
+    	padding: 15px;
+    	margin: 0 auto;
+	}
+	.form-control{
+		margin: 10px auto;
+	}
+	
+</style>
+<body>		
+	<div class="container">
+		
+		<form
+			class="form-group form-signin" 
+			th:action="@{/account/login}"
+			th:object="${account}" method="post">
+			
+			<label th:text="${error}"></label>
+			<h2 class="form-signin-heading">Sign In</h2>														
+			<input class="form-control" type="text" th:field="*{username}" placeholder="username"/>												
+			<input class="form-control" type="text" th:field="*{password}" placeholder="password"/>					
+			<input class="btn btn-lg btn-primary btn-block" type="submit" th:field="Login" />					
+		</form>
+	</div>
+</body>
+</html>

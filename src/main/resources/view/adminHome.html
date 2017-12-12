@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"/>
+<link rel="stylesheet" th:href="@{/vendor/metisMenu/metisMenu.min.css}" />
+<link rel="stylesheet" th:href="@{/css/adminHome.css}"/>
+<link rel="stylesheet" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}"/>
+</head>
+<body>
+	<div id="wrapper">
+		<!--  Navigation  -->		
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom:0">
+			<div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">F-CODE Admin</a>
+                
+            </div>
+            <!--  /.navbar-header -->
+            
+            <ul class="nav navbar-top-links navbar-right">
+            	<form role="search" class="navbar-search-custom">
+            		
+            		<div class="input-group">            			            			            		
+            			<input type="text" 
+            				   placeholder="Search for something..." 
+            				   class="form-control" 
+            				   name="top-search" 
+            				   id="top-search" />            				  
+            		    <span class="input-group-addon">
+            				<button class="btn btn-default">
+            					<i class="fa fa-search"></i>
+            				</button>																										
+						</span>
+            		                			
+            		</div>
+            	</form>            	            	
+            	<li class="dropdown">
+            	 	<a class="dropdown-toggle" data-toggle="dropdown" href="#">            	 
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+            	</li>
+            	<li>
+            		<a th:href="@{/account/logout}">
+            			<i class="fa fa-sign-out"></i>
+            			Log out
+            		</a>
+            	</li>            
+            	
+            </ul>
+			<!--  /.navbar-top-links -->
+			
+			<div class="navbar-default sidebar" role="navigation">
+				<div class="sidebar-nav navbar-collapse">
+					<ul class="nav" id="side-menu">					
+					
+						<li class="sidebar-header">
+							<div class="profile-header">
+								<span class="block">
+									<img class="img-circle" alt="image" th:src="${session.account.imageUrl}"/>
+								</span>
+								<span class="block">
+									<span class="block">
+										<strong class="user-name" th:text="${session.account.fullname}"></strong>
+									</span>
+									<span class="block major" th:text="${session.account.major}">
+										
+										 <i class="fa fa-caret-down"></i>
+									</span>									
+								</span>
+							</div>
+						</li>
+						
+						<li>
+							<a href="#">
+								<i class="fa fa-dashboard fa-fw"></i>
+								Dashboard
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa-leaf fa-fw"></i>
+								Events
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa-users" fa-fw"></i>
+								Members
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa-code fa-fw"></i>
+								Projects
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+		<!--  Page Content -->
+		<div id="page-wrapper">
+			
+		</div>
+		<!--  /#page-wrapper -->
+		
+	</div>		
+	<!--  /#wrapper -->
+	
+	 <!-- jQuery -->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script th:src="@{/vendor/metisMenu/metisMenu.min.js}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    
+	
+</body>
+</html>

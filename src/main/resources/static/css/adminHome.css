@@ -1,0 +1,124 @@
+body {
+  background-color: #f8f8f8;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  line-height: 1.42857143;
+  color: #333;
+}
+
+#wrapper {
+  width: 100%;
+}
+#page-wrapper {
+  padding: 0 15px;
+  min-height: 568px;
+  background-color: white;
+}
+
+@media(min-width: 768px){
+	#page-wrapper{
+		position: inherit; 
+		margin: 0 0 0 250px; 
+		padding: 0 30px; 
+		border-left: 1px solid #e7e7e7;
+	}	
+	.navbar-header {
+		margin-left: 250px;
+	}
+	.navbar-right .navbar-search-custom{
+		float: left;
+	    height: 50px;
+	    padding: 0;
+	    width: 300px;
+	    display: block;
+	}
+	.navbar-right .navbar-search-custom .form-control{	   
+	    font-size: 16px;
+	    height: 50px;    
+	}
+		
+}
+
+@media (max-width: 768px) {
+	.navbar-search-custom .input-group span {
+	 	display: none;
+	}
+	.navbar-right .navbar-search-custom{
+		float: left;
+	    height: 50px;
+	    padding: 0;	    
+	    width: 100%;
+	    display: block;
+	}
+	.navbar-search-custom .input-group {		
+		width: 100%;
+	}
+	
+}
+
+
+.navbar-search-custom .input-group .btn-default{
+	background: transparent;
+	border: none;
+}
+
+
+
+.navbar-top-links {
+  		margin-right: 0;
+	}
+.navbar-top-links li {
+  display: inline-block;
+}
+.navbar-top-links li:last-child {
+	 margin-right: 15px;
+}
+.navbar-top-links li a {
+  padding: 15px;
+  min-height: 50px;
+}
+
+.sidebar .sidebar-nav.navbar-collapse{
+	padding-left: 0; 
+	padding-right: 0;
+}
+
+.sidebar .sidebar-header {
+  padding: 33px 25px;
+  background-color: #eee;
+}
+.sidebar-header .block{
+	display: block; 
+	margin-top: 5px;
+} 
+
+.sidebar-header .img-circle{
+	border-radius: 50%; 
+	vertical-align: middle; 
+	width: 80px;
+	height: 80px;
+}
+.sidebar-header span .user-name {
+	font-weight: 600;
+}
+.sidebar-header span .major {
+	color: #8095a8;
+}
+
+
+.sidebar ul li {
+  border-bottom: 1px solid #e7e7e7;
+}
+.sidebar ul li a.active {
+  background-color: #eeeeee;
+}
+
+@media (min-width: 768px) {
+	.sidebar {
+		z-index: 1; 
+		position: absolute; 
+		width: 250px;
+		margin-top: 0px; 
+		/* margin-top: 51px; */		
+	}
+}
