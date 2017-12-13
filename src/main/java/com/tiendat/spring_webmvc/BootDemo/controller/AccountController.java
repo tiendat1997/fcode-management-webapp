@@ -25,7 +25,7 @@ public class AccountController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String doLoginPage(ModelMap modelMap) {
 		modelMap.put("account", new Account());				
-		return "index"; 
+		return "home"; 
 	}
 	
 	@RequestMapping(value="login", method = RequestMethod.POST)
@@ -52,11 +52,11 @@ public class AccountController {
 					return "welcome";
 				}
 					
-			return "index";
+			return "home";
 			
 		} else {
 			modelMap.put("error", "Account's Invalid");
-			return "index";
+			return "home";
 			
 		}		
 	}
