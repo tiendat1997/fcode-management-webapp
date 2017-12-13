@@ -44,7 +44,7 @@ public class AccountController {
 				Role role = this.accountService.findUserRole(account.getRoleId());
 				if (role.getRoleId() == 1) {
 					// Admin
-					return "adminHome";
+					return "redirect:/admin/dashboard";
 					
 					
 				} else if (role.getRoleId() == 2){

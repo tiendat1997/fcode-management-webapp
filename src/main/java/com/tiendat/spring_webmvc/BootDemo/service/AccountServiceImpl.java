@@ -1,8 +1,12 @@
 package com.tiendat.spring_webmvc.BootDemo.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Account;
@@ -35,6 +39,25 @@ public class AccountServiceImpl implements AccountService{
 	public Account findByUsernameAndPassword(String username, String password) {
 		// TODO Auto-generated method stub
 		return this.accountRespository.findByUsernameAndPassword(username, password);
+	}
+	
+	
+	// Get All Account that don't be expired
+	@Override
+	public List<Account> findAllAccountByExpired(boolean expired){
+		return this.accountRespository.findByExpired(expired);
+	}
+	
+	// this shoudl be non-expired account
+	@Override
+	public Page<Account> findAccountPaginated(int page, int size){
+		return this.accountRespository.findAll(new PageRequest(page, size));
+	}
+
+	@Override
+	public List<Account> findAccountByGrade(int grade) {
+		
+		return this.accountRespository.findByGrade(grade);
 	}
 
 }

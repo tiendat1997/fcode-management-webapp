@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "member")
 public class Account implements Serializable{
 	
@@ -24,8 +26,12 @@ public class Account implements Serializable{
 	private String username; 
 	
 	
-	private String password; 
+	@JsonIgnore
+	private String password;
+	
 	private String fullname;
+	
+//	@JsonIgnore
 	private String email; 
 	private String phone;
 	
@@ -36,7 +42,14 @@ public class Account implements Serializable{
 		
 	private Integer grade;
 	private String major; 
+	private boolean expired; 
 	
+	public boolean isExpired() {
+		return expired;
+	}
+	public void setExpired(boolean expired) {
+		this.expired = expired;
+	}
 	// true - female  <->  false - male
 	private boolean gender; 
 	public String getUsername() {

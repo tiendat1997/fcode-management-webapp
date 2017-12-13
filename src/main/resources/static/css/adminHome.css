@@ -113,6 +113,10 @@ body {
   background-color: #eeeeee;
 }
 
+.sidebar .nav-second-level li a{
+	padding-left: 37px;
+}
+
 @media (min-width: 768px) {
 	.sidebar {
 		z-index: 1; 
@@ -121,4 +125,11 @@ body {
 		margin-top: 0px; 
 		/* margin-top: 51px; */		
 	}
+}
+
+
+.page-header{
+	padding-bottom: 9px;
+    margin: 40px 0 20px;
+    border-bottom: 1px solid #eee;	
 }
