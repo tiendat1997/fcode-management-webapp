@@ -55,7 +55,7 @@ public class AccountController {
 			return "home";
 			
 		} else {
-			modelMap.put("error", "Account's Invalid");
+			modelMap.put("error", "Invalid Username Or Password");
 			return "home";
 			
 		}		

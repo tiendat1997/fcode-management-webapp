@@ -2,6 +2,15 @@
  * 
  */
 $(window).on("load", function () {
+	
+	// Login Fail
+	var text = $("#login-fail").html(); 
+	console.log(text);
+	if (text != '' && text != null) {		
+		$('#btn-sign-in').click();			
+	}
+	
+	
 	$('header').height($(window).height() + 80);
 	$('section .cut-top').css('border-right-width', $('section .cut-top').parent().width() + 'px');
 	$('section .cut-bottom').css('border-left-width', $('section .cut-bottom').parent().width() + 'px');
@@ -67,7 +76,7 @@ function centerModal(){
 $('.modal').on('show.bs.modal', centerModal);
 $('.modal-popup .close-link').click(function(event){
 	event.preventDefault();
-	$('#modal1').modal('hide');
+	$('#loginModal').modal('hide');
 });
 
 $(window).on("resize", function() {

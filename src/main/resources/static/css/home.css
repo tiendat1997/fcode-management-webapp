@@ -1,1 +1,10 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:300,400,500,700);
+
+#loginModal{
+	z-index: 9800 !important; 	
+}
+
+#loginModal .login-error{
+	font-size: 18px;
+    color: #d32f2f;	
+}

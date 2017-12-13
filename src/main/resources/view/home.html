@@ -11,10 +11,16 @@
 <link rel="stylesheet" th:href="@{/css/normalize.css}">
 <link rel="stylesheet" th:href="@{/css/owl.css}">
 <link rel="stylesheet" th:href="@{/css/cardio.css}">
+<link rel="stylesheet" th:href="@{/css/home.css}">
 <link rel="stylesheet"
 	th:href="@{/vendor/font-awesome/css/font-awesome.min.css}">
 </head>
 <body>
+	<!--  flag tags - display none -->
+	
+	<!--  login fail -->
+	<div id="login-fail" th:text="${error}" style="display: none"></div>
+	
 	<!--start navbar-->
 	<nav class="navbar">
 		<div class="container">
@@ -27,9 +33,11 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"> <img alt=""
-					th:src="@{/img/logo.png}"
-					th:data-active-url="@{img/logo-active.png}">
+				<a class="navbar-brand" href="#"> 
+					<img alt="logo"
+						th:src="@{/img/logo.png}"
+						th:data-active-url="@{img/logo-active.png}"
+					/>
 				</a>
 			</div>
 
@@ -41,8 +49,8 @@
 					<li><a href="#gallery">Gallery</a></li>
 					<li><a href="#about">About</a></li>
 					<li><a href="#contact">Contact</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#modal1"
-						class="btn btn-blue">Sign In</a></li>
+					<li><button id="btn-sign-in" href="#" data-toggle="modal" data-target="#loginModal"
+						class="btn btn-blue">Sign In</button></li>
 				</ul>
 			</div>
 
@@ -392,7 +400,7 @@
 
 	<!-- start login form -->
 
-	<div class="modal fade" id="modal1" tabindex="1" role="dialog"
+	<div class="modal fade" id="loginModal" tabindex="1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content modal-popup">
@@ -400,10 +408,19 @@
 				<h3 class="white">Sign In</h3>
 				<form th:action="@{/account/login}" th:object="${account}"
 					method="post" class="popup-form">
-					<label th:text="${error}"></label> <input
+					<label class="login-error" th:text="${error}"></label> 
+					<input
 						class="form-control form-white" type="text" th:field="*{username}"
-						placeholder="username" /> <input class="form-control form-white"
-						type="text" th:field="*{password}" placeholder="password" /> <input
+						placeholder="username" /> 
+					<input class="form-control form-white"
+						type="password" th:field="*{password}" placeholder="password" />
+					<div class="checkbox-holder text-left">
+						<div class="checkbox">
+							<input type="checkbox" value="None" id="squaredOne" name="check" />
+							<label for="squaredOne"><span><strong>Remember Password</strong></span></label>
+						</div>
+					</div> 
+					<input
 						class="btn btn-submit" type="submit" th:field="Login" />
 				</form>
 			</div>
