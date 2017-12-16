@@ -15,6 +15,8 @@ public interface PictureService {
 	List<Picture> findPictureByEventId(int eventId);
 	
 	Picture uploadPicture(Picture newPicture);
+	Picture updatePicture(Picture picture);
+	
 	int deletePicture(int pictureId);
 	
 }

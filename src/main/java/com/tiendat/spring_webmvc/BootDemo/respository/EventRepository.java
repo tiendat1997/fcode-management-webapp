@@ -11,8 +11,8 @@ public interface EventRepository extends JpaRepository<Event, Long>{
 	List<Event> findAll();
 	List<Event> findByNameContaining(String name);
 	
-	Event saveAndFlush(Event event);
-	
+	Event save(Event event);
+	int deleteByEventId(int eventId);
 	
 	
 }

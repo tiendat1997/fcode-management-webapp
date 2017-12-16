@@ -24,12 +24,22 @@ public class EventServiceImpl implements EventService{
 
 	@Override
 	public Event insertEvent(Event event) {
-		return eventRepository.saveAndFlush(event);
+		return eventRepository.save(event);
 	}
 
 	@Override
 	public List<Event> findEventByName(String name) {
 		return eventRepository.findByNameContaining(name);
+	}
+
+	@Override
+	public Event update(Event event) {
+		return eventRepository.save(event);
+	}
+
+	@Override
+	public int delete(int eventId) {
+		return eventRepository.deleteByEventId(eventId);
 	}
 
 }

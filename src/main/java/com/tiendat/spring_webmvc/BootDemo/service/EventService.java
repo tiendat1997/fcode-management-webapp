@@ -10,6 +10,8 @@ public interface EventService {
 	List<Event> findEventByName(String name);
 	
 	Event insertEvent(Event event);
+	Event update(Event event);
 	
+	int delete(int eventId);
 	
 }

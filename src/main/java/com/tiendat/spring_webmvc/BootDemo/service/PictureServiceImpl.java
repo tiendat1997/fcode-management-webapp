@@ -37,4 +37,9 @@ public class PictureServiceImpl implements PictureService {
 		return this.pictureRespository.deleteByPictureId(pictureId);
 	}
 
+	@Override
+	public Picture updatePicture(Picture picture) {
+		return this.pictureRespository.save(picture);
+	}
+
 }
