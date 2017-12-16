@@ -60,4 +60,33 @@ public class AccountServiceImpl implements AccountService{
 		return this.accountRespository.findByGrade(grade);
 	}
 
+	@Override
+	public Account findByUsername(String username) {
+		return accountRespository.findByUsername(username);
+	}
+
+	@Override
+	public Account addAccount(Account account) {
+		return accountRespository.save(account);
+	}
+
+	@Override
+	public Account deleteAccount(String username) {
+		Account account = accountRespository.findByUsername(username);
+		account.setExpired(true);
+		return accountRespository.save(account);
+	}
+
+	@Override
+	public Account restoreAccount(String username) {
+		Account account = accountRespository.findByUsername(username);
+		account.setExpired(false);
+		return accountRespository.save(account);
+	}
+
+	@Override
+	public Account updateAccount(Account account) {
+		return accountRespository.save(account);
+	}
+
 }

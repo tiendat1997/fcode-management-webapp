@@ -12,8 +12,15 @@ public interface AccountService {
 	Role findUserRole(int roleId);
 
 	Account findByUsernameAndPassword(String username, String password);
+	Account findByUsername(String username);
+	Account addAccount(Account account);
+	Account deleteAccount(String username);
+	Account restoreAccount(String username);
+	Account updateAccount(Account account);
 	
 	List<Account> findAllAccountByExpired(boolean expired);
 	List<Account> findAccountByGrade(int grade);
 	Page<Account> findAccountPaginated(int page, int size);
+	
+	
 }

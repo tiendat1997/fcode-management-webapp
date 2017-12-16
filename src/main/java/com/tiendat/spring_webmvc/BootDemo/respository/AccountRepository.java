@@ -12,6 +12,7 @@ public interface AccountRepository extends JpaRepository<Account, Long>{
 	
 	Account findByUsernameAndPassword(String username, String password);
 	Account findByUsername(String username);
+	Account save(Account account);
 	
 	Page<Account> findByExpired(boolean expired, Pageable pageable);
 	List<Account> findByExpired(boolean expired);
