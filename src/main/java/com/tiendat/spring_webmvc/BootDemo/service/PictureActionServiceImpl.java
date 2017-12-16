@@ -45,7 +45,7 @@ public class PictureActionServiceImpl implements PictureActionService{
 
 	@Override
 	public PictureAction addAcion(PictureAction action) {
-		return null;
+		return this.pictureActionRepository.save(action);
 	}
 
 }

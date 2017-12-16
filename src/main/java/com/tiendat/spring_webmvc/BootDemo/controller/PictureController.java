@@ -50,11 +50,11 @@ public class PictureController {
 		return this.pictureActionService.addAcion(new PictureAction(username, picture.getPictureId(), 3, new Date()));
 	}
 	
-	@GetMapping(value = "/delete", params= {"id","username"})
-	public PictureAction deletePicture(@RequestParam("id") String id, @RequestParam("username") String username) {
-		int pictureId = Integer.parseInt(id);
-		this.pictureService.deletePicture(pictureId);
-		return this.pictureActionService.addAcion(new PictureAction(username, pictureId, 2, new Date()));
-	}
+//	@GetMapping(value = "/delete", params= {"id","username"})
+//	public PictureAction deletePicture(@RequestParam("id") String id, @RequestParam("username") String username) {
+//		int pictureId = Integer.parseInt(id);
+//		this.pictureService.deletePicture(pictureId);
+//		return this.pictureActionService.addAcion(new PictureAction(username, pictureId, 2, new Date()));
+//	}
 	
 }
