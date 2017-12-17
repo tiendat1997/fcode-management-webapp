@@ -168,7 +168,8 @@ class MemberPanel extends React.Component{
 			page: null,
 			defaultSize: 5,
 			numPage: 1,
-			filterValue: null
+			filterValue: null,
+			openFilter: false
 		};
 
 		this.handlePagination = this.handlePagination.bind(this);
@@ -239,9 +240,15 @@ class MemberPanel extends React.Component{
 
 
 	handlePagination(page){
-		// alert("Page - " + page);
-		// this.loadMembersFromServer(page, this.state.defaultSize);
-		this.filterMembersFromServer(this.state.filterValue, page);
+		
+		if (this.state.openFilter){
+			this.filterMembersFromServer(this.state.filterValue, page);	
+		}
+		else{
+			this.loadMembersFromServer(page, this.state.defaultSize);
+		} 
+
+		
 		this.setState({
 			numPage: page + 1
 		});
@@ -255,29 +262,34 @@ class MemberPanel extends React.Component{
 
 		 for(var item of inputs){		 	
 		 	var disabled = item.getAttribute('disabled');
-		 	if (disabled == ''){
+		 	if (disabled == ''){		 		
 		 		item.removeAttribute('disabled');
+		 		this.setState({
+		 			openFilter: true
+		 		});
 		 	}		  	
 		 	else {
 		 		item.setAttribute('disabled', '');
+		 		this.setState({
+		 			openFilter: true
+		 		});
 		 	}
 		 }
-		 
-
-		 this.forceUpdate();
-
-		 // inputs.forEach(function(input){
-		 // 	var disabled = input.getAttribute('disabled');
-		 // 	console.log(disabled);
-		 // });
+		
+		 this.forceUpdate();		 
          
 	}
 
 	changeRowOfPage(evt){
 		//console.log(evt.target.value);
 		
-
-		this.filterMembersFromServer(this.state.filterValue, 0, evt.target.value);		
+		if (this.state.openFilter){
+			this.filterMembersFromServer(this.state.filterValue, 0, evt.target.value);			
+		}
+		else {
+			this.loadMembersFromServer(0 ,evt.target.value);
+		}
+		
 		this.setState({
 			defaultSize: evt.target.value,
 			numPage: 1			
