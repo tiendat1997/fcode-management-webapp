@@ -48,7 +48,7 @@ public class AccountServiceImpl implements AccountService{
 		return this.accountRespository.findByExpired(expired);
 	}
 	
-	// this shoudl be non-expired account
+	// 
 	@Override
 	public Page<Account> findAccountPaginated(int page, int size){
 		return this.accountRespository.findAll(new PageRequest(page, size));
@@ -87,6 +87,24 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public Account updateAccount(Account account) {
 		return accountRespository.save(account);
+	}
+	
+	@Transactional()
+	public Page<Account> filterAccountPaginated(
+			String username,
+			String fullname,
+			String email, 
+			String phone,
+			Integer grade,
+			int page, int size)
+	{ 
+		if (grade != null) {
+			return this.accountRespository.filterAccount(username, fullname, email, phone,grade, new PageRequest(page, size));
+		}
+		else {
+			return this.accountRespository.filterAccount(username, fullname, email, phone, new PageRequest(page, size));
+		}
+		
 	}
 
 }

@@ -22,5 +22,13 @@ public interface AccountService {
 	List<Account> findAccountByGrade(int grade);
 	Page<Account> findAccountPaginated(int page, int size);
 	
+	public Page<Account> filterAccountPaginated(
+			String username,
+			String fullname,
+			String email, 
+			String phone,
+			Integer grade,
+			int page, int size);
+	
 	
 }

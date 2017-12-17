@@ -19,6 +19,22 @@ public class AdminController {
 		return "adminMember";
 	}
 	
+	@GetMapping(value = "/member/current")
+	public String getMemberCurrentPage(ModelMap modelMap) {
+		System.out.println("Go to Member Current");
+		return "adminMemberCurrent";
+	}
+	@GetMapping(value = "/member/expired")
+	public String getMemberExpiredPage(ModelMap modelMap) {
+		return "adminMemberExpired";
+	}	
+	
+	@GetMapping(value = "/member/grade")
+	public String getMemberGradePage(ModelMap modelMap) {
+		return "adminMemberGrade";
+	}
+	
+	
 	@GetMapping(value = "/event")
 	public String getEventPage(ModelMap modelMap) {
 		return "adminEvent";

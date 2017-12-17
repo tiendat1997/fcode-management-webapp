@@ -56,6 +56,24 @@ public class AdminRestController {
 		return resultPage;		
 	}
 	
+	@GetMapping(value = "/account/filter", params = {"username", "fullname", "email", "phone", "grade","page","size"})
+	public Page<Account> filterAccountPaginate(
+				@RequestParam("username") String username,
+				@RequestParam("fullname") String fullname, 
+				@RequestParam("email") String email,
+				@RequestParam("phone") String phone, 	
+				@RequestParam("grade") Integer grade,
+				@RequestParam("page") int page, 
+				@RequestParam("size") int size				
+			){
+		Page<Account> resultPage = this.accountService.filterAccountPaginated(username, fullname, email, phone, grade,page, size);
+		if (page > resultPage.getTotalPages()) {
+			return null; 
+		}
+		
+		return resultPage;
+	}
+	
 	@GetMapping(value = "/member/delete", params= {"username"})
 	public Account deleteAccount(@RequestParam("username") String username) {	
 		return this.accountService.deleteAccount(username);
