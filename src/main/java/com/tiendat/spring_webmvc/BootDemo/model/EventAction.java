@@ -29,6 +29,12 @@ public class EventAction {
 
 	
 	
+	public EventAction() {
+		super();
+	}
+
+	
+
 	public EventAction(String memberId, int eventId, int action, Date date) {
 		super();
 		this.memberId = memberId;

@@ -22,6 +22,9 @@ public class PictureAction {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
+	public PictureAction() {
+		super();
+	}
 	
 	
 	public PictureAction(String memberId, int pictureId, int action, Date date) {

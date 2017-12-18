@@ -1,6 +1,5 @@
 package com.tiendat.spring_webmvc.BootDemo.model;
 
-
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -16,7 +15,7 @@ public class PostAction {
 	private static final long serialVersionUID = 1;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String memberId;
 	private int postId;
@@ -24,8 +23,10 @@ public class PostAction {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
-	
-	
+	public PostAction() {
+		super();
+	}
+
 	public PostAction(String memberId, int postId, int action, Date date) {
 		super();
 		this.memberId = memberId;
