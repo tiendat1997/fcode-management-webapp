@@ -46,8 +46,12 @@
 
 	<!-- Custom Theme JavaScript -->
 	<th:block th:include="fragments/adminUtil :: scriptHeader"></th:block>	
-	<script type="text/babel" th:src="@{/js/adminMember.jsx}">
-    </script>       
+	<script th:src="@{/webpack/bundle.js}"></script>
+	
+	<!--
+	<script type="text/babel" th:src="@{/jsx/admin/adminMember.js}">	
+    </script>  
+	 -->       
 </body>
  
 </html>
