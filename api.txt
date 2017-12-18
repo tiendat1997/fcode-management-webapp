@@ -1,0 +1,43 @@
+/admin/api/member/current
+/admin/api/member/expired
+/admin/api/member/grade/{grade}
+/admin/api/account/get?page= &size=
+/admin/api/acount/filter?username= &fullname= &email= &phone= &grade= &page= &size= 
+/admin/api/member/delete?username=
+/admin/api/member/restore?username= 
+/admin/api/member/update (@ModelAttribute Account account)
+
+/event/all
+/event/get/{name}
+/event/new
+/event/update
+
+/picture/all
+/picture/get/{eventId}
+/picture/upload
+/picture/update
+
+/post/all
+/post/get?eventId= 
+/post/get/{postId}
+/post/new
+/post/update
+
+/action/event/all
+/action/event/member/{memberId}
+/action/event/event/{eventId}
+/action/event/action/{typeAction}
+/action/event/date/{date}
+
+/action/picture/all
+/action/picture/member/{memberId}
+/action/picture/event/{eventId}
+/action/picture/action/{typeAction}
+/action/picture/date/{date}
+
+/action/post/all
+/action/post/member/{memberId}
+/action/post/post/{postId}
+/action/post/action/{typeAction}
+/action/post/date/{date}
+
