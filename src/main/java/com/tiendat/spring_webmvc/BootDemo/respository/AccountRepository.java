@@ -14,11 +14,13 @@ public interface AccountRepository extends JpaRepository<Account, Long>{
 	
 	Account findByUsernameAndPassword(String username, String password);
 	Account findByUsername(String username);
-	Account save(Account account);
+	Account save(Account account);	
 	
 	Page<Account> findByExpired(boolean expired, Pageable pageable);
 	List<Account> findByExpired(boolean expired);
 	List<Account> findByGrade(Integer grade);
+	
+	
 	
 	Page<Account> findAll(Pageable pageable);
 	
@@ -47,6 +49,7 @@ public interface AccountRepository extends JpaRepository<Account, Long>{
 			@Param("email") String email,
 			@Param("phone") String phone,			
 			Pageable pageable);
-		
+	
+	
 	
 }

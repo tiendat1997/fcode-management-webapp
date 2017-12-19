@@ -106,5 +106,16 @@ public class AccountServiceImpl implements AccountService{
 		}
 		
 	}
+	@Override
+	public boolean accountExisted(String username) {
+		Account account = this.accountRespository.findByUsername(username);
+		if (account == null) return false; 
+		return true; 
+	}
+	
+	@Override
+	public Account addNewAccount(Account account) {
+		return this.accountRespository.save(account);
+	}
 
 }

@@ -17,12 +17,14 @@ public interface AccountService {
 	Account deleteAccount(String username);
 	Account restoreAccount(String username);
 	Account updateAccount(Account account);
+	Account addNewAccount(Account account);
 	
 	List<Account> findAllAccountByExpired(boolean expired);
 	List<Account> findAccountByGrade(int grade);
 	Page<Account> findAccountPaginated(int page, int size);
+	boolean accountExisted(String username);
 	
-	public Page<Account> filterAccountPaginated(
+	Page<Account> filterAccountPaginated(
 			String username,
 			String fullname,
 			String email, 

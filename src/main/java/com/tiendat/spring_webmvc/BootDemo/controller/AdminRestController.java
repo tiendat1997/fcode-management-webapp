@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,6 +75,8 @@ public class AdminRestController {
 		return resultPage;
 	}
 	
+	//MEMBER REST CONTROLLER - SHOULD SEPERATE THIS  
+	
 	@GetMapping(value = "/member/delete", params= {"username"})
 	public Account deleteAccount(@RequestParam("username") String username) {	
 		return this.accountService.deleteAccount(username);
@@ -87,6 +90,49 @@ public class AdminRestController {
 	@GetMapping(value = "/member/update")
 	public Account updateAccount(@ModelAttribute Account account) {
 		return this.accountService.updateAccount(account);
+	}
+	
+	// Add New Member
+	@PostMapping(value = "/member/new",
+			params = {"studentCode","fullName","email","phone"})	
+	public String addNewAccount(
+			@RequestParam("studentCode") String studentCode,
+			@RequestParam("fullName") String fullName,
+			@RequestParam("email") String email,
+			@RequestParam("phone") String phone) {
+		 
+		String msg = "null"; 
+		
+		String username = studentCode + ".fcode";
+		String password = studentCode; // default password;
+		String fullname = fullName; 
+		Integer roleId = 2;
+		boolean expired = false; 
+		
+		
+		Account newMember = new Account(username, password, fullname, email, phone, roleId, studentCode, expired);
+		System.out.println(newMember.toString());
+		
+		boolean existedAccount = this.accountService.accountExisted(username);
+		if (existedAccount == false) {
+			// Hasn't have this Account yet 
+			// Save into DB
+			Account result = this.accountService.addNewAccount(newMember);
+			
+			if (result != null) {
+				msg = "success";
+			}
+			else {
+				msg = "failure";
+			}
+		}
+		else {
+			msg = "duplicate";
+		}
+
+						
+		return msg;
+		
 	}
 	
 	

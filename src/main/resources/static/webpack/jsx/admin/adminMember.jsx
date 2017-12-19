@@ -154,11 +154,12 @@ class MemberPanel extends React.Component{
 		if (this.state.page != null) {
 			
 			
-			var length = this.state.page.totalPages;			
+			var length = this.state.page.totalPages;		
+			console.log("LENGTH : " + length);
 
 
 			// from 0 
-			for(var i = 0; i < length-1; i++){				
+			for(var i = 0; i < length; i++){				
 				pages.push(					
 					<li>
 						<a onClick={this.handlePagination.bind(this,i)}>{i + 1}</a>
@@ -195,6 +196,8 @@ class MemberPanel extends React.Component{
                     							Filter
                     				</button>
 									<button type="button"
+										data-toggle="modal" 
+										data-target="#addNewModal"
 										className="btn btn-sm btn-primary btn-create">Create
 										New</button>
 								</div>

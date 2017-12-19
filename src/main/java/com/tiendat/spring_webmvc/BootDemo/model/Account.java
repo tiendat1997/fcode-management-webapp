@@ -21,8 +21,9 @@ public class Account implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+//    @GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)	
 	private String username; 
 	
 	
@@ -44,6 +45,53 @@ public class Account implements Serializable{
 	private String major; 
 	private boolean expired; 
 	
+	public Account() {
+		
+	}
+	
+	
+	
+	public Account(String username, String password, String fullname, String email, String phone, Integer roleId,
+			String studentCode, boolean expired) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.fullname = fullname;
+		this.email = email;
+		this.phone = phone;
+		this.roleId = roleId;
+		this.studentCode = studentCode;		
+		this.expired = expired;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Account [username=" + username + ", password=" + password + ", fullname=" + fullname + ", email="
+				+ email + ", phone=" + phone + ", roleId=" + roleId + ", imageUrl=" + imageUrl + ", studentCode="
+				+ studentCode + ", grade=" + grade + ", major=" + major + ", expired=" + expired + ", gender=" + gender
+				+ "]";
+	}
+
+
+
+	public Account(String username, String password, String fullname, String email, String phone, Integer roleId,
+			String imageUrl, String studentCode, Integer grade, String major, boolean expired, boolean gender) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.fullname = fullname;
+		this.email = email;
+		this.phone = phone;
+		this.roleId = roleId;
+		this.imageUrl = imageUrl;
+		this.studentCode = studentCode;
+		this.grade = grade;
+		this.major = major;
+		this.expired = expired;
+		this.gender = gender;
+	}
 	public boolean isExpired() {
 		return expired;
 	}
