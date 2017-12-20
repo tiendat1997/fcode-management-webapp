@@ -6,18 +6,20 @@ import Member from './memberRow.jsx';
 export default class MemberTable extends React.Component{
 	constructor(props){
 		super(props); 
+		this.state = {
+			display: true,			
+		};			
+	}
+	componentDidMount(){
 
+	}
+	componentWillMount(){
 		
-		// this.handleDelete.bind(this);
-		// this.handleUpdate.bind(this);
 	}
-
-	handleDelete(member){
-		alert("handle delete");
-	}
+	
 
 	handleUpdate(member){
-		alert("handleUpdate");
+		alert("Update");
 	}
 
 	// onkeyup
@@ -44,10 +46,10 @@ export default class MemberTable extends React.Component{
 			this.props.members.forEach((member, index) => {
 			rows.push(
 				<Member
+					key={member.username}
 					count={index}
-					member={member}
-					handleDelete={this.handleDelete}
-					handleUpdate={this.handleUpdate}
+					member={member}				
+					handleUpdate={this.handleUpdate}										
 				/>
 			);
 			});	
@@ -55,7 +57,7 @@ export default class MemberTable extends React.Component{
 		
 		return(				
 				<div className="panel-body">
-					<table className="table table-striped">
+					<table className="table table-striped table-hover">
 						<thead>
         					<tr className="filters">					                        
 		                        <th className="hidden-xs">#</th>

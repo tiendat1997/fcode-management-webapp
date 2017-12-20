@@ -155,13 +155,12 @@ class MemberPanel extends React.Component{
 			
 			
 			var length = this.state.page.totalPages;		
-			console.log("LENGTH : " + length);
-
+			
 
 			// from 0 
 			for(var i = 0; i < length; i++){				
 				pages.push(					
-					<li>
+					<li key={'li' + i}>
 						<a onClick={this.handlePagination.bind(this,i)}>{i + 1}</a>
 					</li>					
 				);
@@ -204,7 +203,7 @@ class MemberPanel extends React.Component{
 							</div>
 						</div>
 
-						<MemberTable 							
+						<MemberTable 											
 							members = {this.state.page.content}
 							filterMembersFromServer = {self.filterMembersFromServer.bind(self)}
 						/>

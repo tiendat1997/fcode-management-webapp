@@ -78,13 +78,23 @@ public class AdminRestController {
 	//MEMBER REST CONTROLLER - SHOULD SEPERATE THIS  
 	
 	@GetMapping(value = "/member/delete", params= {"username"})
-	public Account deleteAccount(@RequestParam("username") String username) {	
-		return this.accountService.deleteAccount(username);
+	public String deleteAccount(@RequestParam("username") String username) {
+		String msg = "failure";
+		Account result = this.accountService.deleteAccount(username);
+		if (result != null) {
+			msg = "success";
+		}
+		return msg;
 	}
 	
 	@GetMapping(value = "/member/restore", params= {"username"})
-	public Account restoreAccount(@RequestParam("username") String username) {	
-		return this.accountService.restoreAccount(username);
+	public String restoreAccount(@RequestParam("username") String username) {	
+		String msg = "failure";
+		Account result = this.accountService.restoreAccount(username);
+		if (result != null) {
+			msg = "success";
+		}
+		return msg;		
 	}
 	
 	@GetMapping(value = "/member/update")

@@ -1018,21 +1018,24 @@ var MemberTable = function (_React$Component) {
 	function MemberTable(props) {
 		_classCallCheck(this, MemberTable);
 
-		return _possibleConstructorReturn(this, (MemberTable.__proto__ || Object.getPrototypeOf(MemberTable)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (MemberTable.__proto__ || Object.getPrototypeOf(MemberTable)).call(this, props));
 
-		// this.handleDelete.bind(this);
-		// this.handleUpdate.bind(this);
+		_this.state = {
+			display: true
+		};
+		return _this;
 	}
 
 	_createClass(MemberTable, [{
-		key: 'handleDelete',
-		value: function handleDelete(member) {
-			alert("handle delete");
-		}
+		key: 'componentDidMount',
+		value: function componentDidMount() {}
+	}, {
+		key: 'componentWillMount',
+		value: function componentWillMount() {}
 	}, {
 		key: 'handleUpdate',
 		value: function handleUpdate(member) {
-			alert("handleUpdate");
+			alert("Update");
 		}
 
 		// onkeyup
@@ -1061,9 +1064,9 @@ var MemberTable = function (_React$Component) {
 			if (this.props.members != null) {
 				this.props.members.forEach(function (member, index) {
 					rows.push(_react2.default.createElement(_memberRow2.default, {
+						key: member.username,
 						count: index,
 						member: member,
-						handleDelete: _this2.handleDelete,
 						handleUpdate: _this2.handleUpdate
 					}));
 				});
@@ -1074,7 +1077,7 @@ var MemberTable = function (_React$Component) {
 				{ className: 'panel-body' },
 				_react2.default.createElement(
 					'table',
-					{ className: 'table table-striped' },
+					{ className: 'table table-striped table-hover' },
 					_react2.default.createElement(
 						'thead',
 						null,
@@ -1208,34 +1211,121 @@ var Member = function (_React$Component) {
 	function Member(props) {
 		_classCallCheck(this, Member);
 
-		return _possibleConstructorReturn(this, (Member.__proto__ || Object.getPrototypeOf(Member)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (Member.__proto__ || Object.getPrototypeOf(Member)).call(this, props));
+
+		_this.updateExpired = _this.updateExpired.bind(_this);
+		_this.updateRestore = _this.updateRestore.bind(_this);
+		_this.handleDelete = _this.handleDelete.bind(_this);
+		_this.handleRestore = _this.handleRestore.bind(_this);
+		return _this;
 	}
 
 	_createClass(Member, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {}
+	}, {
+		key: 'handleDeleteAndRestore',
+		value: function handleDeleteAndRestore(e) {
+			e.preventDefault();
+			//alert(this.props.member.expired);
+			if (this.props.member.expired === true) {
+				this.handleRestore();
+			} else {
+				this.handleDelete();
+			}
+			this.forceUpdate();
+		}
+	}, {
+		key: 'updateRestore',
+		value: function updateRestore() {
+
+			this.row.classList.remove("expired");
+			this.flagExpiredIcon.classList.remove("fa-recycle");
+			this.flagExpiredIcon.classList.add("fa-trash");
+		}
+	}, {
+		key: 'updateExpired',
+		value: function updateExpired() {
+			this.row.classList.add("expired");
+			this.flagExpiredIcon.classList.remove("fa-trash");
+			this.flagExpiredIcon.classList.add("fa-recycle");
+		}
+	}, {
+		key: 'handleRestore',
+		value: function handleRestore() {
+			var request = $.ajax({
+				url: '/admin/api/member/restore',
+				data: {
+					username: this.props.member.username
+				},
+				method: 'GET',
+				cached: false
+			});
+			var self = this;
+			request.done(function (msg) {
+				if (msg === 'success') {
+					self.updateRestore();
+					self.props.member.expired = false;
+					//toastr.success('Restore Success');					
+				} else if (msg === 'failure') {
+					toastr.error('Restore Fail');
+				}
+			});
+			request.fail(function (msg) {
+				toastr.error('Restore Fail');
+				// alert(msg);
+			});
+		}
+	}, {
+		key: 'handleDelete',
+		value: function handleDelete() {
+			// Make this member expired 		
+
+			var request = $.ajax({
+				url: '/admin/api/member/delete',
+				data: {
+					username: this.props.member.username
+				},
+				method: 'GET',
+				cached: false
+			});
+
+			var self = this;
+			request.done(function (msg) {
+				if (msg === 'success') {
+					self.updateExpired();
+					self.props.member.expired = true;
+					//toastr.success('Delete Success');
+				} else if (msg === 'failure') {
+					toastr.error('Delete Fail');
+				}
+			});
+			request.fail(function (msg) {
+				toastr.error('Delete Fail');
+				// alert(msg);
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
-			var delBtn = [];
+			var _this2 = this;
+
 			var isExpired = null;
+			var flagExpired = 'fa-trash';
 
 			if (this.props.member.expired === true) {
-				delBtn.push(_react2.default.createElement(
-					'button',
-					{ className: 'btn btn-default' },
-					_react2.default.createElement('em', { className: 'fa fa-trash' })
-				));
-
 				isExpired = 'expired'; //css
-			} else {
-				delBtn.push(_react2.default.createElement(
-					'button',
-					{ className: 'btn btn-danger', onClick: this.props.handleDelete.bind(null, this.props.member) },
-					_react2.default.createElement('em', { className: 'fa fa-trash' })
-				));
-			}
+				flagExpired = 'fa-recycle';
+			} else {}
 
 			return _react2.default.createElement(
 				'tr',
-				{ className: isExpired },
+				{ className: isExpired,
+					id: this.props.member.username + 'row',
+					ref: function ref(row) {
+						_this2.row = row;
+					}
+				},
 				_react2.default.createElement(
 					'td',
 					{ className: 'hidden-xs' },
@@ -1271,10 +1361,23 @@ var Member = function (_React$Component) {
 					{ align: 'center' },
 					_react2.default.createElement(
 						'button',
-						{ className: 'btn btn-default', onClick: this.props.handleUpdate.bind(null, this.props.member) },
+						{
+							className: 'btn btn-default',
+							onClick: this.props.handleUpdate.bind(null, this.props.member) },
 						_react2.default.createElement('em', { className: 'fa fa-pencil' })
 					),
-					delBtn
+					_react2.default.createElement(
+						'button',
+						{
+							className: 'btn',
+							onClick: this.handleDeleteAndRestore.bind(this) },
+						_react2.default.createElement('em', {
+							ref: function ref(icon) {
+								_this2.flagExpiredIcon = icon;
+							},
+							className: 'fa ' + flagExpired
+						})
+					)
 				)
 			);
 		}
@@ -1512,13 +1615,12 @@ var MemberPanel = function (_React$Component) {
 			if (this.state.page != null) {
 
 				var length = this.state.page.totalPages;
-				console.log("LENGTH : " + length);
 
 				// from 0 
 				for (var i = 0; i < length; i++) {
 					pages.push(_react2.default.createElement(
 						'li',
-						null,
+						{ key: 'li' + i },
 						_react2.default.createElement(
 							'a',
 							{ onClick: this.handlePagination.bind(this, i) },
