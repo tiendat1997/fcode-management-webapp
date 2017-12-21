@@ -1043,8 +1043,6 @@ var MemberTable = function (_React$Component) {
 	}, {
 		key: 'onFilterKeyUp',
 		value: function onFilterKeyUp(e) {
-			console.log(this.filterGrade.value);
-
 			var filterValue = {
 				username: this.filterUsername.value,
 				fullname: this.filterFullname.value,
@@ -1074,10 +1072,10 @@ var MemberTable = function (_React$Component) {
 
 			return _react2.default.createElement(
 				'div',
-				{ className: 'panel-body' },
+				{ className: 'table-responsive table-desi' },
 				_react2.default.createElement(
 					'table',
-					{ className: 'table table-striped table-hover' },
+					{ className: 'table table-hover' },
 					_react2.default.createElement(
 						'thead',
 						null,
@@ -1156,7 +1154,12 @@ var MemberTable = function (_React$Component) {
 							_react2.default.createElement(
 								'th',
 								null,
-								_react2.default.createElement('em', { className: 'fa fa-cog' })
+								'Edit'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'Delete'
 							)
 						)
 					),
@@ -1360,18 +1363,20 @@ var Member = function (_React$Component) {
 					'td',
 					{ align: 'center' },
 					_react2.default.createElement(
-						'button',
+						'a',
 						{
-							className: 'btn btn-default',
 							onClick: this.props.handleUpdate.bind(null, this.props.member) },
-						_react2.default.createElement('em', { className: 'fa fa-pencil' })
-					),
+						_react2.default.createElement('i', { className: 'fa fa-pencil' })
+					)
+				),
+				_react2.default.createElement(
+					'td',
+					null,
 					_react2.default.createElement(
-						'button',
+						'a',
 						{
-							className: 'btn',
 							onClick: this.handleDeleteAndRestore.bind(this) },
-						_react2.default.createElement('em', {
+						_react2.default.createElement('i', {
 							ref: function ref(icon) {
 								_this2.flagExpiredIcon = icon;
 							},
@@ -1497,7 +1502,6 @@ var MemberPanel = function (_React$Component) {
 			});
 
 			request.done(function (data) {
-				console.log(data);
 				_this2.setState({ page: data });
 			});
 
@@ -1521,7 +1525,6 @@ var MemberPanel = function (_React$Component) {
 			});
 
 			request.done(function (data) {
-				console.log(data);
 				_this3.setState({ page: data });
 			});
 
@@ -1591,7 +1594,6 @@ var MemberPanel = function (_React$Component) {
 	}, {
 		key: 'changeRowOfPage',
 		value: function changeRowOfPage(evt) {
-			//console.log(evt.target.value);
 
 			if (this.state.openFilter) {
 				this.filterMembersFromServer(this.state.filterValue, 0, evt.target.value);
@@ -1620,10 +1622,10 @@ var MemberPanel = function (_React$Component) {
 				for (var i = 0; i < length; i++) {
 					pages.push(_react2.default.createElement(
 						'li',
-						{ key: 'li' + i },
+						{ className: 'page-item', key: 'li' + i },
 						_react2.default.createElement(
 							'a',
-							{ onClick: this.handlePagination.bind(this, i) },
+							{ className: 'page-link', onClick: this.handlePagination.bind(this, i) },
 							i + 1
 						)
 					));
@@ -1631,82 +1633,77 @@ var MemberPanel = function (_React$Component) {
 
 				return _react2.default.createElement(
 					'div',
-					{ className: 'panel panel-default panel-table filterable',
+					{ className: 'filterable',
 						ref: function ref(panel) {
 							_this4.panel = panel;
 						}
 					},
 					_react2.default.createElement(
 						'div',
-						{ className: 'panel-heading' },
+						{ className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'row' },
+							{ className: 'col-sm-6' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'col-sm-6' },
+								{ className: 'row' },
 								_react2.default.createElement(
 									'div',
-									{ className: 'row' },
+									{ className: 'col-sm-12' },
 									_react2.default.createElement(
-										'div',
-										{ className: 'col-sm-12' },
-										_react2.default.createElement(
-											'h3',
-											{ className: 'panel-title' },
-											'Panel Heading'
-										)
+										'h3',
+										{ className: 'panel-title' },
+										'Panel Heading'
 									)
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-sm-6 text-right' },
+							_react2.default.createElement(
+								'select',
+								{ className: 'form-control', onChange: this.changeRowOfPage.bind(this) },
+								_react2.default.createElement(
+									'option',
+									{ value: '5' },
+									'5'
+								),
+								_react2.default.createElement(
+									'option',
+									{ value: '10' },
+									'10'
+								),
+								_react2.default.createElement(
+									'option',
+									{ value: '20' },
+									'20'
+								),
+								_react2.default.createElement(
+									'option',
+									{ value: '50' },
+									'50'
+								),
+								_react2.default.createElement(
+									'option',
+									{ value: '100' },
+									'100'
 								)
 							),
 							_react2.default.createElement(
-								'div',
-								{ className: 'col-sm-6 text-right' },
-								_react2.default.createElement(
-									'select',
-									{ className: 'form-control', onChange: this.changeRowOfPage.bind(this) },
-									_react2.default.createElement(
-										'option',
-										{ value: '5' },
-										'5'
-									),
-									_react2.default.createElement(
-										'option',
-										{ value: '10' },
-										'10'
-									),
-									_react2.default.createElement(
-										'option',
-										{ value: '20' },
-										'20'
-									),
-									_react2.default.createElement(
-										'option',
-										{ value: '50' },
-										'50'
-									),
-									_react2.default.createElement(
-										'option',
-										{ value: '100' },
-										'100'
-									)
-								),
-								_react2.default.createElement(
-									'button',
-									{
-										onClick: this.clickToFilter.bind(this, this),
-										className: 'btn btn-default btn-xs btn-filter' },
-									_react2.default.createElement('span', { className: 'glyphicon glyphicon-filter' }),
-									'Filter'
-								),
-								_react2.default.createElement(
-									'button',
-									{ type: 'button',
-										'data-toggle': 'modal',
-										'data-target': '#addNewModal',
-										className: 'btn btn-sm btn-primary btn-create' },
-									'Create New'
-								)
+								'button',
+								{
+									className: 'btn btn-sm btn-primary btn-circle',
+									onClick: this.clickToFilter.bind(this, this) },
+								_react2.default.createElement('i', { className: 'fa fa-filter', 'aria-hidden': 'true' })
+							),
+							_react2.default.createElement(
+								'button',
+								{
+									'data-toggle': 'modal',
+									'data-target': '#addNewModal',
+									className: 'btn btn-sm btn-primary btn-circle' },
+								_react2.default.createElement('i', { className: 'fa fa-plus', 'aria-hidden': 'true' })
 							)
 						)
 					),
@@ -1716,26 +1713,22 @@ var MemberPanel = function (_React$Component) {
 					}),
 					_react2.default.createElement(
 						'div',
-						{ className: 'panel-footer' },
+						{ className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'row' },
+							{ className: 'col col-md-4' },
+							'Page ',
+							this.state.numPage,
+							' of ',
+							pages.length
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col col-md-8' },
 							_react2.default.createElement(
-								'div',
-								{ className: 'col col-xs-4' },
-								'Page ',
-								this.state.numPage,
-								' of ',
-								pages.length
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'col col-xs-8' },
-								_react2.default.createElement(
-									'ul',
-									{ className: 'pagination hidden-xs pull-right' },
-									pages
-								)
+								'ul',
+								{ className: 'pagination pull-right' },
+								pages
 							)
 						)
 					)

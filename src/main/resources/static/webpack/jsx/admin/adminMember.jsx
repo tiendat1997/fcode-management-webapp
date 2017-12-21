@@ -53,8 +53,7 @@ class MemberPanel extends React.Component{
 			cached: false
 		}); 
 
-		request.done((data) => {			
-			console.log(data);
+		request.done((data) => {						
 			this.setState({page: data});
 		});
 
@@ -75,8 +74,7 @@ class MemberPanel extends React.Component{
 			cached: false
 		}); 
 
-		request.done((data) => {			
-			console.log(data);
+		request.done((data) => {						
 			this.setState({page: data});
 		});
 
@@ -109,7 +107,7 @@ class MemberPanel extends React.Component{
 		 var inputs = this.panel.getElementsByTagName('input');
 		 
 
-		 for(var item of inputs){		 	
+		 for(var item of inputs){		 			 	
 		 	var disabled = item.getAttribute('disabled');
 		 	if (disabled == ''){		 		
 		 		item.removeAttribute('disabled');
@@ -129,8 +127,7 @@ class MemberPanel extends React.Component{
          
 	}
 
-	changeRowOfPage(evt){
-		//console.log(evt.target.value);
+	changeRowOfPage(evt){		
 		
 		if (this.state.openFilter){
 			this.filterMembersFromServer(this.state.filterValue, 0, evt.target.value);			
@@ -160,18 +157,17 @@ class MemberPanel extends React.Component{
 			// from 0 
 			for(var i = 0; i < length; i++){				
 				pages.push(					
-					<li key={'li' + i}>
-						<a onClick={this.handlePagination.bind(this,i)}>{i + 1}</a>
+					<li className="page-item" key={'li' + i}>
+						<a className="page-link" onClick={this.handlePagination.bind(this,i)}>{i + 1}</a>
 					</li>					
 				);
 			}	
 			
 
 			return (
-				<div className="panel panel-default panel-table filterable"
+				<div className="filterable"
 					ref={(panel) => { this.panel = panel; }}
-				>
-						<div className="panel-heading">
+				>						
 							<div className="row">
 								<div className="col-sm-6">
 									<div className="row">
@@ -189,39 +185,37 @@ class MemberPanel extends React.Component{
 				    							<option value="100">100</option>
 				    				</select>
 									<button 
-										onClick={this.clickToFilter.bind(this, this)}
-										className="btn btn-default btn-xs btn-filter">
-                    						<span className="glyphicon glyphicon-filter"></span> 
-                    							Filter
+										className="btn btn-sm btn-primary btn-circle"
+										onClick={this.clickToFilter.bind(this, this)}>
+										<i className="fa fa-filter" aria-hidden="true"></i>
                     				</button>
-									<button type="button"
+									<button 
 										data-toggle="modal" 
 										data-target="#addNewModal"
-										className="btn btn-sm btn-primary btn-create">Create
-										New</button>
+										className="btn btn-sm btn-primary btn-circle">											
+										<i className="fa fa-plus" aria-hidden="true"></i>
+									</button>
 								</div>
 							</div>
-						</div>
+						
 
 						<MemberTable 											
 							members = {this.state.page.content}
 							filterMembersFromServer = {self.filterMembersFromServer.bind(self)}
 						/>
-
-						<div className="panel-footer">
-							<div className="row">
-								<div className="col col-xs-4">
+						
+						<div className="row">
+								<div className="col col-md-4">
 									Page {this.state.numPage} of {pages.length}
 								</div>
-								<div className="col col-xs-8">
-									<ul className="pagination hidden-xs pull-right">									
+								<div className="col col-md-8">								
+									<ul className="pagination pull-right">									
 										{pages}
 									</ul>									
+															
 								</div>
 							</div>
-						</div>
-				</div>
-
+						</div>				
 			);
 		}
 		else {

@@ -5,25 +5,42 @@
 <title>Insert title here</title>
 <th:block th:include="fragments/adminUtil :: header"></th:block>		
 </head>
-<body>
-	<div id="wrapper">
-		<!--  Navigation  -->		
-		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom:0">
-			<th:block th:include="fragments/adminUtil :: nav-fragment"></th:block>
-		</nav>
-				
-		<!--  Page Content -->
+<body class="fixed-sn navy-blue-skin">
+	<header>
+		<th:block th:include="fragments/adminUtil :: nav-fragment"></th:block>
+	</header>
+	<main>
 		<div id="page-wrapper">
-			Dashboard
-		</div>
-		<!--  /#page-wrapper -->
+			<div class="container-fluid">
+				<div class="row">					
+					<th:block th:include="fragments/adminUtil :: sidebar-fragment"></th:block>																	
+					<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+						<div class="row">
+							<div class="col-md-12">
+								<h1 class="page-header">Dashboard</h1>
+							</div>
+						</div>
 		
-	</div>		
-	<!--  /#wrapper -->
-	
-	
+		
+						<div class="row">
+							<div class="col-md-12">
+							
+								
+							</div>			
+						</div>
+					</div>
+				</div>
+				
+
+
+			</div>
+		</div>
+	</main>
+	<footer></footer>
     <!-- Custom Theme JavaScript -->
-    <th:block th:include="fragments/adminUtil :: scriptHeader"></th:block>
+    <th:block th:include="fragments/adminUtil :: scriptHeader"></th:block>	
+     
 	
 </body>
+
 </html>

@@ -4,55 +4,70 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" />
+	th:href="@{/vendor/bootstrap4/css/bootstrap.min.css}" />
 <link rel="stylesheet" th:href="@{/vendor/metisMenu/metisMenu.min.css}" />
 <link rel="stylesheet"
 	th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css">
+<link rel="stylesheet" th:href="@{/vendor/mdb/mdb.css}"/>
 <link rel="stylesheet" th:href="@{/css/adminHome.css}" />
+
+
+ 
+ 
+
 </head>
 <body>
 	<div th:fragment="nav-fragment">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="index.html">F-CODE Admin</a>
-
-		</div>
-		<!--  /.navbar-header -->
-
-		<ul class="nav navbar-top-links navbar-right">
-			<form role="search" class="navbar-search-custom">
-				<div class="input-group">
-					<input type="text" placeholder="Search for something..."
-						class="form-control" name="top-search" id="top-search" /> <span
-						class="input-group-addon">
-						<button class="btn btn-default">
-							<i class="fa fa-search"></i>
-						</button>
-					</span>
-				</div>
-			</form>
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#"> <i class="fa fa-bell fa-fw"></i>
-					<i class="fa fa-caret-down"></i>
-			</a></li>
-			<li><a th:href="@{/account/logout}"> <i
-					class="fa fa-sign-out"></i> Log out
-			</a></li>
-
-		</ul>
-		<!--  /.navbar-top-links -->
-
-		<div class="navbar-default sidebar" role="navigation">
-			<div class="sidebar-nav navbar-collapse">
-				<ul class="nav" id="side-menu">
-					<li class="sidebar-header">
+		        
+        <!--  Top Navbar -->
+		<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar bg-primary">
+	        <a class="navbar-brand" href="#">F-Code Admin</a>
+	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	            <span class="navbar-toggler-icon"></span>
+	        </button>
+	        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	           <ul class="navbar-nav mr-auto">
+	           	<form class="form-inline">
+		                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+		        </form>
+	           </ul>
+	           	        	
+	            <ul class="navbar-nav ml-auto nav-flex-icons">	            
+		            <li class="nav-item">
+	              		<a href="#" class="nav-link waves-effect waves-light"> 
+	              			<i class="fa fa-facebook"></i>
+						</a>
+					</li>       
+					<li class="nav-item">
+	              		<a href="#" class="nav-link waves-effect waves-light"> 
+	              			<i class="fa fa-twitter"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+	              		<a href="#" class="nav-link waves-effect waves-light"> 
+	              			<i class="fa fa-google"></i>
+						</a>
+					</li>
+	              	<li class="nav-item">
+	              		<a th:href="@{/account/logout}" class="nav-link waves-effect waves-light"> 
+	              			<i class="fa fa-sign-out"></i> Log out
+						</a>
+					</li>
+	            </ul>
+	            
+	        </div>
+	    </nav>	   
+	</div>	  
+	
+	<div th:fragment="sidebar-fragment">
+		    <!-- SIDEBAR -->	
+		    <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+		    	<ul class="nav nav-pills flex-column">
+		    		<div class="sidebar-nav navbar-collapse">
+				<ul class="navbar-nav" id="side-menu">
+					<li class="nav-item sidebar-header">
 						<div class="profile-header">
 							<span class="block"> <img class="img-circle" alt="image"
 								th:src="${session.account.imageUrl}" />
@@ -66,68 +81,77 @@
 						</div>
 					</li>
 
-					<li><a th:href="@{/admin/dashboard}"> <i
-							class="fa fa-dashboard fa-fw"></i> Dashboard
-					</a></li>
-					<li><a th:href="@{/admin/event}"> <i
-							class="fa fa-leaf fa-fw"></i> Events
-					</a>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/admin/dashboard}"> <i
+								class="fa fa-dashboard fa-fw"></i> Dashboard
+						</a></li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/admin/event}"> <i
+								class="fa fa-leaf fa-fw"></i> Events
+						</a>
 					</li>
 									
 					
-					<li data-toggle="collapse" data-target="#member" >
-						<a> 
-							<i class="fa fa-users"fa-fw"></i>
+					<li class="nav-item" >
+						<a class="nav-link" data-toggle="collapse" data-target="#member" > 
+							<i class="fa fa-users fa-fw"></i>
 								Members
-							<span class="fa arrow"></span>
-						</a>
-						<ul class="nav nav-second-level collapse" id="member">
-							<li><a th:href="@{/admin/member}">All</a></li>
-							<li><a th:href="@{/admin/member/current}">Current Member</a></li>
-							<li><a th:href="@{/admin/member/expired}">Expired Member</a></li>
-							<li><a th:href="@{/admin/member/grade}">Grade</a></li>
-						</ul>
-					</li>					
-					<li>
+							<i class="fa fa-caret-down fa-fw"></i>
+						</a>		
+						<ul class="nav-second-level collapse" id="member">
+							<li class="nav-item"><a class="nav-link" th:href="@{/admin/member}">All</a></li>
+							<li class="nav-item"><a class="nav-link" th:href="@{/admin/member/current}">Current Member</a></li>
+							<li class="nav-item"><a class="nav-link" th:href="@{/admin/member/expired}">Expired Member</a></li>
+							<li class="nav-item"><a class="nav-link" th:href="@{/admin/member/grade}">Grade</a></li>
+						</ul>				
+					</li>	
+									
+					<li class="nav-item">
 						<a th:href="@{/admin/project}"> <i
 							class="fa fa-code fa-fw"></i> Projects
 						</a>
 					</li>
 				</ul>
 			</div>
+		    	</ul>
+		    </nav>    
+	    	
+			
 		</div>
-	</div>
+		 <!-- /. SIDEBAR  -->
+	</div>  	
+	
+	
 
 
 	<!--  /. Nav Util -->
 
 	<div th:fragment="scriptHeader">
 		<!-- jQuery -->
-		<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+		<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
 
-		<!-- Bootstrap Core JavaScript -->
-		<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+		
 
 		<!-- Metis Menu Plugin JavaScript -->
 		<script th:src="@{/vendor/metisMenu/metisMenu.min.js}"></script>
+		
+				
+		<!--  Popper  -->
+		<script th:src="@{/vendor/mdb/popper.min.js}"></script>
+		
+	
+		<!-- Bootstrap Core JavaScript -->
+		<script th:src="@{/vendor/bootstrap4/js/bootstrap.min.js}"></script>
+		
+			<!-- MDB -->		
+		<script th:src="@{/vendor/mdb/mdb.js}"></script>
+				
+		 
 
-		<!--  Broser.min .js For BABEL 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/react-ios-switch/0.1.19/bundle.js"></script> 
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-			
-		 -->
 		<!--  Toastr for Notifcation -->
 		 <script
 			src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js"></script> 
-
-		<!--  React , React DOM 
-		
-		<script th:src="@{/vendor/react/react.js}"></script>
-		<script th:src="@{/vendor/react/react-dom.js}"></script>  
-		 
-		-->
-		
+				
 	</div>
 
 	<!--  /. Script Util  -->

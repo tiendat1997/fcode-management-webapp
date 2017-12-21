@@ -121,21 +121,23 @@ export default class Member extends React.Component{
                 <td>{this.props.member.phone}</td>
                 <td>{this.props.member.grade}</td>
                 <td align="center">
-                  <button 
-                  	className="btn btn-default" 
+                  <a            
                   	onClick={this.props.handleUpdate.bind(null, this.props.member)}>
-                  	<em className="fa fa-pencil"></em>
-                  </button>
-                  <button 		                  		  				  		
-				  	className="btn" 
-				  	onClick={this.handleDeleteAndRestore.bind(this)}>
-                  	<em 
-                  		ref={(icon) => {this.flagExpiredIcon = icon}}
-                  		className={'fa ' + flagExpired}
-                  		>
-                  	</em>
-                  </button>
+                  	<i className="fa fa-pencil"></i>
+                  </a>                 
                 </td>
+                <td>
+                	<a 		                  		  				  							  	
+					  	onClick={this.handleDeleteAndRestore.bind(this)}>
+
+	                  	<i
+	                  		ref={(icon) => {this.flagExpiredIcon = icon}}
+	                  		className={'fa ' + flagExpired}
+	                  		>
+	                  	</i>
+                  </a>
+                </td>
+
               </tr>				                       	
 		);
 	}

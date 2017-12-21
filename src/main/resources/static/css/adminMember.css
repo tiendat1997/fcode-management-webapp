@@ -1,3 +1,5 @@
+
+
 .filterable {
     margin-top: 15px;
 }
@@ -102,4 +104,46 @@ tr.expired{
         color: red;
         font-style: italic;
         display: none;
+        float:right;
     }
+
+    .table-desi {} .table-desi thead {} .table-desi thead tr {} .table-desi thead tr th {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+}
+.table-desi tbody {} .table-desi tbody tr {} .table-desi tbody tr td {
+    color: #929292;
+    padding: 15px 8px 12px 8px !important;
+}
+.table-desi i {
+    background: #58b392;
+    color: #ffffff;
+    padding: 5px 6px;
+    border-radius: 2px;
+    font-size: 13px;
+    text-align: center;
+    margin-right: 10px;
+}
+.tab-inn input[type="submit"] {} .table-desi tbody tr td a {
+    color: #929292;
+}
+
+.table-desi thead{
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.table-desi thead tr th input{    
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0;
+}
+
+
+
+.btn-circle{
+    height: 50px;
+    width: 50px;
+    padding: 0 !important;
+    border-radius: 50%;
+}

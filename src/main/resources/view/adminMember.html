@@ -8,68 +8,53 @@
 </head>
 <body>
 	<!-- Modal -->
-	<div id="addNewModal" class="modal right fade" role="dialog">
+	<div id="addNewModal" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
 	
 	    <!-- Modal content-->
 	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Add Member</h4>
+	      <div class="modal-header text-center">	        
+	      		<h4 class="modal-title w-100 font-bold">NEW MEMBER</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
 	      </div>
-	      <div class="modal-body">
+	      <div class="modal-body mx-3">
 	        	<form id="form-new-member" class="" method="post" action="">
-						<input type="reset" style="display: none"/>
-						<div class="form-group">
-							<label for="studentCode" class="cols-sm-2 control-label">Student Code</label><br>
-							<label class="error studentCode" ></label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="studentCode" placeholder="Enter Student ID"/>
-								</div>
-							</div>
+						<input type="reset" style="display: none"/>						
+		                <label class="error studentCode"></label>
+						<div class="md-form">																												
+							<i class="fa fa-lock fa-lg prefix grey-text" aria-hidden="true"></i>
+							<input type="text" class="form-control validate" name="studentCode"/>
+							<label data-error="" data-success="" for="defaultForm-email">
+								Student ID <span style="color:red"> ( * ) </span>
+							</label>								
 						</div>
-						<div class="form-group">
-							<label for="fullname" class="cols-sm-2 control-label">Fullname</label><br>
-							<label class="error fullname" ></label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="fullname"   placeholder="Enter Fullname"/>
-								</div>
-							</div>
+						<label class="error fullname" ></label>
+						<div class="md-form">																														
+							<i class="fa fa-user fa prefix grey-text" aria-hidden="true"></i>
+							<input type="text" class="form-control validate" name="fullname"/>
+							<label data-error="" data-success="" for="defaultForm-email">
+								Fullname <span style="color:red"> ( * ) </span>
+							</label>								
 						</div>
 
-						<div class="form-group">
-							<label for="email" class="cols-sm-2 control-label">Your Email ( option )</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="email"  placeholder="Enter Email"/>
-								</div>
-							</div>
+						<div class="md-form">													
+							<i class="fa fa-envelope prefix grey-text"></i>									
+							<input type="text" class="form-control validate" name="email"/>		
+							<label data-error="" data-success="" for="defaultForm-email">Email</label>											
 						</div>
 
-						<div class="form-group">
-							<label for="phone" class="cols-sm-2 control-label">Phone ( option )</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-phone-square fa-lg" aria-hidden="true"></i></span>
-									<input type="phone" class="form-control" name="phone" placeholder="Enter Phone"/>
-								</div>
-							</div>
-						</div>
-						
-
-						<div class="form-group ">
-							<button type="button" id="btn-new-member" class="btn btn-primary btn-lg btn-block">Add</button>
-						</div>
+						<div class="md-form">																							
+							<i class="fa fa-phone-square fa-lg prefix grey-text" aria-hidden="true"></i>
+							<input type="text" class="form-control validate" name="phone"/>
+							<label data-error="" data-success="" for="defaultForm-email">Phone</label>																		
+						</div>											
 						
 					</form>
 	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      <div class="modal-footer d-flex justify-content-center">
+	        <button type="button" id="btn-new-member" class="btn btn-primary">Add</button>
 	      </div>
 	    </div>
 	
@@ -77,43 +62,43 @@
 	</div>
 	<!--  End Modal Add New Member -->
 	
-	<div id="wrapper">
-		<!--  Navigation  -->
-		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0">
-			<th:block th:include="fragments/adminUtil :: nav-fragment"></th:block>
-		</nav>
-
-		<!--  Page Content -->
+	<header>
+		<th:block th:include="fragments/adminUtil :: nav-fragment"></th:block>
+	</header>
+	<main>		
 		<div id="page-wrapper">
 			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-12">
-						<h1 class="page-header">MEMBER</h1>
-					</div>
-				</div>
-
-
-				<div class="row">
-					<div class="col-lg-12">
-						<div id="member-panel-react">
-						
+				<div class="row">					
+					<th:block th:include="fragments/adminUtil :: sidebar-fragment"></th:block>																	
+					<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+						<div class="row">
+							<div class="col-md-12">
+								<h1 class="page-header">MEMBER</h1>
+							</div>
 						</div>
-						
+		
+		
+						<div class="row">
+							<div class="col-md-12">
+								<div id="member-panel-react">
+									
+								</div>
+								
+							</div>
+		
+		
+						</div>
 					</div>
-
-
 				</div>
+				
 
 
 			</div>
 		</div>
-		<!--  /#page-wrapper -->
-
-	</div>
-	<!--  /#wrapper -->
-
-
+	</main>
+	<footer></footer>
+	
+	
 	<!-- Custom Theme JavaScript -->
 	<th:block th:include="fragments/adminUtil :: scriptHeader"></th:block>	
 	<script th:src="@{/webpack/bundle.js}"></script>

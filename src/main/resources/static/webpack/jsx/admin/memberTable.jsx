@@ -23,10 +23,7 @@ export default class MemberTable extends React.Component{
 	}
 
 	// onkeyup
-	onFilterKeyUp(e){
-		console.log(this.filterGrade.value);
-
-		
+	onFilterKeyUp(e){		
 			var filterValue = {
 				username: this.filterUsername.value,
 				fullname: this.filterFullname.value,
@@ -56,8 +53,8 @@ export default class MemberTable extends React.Component{
 		}
 		
 		return(				
-				<div className="panel-body">
-					<table className="table table-striped table-hover">
+				<div className="table-responsive table-desi">
+					<table className="table table-hover">
 						<thead>
         					<tr className="filters">					                        
 		                        <th className="hidden-xs">#</th>
@@ -105,7 +102,8 @@ export default class MemberTable extends React.Component{
 		                        		ref={(input) => { this.filterGrade = input; }}		                        		
 		                        		/>		                        	
 		                        </th>
-		                        <th><em className="fa fa-cog"></em></th>
+		                        <th>Edit</th>
+		                        <th>Delete</th>
         					</tr> 
 	                  	</thead>
 	                  	<tbody>
