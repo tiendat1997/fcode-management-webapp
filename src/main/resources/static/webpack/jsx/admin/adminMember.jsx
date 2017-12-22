@@ -88,7 +88,7 @@ class MemberPanel extends React.Component{
 
 	handlePagination(page){
 		
-		if (this.state.openFilter){
+		if (this.state.openFilter && this.state.filterValue != null){			
 			this.filterMembersFromServer(this.state.filterValue, page);	
 		}
 		else{

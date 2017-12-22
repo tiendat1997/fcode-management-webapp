@@ -1536,7 +1536,7 @@ var MemberPanel = function (_React$Component) {
 		key: 'handlePagination',
 		value: function handlePagination(page) {
 
-			if (this.state.openFilter) {
+			if (this.state.openFilter && this.state.filterValue != null) {
 				this.filterMembersFromServer(this.state.filterValue, page);
 			} else {
 				this.loadMembersFromServer(page, this.state.defaultSize);
