@@ -89,6 +89,11 @@ public class AccountServiceImpl implements AccountService{
 		return accountRespository.save(account);
 	}
 	
+	@Override
+	public int updateMemberAdmin(String username, String fullname, Integer grade, String major, String email, String phone) {
+		return accountRespository.updateMemberAdmin(username, fullname, grade, major, email, phone);
+	}
+	
 	@Transactional()
 	public Page<Account> filterAccountPaginated(
 			String username,

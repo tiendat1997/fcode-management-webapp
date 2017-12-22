@@ -24,6 +24,8 @@ public interface AccountService {
 	Page<Account> findAccountPaginated(int page, int size);
 	boolean accountExisted(String username);
 	
+	int updateMemberAdmin(String username, String fullname, Integer grade, String major, String email, String phone);
+	
 	Page<Account> filterAccountPaginated(
 			String username,
 			String fullname,

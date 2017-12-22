@@ -102,7 +102,8 @@ class MemberPanel extends React.Component{
 	}
 
 	clickToFilter(){
-		 		 
+		 
+		 console.log("Click Click");
 		 var filters = this.panel.getElementsByClassName('filters');
 		 var inputs = this.panel.getElementsByTagName('input');
 		 

@@ -122,7 +122,7 @@ export default class Member extends React.Component{
                 <td>{this.props.member.grade}</td>
                 <td align="center">
                   <a            
-                  	onClick={this.props.handleUpdate.bind(null, this.props.member)}>
+                  	href={'/admin/member/update?username=' + this.props.member.username}>
                   	<i className="fa fa-pencil"></i>
                   </a>                 
                 </td>

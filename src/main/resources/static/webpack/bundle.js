@@ -1365,7 +1365,7 @@ var Member = function (_React$Component) {
 					_react2.default.createElement(
 						'a',
 						{
-							onClick: this.props.handleUpdate.bind(null, this.props.member) },
+							href: '/admin/member/update?username=' + this.props.member.username },
 						_react2.default.createElement('i', { className: 'fa fa-pencil' })
 					)
 				),
@@ -1550,6 +1550,7 @@ var MemberPanel = function (_React$Component) {
 		key: 'clickToFilter',
 		value: function clickToFilter() {
 
+			console.log("Click Click");
 			var filters = this.panel.getElementsByClassName('filters');
 			var inputs = this.panel.getElementsByTagName('input');
 

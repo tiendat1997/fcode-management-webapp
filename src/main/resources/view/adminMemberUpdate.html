@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Update Project</title>
+<th:block th:include="fragments/adminUtil :: header"></th:block>
+<link rel="stylesheet" th:href="@{/css/mdbCard.css}"/>
+</head>
+<body>
+	<header>
+		<th:block th:include="fragments/adminUtil :: nav-fragment"></th:block>
+	</header>
+	<main>
+		<div id="page-wrapper">
+			<div class="container-fluid">
+				<div class="row">					
+					<th:block th:include="fragments/adminUtil :: sidebar-fragment"></th:block>																	
+					<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+						<div class="row">
+							<div class="col-md-12">
+								<h1 class="page-header">Update Member</h1>
+							</div>
+						</div>
+		
+		
+						<div class="row">
+							<div class="col-sm-12">
+							<!--Card-->
+								<div class="card testimonial-card">
+								
+								    <!--Bacground color-->
+								    <div class="card-up indigo lighten-1">
+								    </div>
+								
+								    <!--Avatar-->
+								    <div class="avatar"><img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" class="rounded-circle">
+								    </div>
+								
+								    <div class="card-body">
+												        <!-- Form contact -->
+										<form th:object="${member}" th:action="@{/admin/member/update}" method="post">											
+										    <div class="row">
+										    	<input th:value="${member.username}" th:field="*{username}" style="display:none"/>
+										    	<div class="col-md-6">
+										    		<div class="md-form">
+												        <i class="fa fa-id-badge prefix grey-text"></i>
+												        <input 
+												         	type="text" 
+												         	id="form3" class="form-control" 
+												         	th:value="${member.studentCode}"												         	
+												         	disabled="disabled"
+												         	>
+												        <label for="form3">Student ID</label>
+												    </div>							    
+												    
+												    <div class="md-form">
+												        <i class="fa fa-user-o prefix grey-text"></i>
+												        <input type="text" id="form3" class="form-control" 
+												        	th:value="${member.fullname}" th:field="*{fullname}">
+												        <label for="form3">Fullname</label>
+												    </div>
+												    <div class="md-form">
+												    	<i class="fa fa-line-chart prefix grey-text"></i>
+												        <input 
+												        	type="number" id="form32" class="form-control validate"
+												        	min="1" 														        				        													       
+												        	th:value="${member.grade}" th:field="*{grade}">
+												        <label data-error="" data-success="" for="">Grade</label>
+												    </div>																								  
+										    	</div>
+										    	<div class="col-md-6">
+										    		<div class="md-form">
+												        <i class="fa fa-graduation-cap prefix grey-text"></i>
+												        <input type="text" id="form32" class="form-control" 
+												        	th:value="${member.major}" th:field="*{major}">
+												        <label for="form34">Major</label>
+												    </div>
+												    <div class="md-form">
+												        <i class="fa fa-envelope prefix grey-text"></i>
+												        <input type="email" id="form2" class="form-control validate" 
+												        	th:value="${member.email}" th:field="*{email}">
+												        <label data-error="" data-success="" for="">Email</label>													      
+												    </div>
+												    <div class="md-form">
+												        <i class="fa fa-phone-square prefix grey-text"></i>
+												        <input type="text" id="form8" class="form-control validate" 
+												            pattern="\d{9,11}"
+												        	th:value="${member.phone}" th:field="*{phone}">
+												        <label data-error="" data-success="" for="">Phone</label>
+												    </div>												   												    				
+										    	</div>
+										    </div>			
+										    <div class="text-center">
+										        <button type="submit" class="btn btn-unique">
+										        	Update <i class="fa fa-paper-plane-o ml-1"></i>
+										        </button>
+										    </div>
+										
+										</form>
+										<!-- Form contact -->
+								    </div>
+								
+								</div>
+								<!--/.Card-->
+								
+															
+							</div>			
+						</div>
+					</div>
+				</div>
+				
+
+
+			</div>
+		</div>
+	</main>
+	<footer></footer>
+    <!-- Custom Theme JavaScript -->
+    <th:block th:include="fragments/adminUtil :: scriptHeader"></th:block>	
+</body>
+</html>
