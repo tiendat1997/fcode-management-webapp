@@ -51,6 +51,11 @@ public class PostServiceImpl implements PostService {
 		return this.postRepository.save(post);
 	}
 
+	@Override
+	public List<Post> findPublicPost() {
+		return this.postRepository.findByNotPublicIsFalse();
+	}
+
 	
 	
 }

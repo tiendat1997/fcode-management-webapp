@@ -42,6 +42,11 @@ public class PostController {
 		return this.postService.findPostByPostId(postId);
 	}
 	
+	@GetMapping(value = "/public")
+	public List<Post> getPublicPost() {
+		return this.postService.findPublicPost();
+	}
+	
 	@GetMapping(value = "/new", params = {"name","text","eventId","username"})
 	public PostAction addPost(@ModelAttribute Post post, @RequestParam("username") String username) {
 		

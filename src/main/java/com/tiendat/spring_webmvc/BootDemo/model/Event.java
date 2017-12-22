@@ -22,7 +22,14 @@ public class Event {
 	private Date dateStart;
 	private Date dateEnd;
 	private String description;
+	private boolean notPublic;
 
+	public boolean isNotPublic() {
+		return notPublic;
+	}
+	public void setNotPublic(boolean notPublic) {
+		this.notPublic = notPublic;
+	}
 	public Integer getEventId() {
 		return eventId;
 	}

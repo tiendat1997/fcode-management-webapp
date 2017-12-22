@@ -8,6 +8,7 @@ public interface EventService {
 
 	List<Event> findAllEvent();
 	List<Event> findEventByName(String name);
+	List<Event> findAllPublicEvent();
 	
 	Event insertEvent(Event event);
 	Event update(Event event);

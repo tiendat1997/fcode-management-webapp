@@ -10,6 +10,7 @@ public interface PictureRespository extends JpaRepository<Picture, Long>{
 
 	List<Picture> findAll();
 	List<Picture> findByEventId(int eventId);
+	List<Picture> findByNotPublicIsFalse();
 	
 	Picture save(Picture newPicture);	
 	int deleteByPictureId(int pictureId);

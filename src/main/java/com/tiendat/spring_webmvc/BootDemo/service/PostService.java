@@ -9,8 +9,9 @@ public interface PostService {
 	List<Post> findAllPost();
 	List<Post> findPostByName(String name);
 	List<Post> findPostByEventId(int eventId);
-	Post findPostByPostId(int postId);
+	List<Post> findPublicPost();
 	
+	Post findPostByPostId(int postId);
 	Post insertPost(Post post);
 	Post updatePost(Post post);
 	

@@ -12,6 +12,7 @@ public interface PostRepository extends JpaRepository<Post, Long>{
 	Post findByPostId(int postId);
 	List<Post> findByEventId(int eventId);
 	List<Post> findByNameContaining(String name);
+	List<Post> findByNotPublicIsFalse();
 	
 	Post save(Post post);
 

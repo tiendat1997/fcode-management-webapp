@@ -21,6 +21,17 @@ public class Picture {
 	private String name;
 	private String src;
 	private int eventId;
+	private boolean notPublic;
+	
+	
+
+	public boolean isNotPublic() {
+		return notPublic;
+	}
+
+	public void setNotPublic(boolean notPublic) {
+		this.notPublic = notPublic;
+	}
 
 	public int getPictureId() {
 		return pictureId;

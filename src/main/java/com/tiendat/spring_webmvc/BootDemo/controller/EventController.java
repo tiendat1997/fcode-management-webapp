@@ -36,8 +36,13 @@ public class EventController {
 	public List<Event> getByName(@PathVariable String name){
 		return this.eventService.findEventByName(name);
 	}
+	
+	@GetMapping(value = "/public")
+	public List<Event> getPublicEvent(){
+		return this.eventService.findAllPublicEvent();
+	}
 
-	@GetMapping(value = "/new", params = { "name", "dateStart", "dateEnd", "description", "username"})
+	@GetMapping(value = "/new", params = { "name", "dateStart", "dateEnd", "description", "username","notPublic"})
 	public EventAction newEvent(@ModelAttribute Event event, @RequestParam("username") String username) {
 
 		Event e =  this.eventService.insertEvent(event);
@@ -45,7 +50,7 @@ public class EventController {
 		return this.eventActionService.addAction(action);
 	}
 	
-	@GetMapping(value = "/update", params = { "eventId","name", "dateStart", "dateEnd", "description", "username"})
+	@GetMapping(value = "/update", params = { "eventId","name", "dateStart", "dateEnd", "description", "username","notPublic"})
 	public EventAction updateEvent(@ModelAttribute Event event, @RequestParam("username") String username) {
 
 		Event e =  this.eventService.update(event);
@@ -53,6 +58,7 @@ public class EventController {
 		return this.eventActionService.addAction(action);
 	}
 	
+
 //	@GetMapping(value = "/delete", params= {"eventId", "username"})
 //	public EventAction deleteEvent(@RequestParam("eventId") String eventId, @RequestParam("username") String username) {
 //		int id = Integer.parseInt(eventId);

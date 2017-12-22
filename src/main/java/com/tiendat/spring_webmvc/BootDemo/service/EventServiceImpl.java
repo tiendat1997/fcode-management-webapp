@@ -42,4 +42,9 @@ public class EventServiceImpl implements EventService{
 		return eventRepository.deleteByEventId(eventId);
 	}
 
+	@Override
+	public List<Event> findAllPublicEvent() {
+		return this.eventRepository.findByNotPublicIsFalse();
+	}
+
 }

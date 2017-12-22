@@ -38,6 +38,11 @@ public class PictureController {
 		return this.pictureService.findPictureByEventId(eventId);
 	}
 	
+	@GetMapping(value = "/public")
+	public List<Picture> getPublicPicture(){
+		return this.pictureService.findPublicPicture();
+	}
+	
 	@GetMapping(value = "/upload", params= {"name","src","eventId","username"})
 	public PictureAction uploadPicture(@ModelAttribute Picture picture, @RequestParam("username") String username) {
 		this.pictureService.uploadPicture(picture);
@@ -49,6 +54,7 @@ public class PictureController {
 		this.pictureService.updatePicture(picture);
 		return this.pictureActionService.addAcion(new PictureAction(username, picture.getPictureId(), 3, new Date()));
 	}
+	
 	
 //	@GetMapping(value = "/delete", params= {"id","username"})
 //	public PictureAction deletePicture(@RequestParam("id") String id, @RequestParam("username") String username) {

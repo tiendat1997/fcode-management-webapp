@@ -42,4 +42,9 @@ public class PictureServiceImpl implements PictureService {
 		return this.pictureRespository.save(picture);
 	}
 
+	@Override
+	public List<Picture> findPublicPicture() {
+		return this.pictureRespository.findByNotPublicIsFalse();
+	}
+
 }

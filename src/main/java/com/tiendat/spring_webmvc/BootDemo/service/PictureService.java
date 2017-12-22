@@ -13,6 +13,7 @@ public interface PictureService {
 
 	List<Picture> findAllPicture();
 	List<Picture> findPictureByEventId(int eventId);
+	List<Picture> findPublicPicture();
 	
 	Picture uploadPicture(Picture newPicture);
 	Picture updatePicture(Picture picture);
