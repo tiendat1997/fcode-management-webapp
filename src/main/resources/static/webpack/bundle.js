@@ -1611,7 +1611,7 @@ var MemberPanel = function (_React$Component) {
 		key: 'filterExpiredCurrent',
 		value: function filterExpiredCurrent(evt) {
 
-			if (this.state.openFilter) {
+			if (this.state.openFilter && this.state.filterValue != null) {
 				this.filterMembersFromServer(this.state.filterValue, 0, this.state.defaultSize, evt.target.value);
 			} else {
 				this.loadMembersFromServer(0, this.state.defaultSize, evt.target.value);

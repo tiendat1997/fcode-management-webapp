@@ -145,7 +145,7 @@ class MemberPanel extends React.Component{
 	filterExpiredCurrent(evt){
 		
 		
-		if (this.state.openFilter){
+		if (this.state.openFilter && this.state.filterValue != null){
 			this.filterMembersFromServer(this.state.filterValue, 0, this.state.defaultSize, evt.target.value);			
 		}
 		else {
