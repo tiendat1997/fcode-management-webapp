@@ -1401,9 +1401,9 @@ exports.default = Member;
 "use strict";
 
 
-var _adminMember = __webpack_require__(18);
+var _memberPanel = __webpack_require__(18);
 
-var _adminMember2 = _interopRequireDefault(_adminMember);
+var _memberPanel2 = _interopRequireDefault(_memberPanel);
 
 var _memberTable = __webpack_require__(15);
 
@@ -1448,6 +1448,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 // ******************* END MEMBER TABLE ***************** //
 
+// optionExpired: 3 - both, 1 - current, 2 - expired
+
 var MemberPanel = function (_React$Component) {
 	_inherits(MemberPanel, _React$Component);
 
@@ -1461,7 +1463,8 @@ var MemberPanel = function (_React$Component) {
 			defaultSize: 5,
 			numPage: 1,
 			filterValue: null,
-			openFilter: false
+			openFilter: false,
+			optionExpired: 3
 		};
 
 		_this.handlePagination = _this.handlePagination.bind(_this);
@@ -1472,16 +1475,22 @@ var MemberPanel = function (_React$Component) {
 	_createClass(MemberPanel, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			this.loadMembersFromServer(0, this.state.defaultSize);
+			this.loadMembersFromServer(0, this.state.defaultSize, 3);
 		}
 	}, {
 		key: 'filterMembersFromServer',
-		value: function filterMembersFromServer(filterValue, page, size) {
+		value: function filterMembersFromServer(filterValue, page, size, option) {
 			var _this2 = this;
 
+			//alert(option);
 			this.setState({
 				filterValue: filterValue
 			});
+			var expired = this.state.optionExpired;
+			if (option != null) {
+				expired = option;
+			}
+
 			var sizeState = this.state.defaultSize;
 			if (size != null) {
 				sizeState = size;
@@ -1495,6 +1504,7 @@ var MemberPanel = function (_React$Component) {
 					"email": filterValue.email,
 					"phone": filterValue.phone,
 					"grade": filterValue.grade,
+					"optionExpired": expired,
 					"page": page,
 					"size": sizeState
 				},
@@ -1511,13 +1521,19 @@ var MemberPanel = function (_React$Component) {
 		}
 	}, {
 		key: 'loadMembersFromServer',
-		value: function loadMembersFromServer(page, size) {
+		value: function loadMembersFromServer(page, size, option) {
 			var _this3 = this;
+
+			var expired = this.state.optionExpired;
+			if (option != null) {
+				expired = option;
+			}
 
 			var self = this;
 			var request = $.ajax({
 				url: '/admin/api/account/get',
 				data: {
+					"optionExpired": expired,
 					"page": page,
 					"size": size
 				},
@@ -1529,7 +1545,7 @@ var MemberPanel = function (_React$Component) {
 			});
 
 			request.fail(function (msg) {
-				toastr.error("Error Occurs");
+				toastr.error("Cannot Get Why");
 			});
 		}
 	}, {
@@ -1550,7 +1566,6 @@ var MemberPanel = function (_React$Component) {
 		key: 'clickToFilter',
 		value: function clickToFilter() {
 
-			console.log("Click Click");
 			var filters = this.panel.getElementsByClassName('filters');
 			var inputs = this.panel.getElementsByTagName('input');
 
@@ -1591,6 +1606,21 @@ var MemberPanel = function (_React$Component) {
 			}
 
 			this.forceUpdate();
+		}
+	}, {
+		key: 'filterExpiredCurrent',
+		value: function filterExpiredCurrent(evt) {
+
+			if (this.state.openFilter) {
+				this.filterMembersFromServer(this.state.filterValue, 0, this.state.defaultSize, evt.target.value);
+			} else {
+				this.loadMembersFromServer(0, this.state.defaultSize, evt.target.value);
+			}
+
+			this.setState({
+				optionExpired: evt.target.value,
+				numPage: 1
+			});
 		}
 	}, {
 		key: 'changeRowOfPage',
@@ -1662,6 +1692,25 @@ var MemberPanel = function (_React$Component) {
 						_react2.default.createElement(
 							'div',
 							{ className: 'col-sm-6 text-right' },
+							_react2.default.createElement(
+								'select',
+								{ className: 'form-control', onChange: this.filterExpiredCurrent.bind(this) },
+								_react2.default.createElement(
+									'option',
+									{ value: '3' },
+									'both'
+								),
+								_react2.default.createElement(
+									'option',
+									{ value: '1' },
+									'current'
+								),
+								_react2.default.createElement(
+									'option',
+									{ value: '2' },
+									'expired'
+								)
+							),
 							_react2.default.createElement(
 								'select',
 								{ className: 'form-control', onChange: this.changeRowOfPage.bind(this) },

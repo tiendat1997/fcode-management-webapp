@@ -50,8 +50,14 @@ public class AccountServiceImpl implements AccountService{
 	
 	// 
 	@Override
-	public Page<Account> findAccountPaginated(int page, int size){
-		return this.accountRespository.findAll(new PageRequest(page, size));
+	public Page<Account> findAccountPaginated(int option, int page, int size){
+		if (option == 3) {
+			return this.accountRespository.findAll(new PageRequest(page, size));
+		}
+		else if (option == 1) {
+			return this.accountRespository.findAll(false, new PageRequest(page, size));
+		}		
+		return this.accountRespository.findAll(true, new PageRequest(page, size));						
 	}
 
 	@Override
@@ -101,13 +107,27 @@ public class AccountServiceImpl implements AccountService{
 			String email, 
 			String phone,
 			Integer grade,
+			int option,
 			int page, int size)
 	{ 
 		if (grade != null) {
-			return this.accountRespository.filterAccount(username, fullname, email, phone,grade, new PageRequest(page, size));
+			if (option == 3) {
+				return this.accountRespository.filterAccount(username, fullname, email, phone,grade, new PageRequest(page, size));
+			}			
+			else if (option == 1) {
+				return this.accountRespository.filterAccount(username, fullname, email, phone, grade, false, new PageRequest(page, size));
+			}
+			return this.accountRespository.filterAccount(username, fullname, email, phone, grade, true, new PageRequest(page, size));
+		
 		}
 		else {
-			return this.accountRespository.filterAccount(username, fullname, email, phone, new PageRequest(page, size));
+			if (option == 3) {
+				return this.accountRespository.filterAccount(username, fullname, email, phone, new PageRequest(page, size));
+			}
+			else if (option == 1) {
+				return this.accountRespository.filterAccount(username, fullname, email, phone, false, new PageRequest(page, size));
+			}
+			return this.accountRespository.filterAccount(username, fullname, email, phone, true, new PageRequest(page, size));			
 		}
 		
 	}

@@ -41,13 +41,15 @@ public class AdminRestController {
 			return this.accountService.findAccountByGrade(Integer.parseInt(grade));
 		}
 	
-	@GetMapping(value = "/account/get", params = {"page", "size"})
+	@GetMapping(value = "/account/get", params = {"optionExpired","page", "size"})
 	public Page<Account> findAccountPaginate(
+				@RequestParam("optionExpired") int option,
 				@RequestParam("page") int page, 
 				@RequestParam("size") int size
 			){
-		
-		Page<Account> resultPage = this.accountService.findAccountPaginated(page, size);
+		// option: 3 - both , 1 - current ,  2 - expired
+		System.out.println("GetOption: " + option);
+		Page<Account> resultPage = this.accountService.findAccountPaginated(option, page, size);
 		
 		// check if not found
 		if (page > resultPage.getTotalPages()) {
@@ -57,17 +59,18 @@ public class AdminRestController {
 		return resultPage;		
 	}
 	
-	@GetMapping(value = "/account/filter", params = {"username", "fullname", "email", "phone", "grade","page","size"})
+	@GetMapping(value = "/account/filter", params = {"username", "fullname", "email", "phone", "grade","optionExpired","page","size"})
 	public Page<Account> filterAccountPaginate(
 				@RequestParam("username") String username,
 				@RequestParam("fullname") String fullname, 
 				@RequestParam("email") String email,
 				@RequestParam("phone") String phone, 	
 				@RequestParam("grade") Integer grade,
+				@RequestParam("optionExpired") int option,
 				@RequestParam("page") int page, 
 				@RequestParam("size") int size				
 			){
-		Page<Account> resultPage = this.accountService.filterAccountPaginated(username, fullname, email, phone, grade,page, size);
+		Page<Account> resultPage = this.accountService.filterAccountPaginated(username, fullname, email, phone, grade, option, page, size);
 		if (page > resultPage.getTotalPages()) {
 			return null; 
 		}

@@ -21,7 +21,7 @@ public interface AccountService {
 	
 	List<Account> findAllAccountByExpired(boolean expired);
 	List<Account> findAccountByGrade(int grade);
-	Page<Account> findAccountPaginated(int page, int size);
+	Page<Account> findAccountPaginated(int option,int page, int size);
 	boolean accountExisted(String username);
 	
 	int updateMemberAdmin(String username, String fullname, Integer grade, String major, String email, String phone);
@@ -32,6 +32,7 @@ public interface AccountService {
 			String email, 
 			String phone,
 			Integer grade,
+			int option,
 			int page, int size);
 	
 	

@@ -40,6 +40,28 @@ public interface AccountRepository extends JpaRepository<Account, Long>{
 	Page<Account> findAll(Pageable pageable);
 	
 	@Query("SELECT a FROM member a "
+			+ "WHERE a.expired = :expired")
+	Page<Account> findAll(@Param("expired") boolean expired, Pageable pageable);
+	
+	
+	@Query("SELECT a FROM member a "
+			+ "WHERE a.username LIKE %:username% "
+			+ "AND a.fullname LIKE %:fullname% "
+			+ "AND a.email LIKE %:email% "
+			+ "AND a.phone LIKE %:phone% "
+			+ "AND a.grade = :grade "
+			+ "AND a.expired = :expired")
+	Page<Account> filterAccount(
+			@Param("username") String username,
+			@Param("fullname") String fullname,
+			@Param("email") String email,
+			@Param("phone") String phone,
+			@Param("grade") Integer grade,
+			@Param("expired") boolean expired,
+			Pageable pageable);
+	
+	
+	@Query("SELECT a FROM member a "
 			+ "WHERE a.username LIKE %:username% "
 			+ "AND a.fullname LIKE %:fullname% "
 			+ "AND a.email LIKE %:email% "
@@ -51,6 +73,23 @@ public interface AccountRepository extends JpaRepository<Account, Long>{
 			@Param("email") String email,
 			@Param("phone") String phone,
 			@Param("grade") Integer grade,
+			Pageable pageable);
+	
+	
+	
+	// Not Query Grade 
+	@Query("SELECT a FROM member a "
+			+ "WHERE a.username LIKE %:username% "
+			+ "AND a.fullname LIKE %:fullname% "
+			+ "AND a.email LIKE %:email% "
+			+ "AND a.phone LIKE %:phone% "
+			+ "AND a.expired = :expired")
+	Page<Account> filterAccount(
+			@Param("username") String username,
+			@Param("fullname") String fullname,
+			@Param("email") String email,
+			@Param("phone") String phone,
+			@Param("expired") boolean expired,
 			Pageable pageable);
 	
 	@Query("SELECT a FROM member a "

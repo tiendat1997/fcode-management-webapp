@@ -8,7 +8,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import MemberTable from './memberTable.jsx' ;
-
+// optionExpired: 3 - both, 1 - current, 2 - expired
 
 class MemberPanel extends React.Component{
 	constructor(props){
@@ -18,7 +18,8 @@ class MemberPanel extends React.Component{
 			defaultSize: 5,
 			numPage: 1,
 			filterValue: null,
-			openFilter: false
+			openFilter: false,
+			optionExpired: 3
 		};
 
 		this.handlePagination = this.handlePagination.bind(this);
@@ -27,13 +28,19 @@ class MemberPanel extends React.Component{
 
 
 	componentDidMount(){
- 		this.loadMembersFromServer(0, this.state.defaultSize);
+ 		this.loadMembersFromServer(0, this.state.defaultSize, 3);
  	}
 
-    filterMembersFromServer(filterValue, page, size){
+    filterMembersFromServer(filterValue, page, size, option){
+    	//alert(option);
     	this.setState({
     		filterValue: filterValue
     	}); 
+    	var expired = this.state.optionExpired; 
+    	if (option != null) {
+    	    expired = option;
+    	}
+
     	var sizeState = this.state.defaultSize;
     	if (size != null) {
     		sizeState = size;
@@ -47,6 +54,7 @@ class MemberPanel extends React.Component{
 				"email": filterValue.email,
 				"phone": filterValue.phone,
 				"grade": filterValue.grade,
+				"optionExpired": expired,
 				"page": page,
 				"size": sizeState
 			},
@@ -63,11 +71,19 @@ class MemberPanel extends React.Component{
     }
 
 
-	loadMembersFromServer(page, size){
+
+
+	loadMembersFromServer(page, size, option){
+		var expired = this.state.optionExpired;
+		if (option != null) {
+			expired = option;
+		} 
+				
 		var self = this; 
 		var request = $.ajax({
 			url: '/admin/api/account/get',
-			data: {
+			data: {			
+				"optionExpired": expired,
 				"page": page,
 				"size": size
 			},
@@ -79,7 +95,7 @@ class MemberPanel extends React.Component{
 		});
 
 		request.fail((msg) => {
-			toastr.error("Error Occurs");
+			toastr.error("Cannot Get Why");
 		});
 
 
@@ -102,8 +118,7 @@ class MemberPanel extends React.Component{
 	}
 
 	clickToFilter(){
-		 
-		 console.log("Click Click");
+		 		
 		 var filters = this.panel.getElementsByClassName('filters');
 		 var inputs = this.panel.getElementsByTagName('input');
 		 
@@ -126,6 +141,21 @@ class MemberPanel extends React.Component{
 		
 		 this.forceUpdate();		 
          
+	}
+	filterExpiredCurrent(evt){
+		
+		
+		if (this.state.openFilter){
+			this.filterMembersFromServer(this.state.filterValue, 0, this.state.defaultSize, evt.target.value);			
+		}
+		else {
+			this.loadMembersFromServer(0 , this.state.defaultSize, evt.target.value);
+		}
+
+		this.setState({
+			optionExpired: evt.target.value,
+			numPage: 1
+		});
 	}
 
 	changeRowOfPage(evt){		
@@ -177,7 +207,12 @@ class MemberPanel extends React.Component{
 										</div>								
 									</div>																		 
 								</div>
-								<div className="col-sm-6 text-right">
+								<div className="col-sm-6 text-right">	
+									<select className="form-control" onChange={this.filterExpiredCurrent.bind(this)}>
+										<option value="3">both</option>
+										<option value="1">current</option>
+										<option value="2">expired</option>										
+									</select>								
 								 	<select className="form-control" onChange={this.changeRowOfPage.bind(this)}>				    							
 				    							<option value="5">5</option>
 				    							<option value="10">10</option>
