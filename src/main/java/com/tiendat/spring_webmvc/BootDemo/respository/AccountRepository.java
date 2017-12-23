@@ -105,5 +105,12 @@ public interface AccountRepository extends JpaRepository<Account, Long>{
 			Pageable pageable);
 	
 	
+	List<Account> findByRoleId(int roleId);
+	
+	@Query("SELECT a From member a "
+			+ "Where a.roleId = :roleAdmin OR a.roleId = :roleModerator")
+	List<Account> findModeratorAndAdmin(
+			@Param("roleAdmin") int roleAdmin,
+			@Param("roleModerator") int roleModerator);
 	
 }

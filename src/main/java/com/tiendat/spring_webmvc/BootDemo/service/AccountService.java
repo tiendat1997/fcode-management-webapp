@@ -35,5 +35,8 @@ public interface AccountService {
 			int option,
 			int page, int size);
 	
+	List<Account> findByRoleId(int roleId);
+	
+	List<Account> findAdminAndModerator(int roleAdmin, int roleModerator);
 	
 }
