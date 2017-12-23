@@ -155,6 +155,11 @@ public class AccountServiceImpl implements AccountService{
 		return this.accountRespository.findModeratorAndAdmin(roleAdmin, roleModerator);
 	}
 
+	@Override
+	public List<Account> findTop10ByFullname(String fullname) {
+		return this.accountRespository.findTop10ByFullnameContaining(fullname);
+	}
+
 	
 
 	

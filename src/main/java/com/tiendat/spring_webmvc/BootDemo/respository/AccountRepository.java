@@ -113,4 +113,6 @@ public interface AccountRepository extends JpaRepository<Account, Long>{
 			@Param("roleAdmin") int roleAdmin,
 			@Param("roleModerator") int roleModerator);
 	
+	List<Account> findTop10ByFullnameContaining(String fullname);
+	
 }

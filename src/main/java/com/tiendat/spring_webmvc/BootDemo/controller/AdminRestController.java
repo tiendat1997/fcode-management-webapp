@@ -164,4 +164,9 @@ public class AdminRestController {
 		return this.accountService.findAdminAndModerator(1, 3);
 	}
 	
+	@GetMapping(value = "/member/get/10/{fullname}")
+	public List<Account> getTop10ByFullname(@PathVariable("fullname") String fullname){
+		return this.accountService.findTop10ByFullname(fullname);
+	}
+	
 }	

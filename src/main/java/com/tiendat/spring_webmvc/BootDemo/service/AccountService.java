@@ -38,5 +38,5 @@ public interface AccountService {
 	List<Account> findByRoleId(int roleId);
 	
 	List<Account> findAdminAndModerator(int roleAdmin, int roleModerator);
-	
+	List<Account> findTop10ByFullname(String fullname);
 }
