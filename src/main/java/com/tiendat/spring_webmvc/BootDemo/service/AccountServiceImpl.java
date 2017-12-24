@@ -160,6 +160,11 @@ public class AccountServiceImpl implements AccountService{
 		return this.accountRespository.findTop10ByFullnameContaining(fullname);
 	}
 
+	@Override
+	public int countMemberByRoleId(int roleId) {
+		return this.accountRespository.countByRoleId(roleId);
+	}
+
 	
 
 	

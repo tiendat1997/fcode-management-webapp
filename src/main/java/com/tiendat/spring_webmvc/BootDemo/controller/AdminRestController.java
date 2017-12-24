@@ -169,4 +169,46 @@ public class AdminRestController {
 		return this.accountService.findTop10ByFullname(fullname);
 	}
 	
+	@GetMapping(value = "/member/update/admin", params = {"username", "roleId"})
+	public String updateAdmin(@Param("username") String username, @Param("roleId") int roleId) {
+		Account member = accountService.findByUsername(username);
+		//set to admin
+		if (roleId == 1) {
+			
+			//check member is admin or moderator already
+			if (member.getRoleId() == 1 || member.getRoleId() == 3)
+				return "existed";
+			
+			int numberOfAdmin = accountService.countMemberByRoleId(1);
+			//max admin is 5
+			if (numberOfAdmin >= 5)
+				return "enough";
+			member.setRoleId(roleId);
+		}
+
+		//set to user
+		if (roleId == 2) {
+			member.setRoleId(roleId);
+		}
+		
+		//set to moderator
+		if (roleId == 3) {
+			
+			//check member is admin or moderator already
+			if (member.getRoleId() == 3 || member.getRoleId() == 1)
+				return "existed";
+			
+			int numberOfModerator = accountService.countMemberByRoleId(3);
+			//max moderator is 5
+			if (numberOfModerator >= 5)
+				return "enough";
+			member.setRoleId(roleId);
+			
+		}
+		accountService.addAccount(member);
+		return "success";
+		
+		
+	}
+	
 }	
