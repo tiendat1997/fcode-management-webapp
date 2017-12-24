@@ -19187,7 +19187,10 @@ var ModerTable = function (_React$Component) {
 			var rows = [];
 
 			this.props.moderators.forEach(function (moderator) {
-				rows.push(_react2.default.createElement(_moderRow2.default, { moderator: moderator }));
+				rows.push(_react2.default.createElement(_moderRow2.default, {
+					key: moderator.username,
+					moderator: moderator
+				}));
 			});
 
 			return _react2.default.createElement(
@@ -19289,7 +19292,7 @@ var ModerRow = function (_React$Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'row admin-label' },
-						_react2.default.createElement('img', { src: this.props.moderator.imgUrl }),
+						_react2.default.createElement('img', { src: this.props.moderator.imageUrl }),
 						_react2.default.createElement(
 							'div',
 							{ className: 'info' },

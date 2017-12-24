@@ -33,7 +33,7 @@
 								    </div>
 								
 								    <!--Avatar-->
-								    <div class="avatar"><img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" class="rounded-circle">
+								    <div th:object="${member}" class="avatar"><img th:src="${member.imageUrl}" class="rounded-circle">
 								    </div>
 								
 								    <div class="card-body">

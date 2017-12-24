@@ -37,7 +37,7 @@ class ModerRow extends React.Component{
 			<tr>
 				<td className="col-md-8">	
 					<div className="row admin-label">						
-						<img src={this.props.moderator.imgUrl}/>										
+						<img src={this.props.moderator.imageUrl}/>										
 						<div className="info">
 							<div>{this.props.moderator.fullname}</div>
 							<div>Moderator</div>									

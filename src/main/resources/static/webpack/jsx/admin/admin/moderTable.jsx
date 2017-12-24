@@ -18,7 +18,10 @@ class ModerTable extends React.Component{
 
 		this.props.moderators.forEach(function(moderator){
 			rows.push(
-				<ModerRow moderator={moderator}/>
+				<ModerRow 
+					key={moderator.username}
+					moderator={moderator}
+				/>
 			)
 		});
 
