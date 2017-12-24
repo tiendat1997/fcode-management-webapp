@@ -1077,12 +1077,13 @@ var AdminPanel = function (_React$Component) {
 			// console.log(this.state.addAdmin);
 			if (this.state.addAdmin == null) {
 
-				// Check if value does not match any member or it is empty
+				// Check if search value not
 				if (this.searchInput.value.length === 0) {
-					toastr.warning("Please search member");
+					toastr.warning("No Member was selected");
 				}
 				if (this.searchInput.value.length > 0) {
-					toastr.warning("Member does not existed");
+					toastr.warning("Please choose the member in List");
+					this.searchInput.focus();
 				}
 
 				return;
@@ -1300,6 +1301,7 @@ var AdminPanel = function (_React$Component) {
 										},
 										type: 'search', id: 'admin-autocomplete',
 										onKeyUp: this.getListSuggestion.bind(this),
+										onFocus: this.getListSuggestion.bind(this),
 										onKeyDown: this.moveDownList.bind(this),
 										onBlur: this.removeListSuggestion.bind(this),
 										className: 'form-control mdb-autocomplete' }),
@@ -18897,12 +18899,13 @@ var ModerPanel = function (_React$Component) {
 			// console.log(this.state.addAdmin);
 			if (this.state.addModerator == null) {
 
-				// Check if value does not match any value or it is empty
+				// Check if search value not
 				if (this.searchInput.value.length === 0) {
-					toastr.warning("Please search member");
+					toastr.warning("No Member was selected");
 				}
 				if (this.searchInput.value.length > 0) {
-					toastr.warning("Member does not existed");
+					toastr.warning("Please choose the member in List");
+					this.searchInput.focus();
 				}
 				return;
 			}
@@ -19091,6 +19094,7 @@ var ModerPanel = function (_React$Component) {
 										},
 										type: 'search', id: 'admin-autocomplete',
 										onKeyUp: this.getListSuggestion.bind(this),
+										onFocus: this.getListSuggestion.bind(this),
 										onKeyDown: this.moveDownList.bind(this),
 										onBlur: this.removeListSuggestion.bind(this),
 										className: 'form-control mdb-autocomplete' }),
