@@ -41,7 +41,7 @@ class AdminPanel extends React.Component{
 	}
 
 	addNewAdmin() {
-		console.log(this.state.addAdmin);
+		// console.log(this.state.addAdmin);
 		if (this.state.addAdmin == null) {
 			return; 
 		}

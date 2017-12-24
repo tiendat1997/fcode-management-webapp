@@ -1074,7 +1074,7 @@ var AdminPanel = function (_React$Component) {
 	}, {
 		key: 'addNewAdmin',
 		value: function addNewAdmin() {
-			console.log(this.state.addAdmin);
+			// console.log(this.state.addAdmin);
 			if (this.state.addAdmin == null) {
 				return;
 			}
