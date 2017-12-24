@@ -1,9 +1,3 @@
-
-// ************* END MEMBER ROW ***************** // 
-
-
-// ******************* END MEMBER TABLE ***************** //
-
 import React from 'react'; 
 import ReactDOM from 'react-dom';
 
