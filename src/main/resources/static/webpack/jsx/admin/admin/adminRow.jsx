@@ -6,6 +6,32 @@ class AdminRow extends React.Component{
 		super(props);
 	}
 
+	removeAdmin(){		
+		var self = this; 
+		var request = $.ajax({
+			url: '/admin/api/member/update/admin',
+			data: {
+				username: self.props.admin.username,
+				roleId: 2
+			},
+			cached: false
+		}); 
+
+		request.done(function(msg){
+			if (msg === 'success'){
+				// toastr.success('Remove Successfully');		
+				location.reload();
+			} 
+			else {
+				toastr.error("Remove Fail");
+			}
+		});
+
+		request.fail(function(msg){
+			toastr.error(msg);
+		});
+	}
+
 	render(){		
 		if (this.props.admin != null) {
 			return (
@@ -20,7 +46,11 @@ class AdminRow extends React.Component{
 						</div>																		
 					</td>
 					<td className="col-md-4">
-						<button className="btn btn-sm btn-danger">Remove</button>
+						<button 
+							className="btn btn-sm btn-danger"
+							onClick={this.removeAdmin.bind(this)}>
+							Remove
+						</button>
 					</td>				
 				</tr>
 			);			

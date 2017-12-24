@@ -1076,6 +1076,15 @@ var AdminPanel = function (_React$Component) {
 		value: function addNewAdmin() {
 			// console.log(this.state.addAdmin);
 			if (this.state.addAdmin == null) {
+
+				// Check if value does not match any member or it is empty
+				if (this.searchInput.value.length === 0) {
+					toastr.warning("Please search member");
+				}
+				if (this.searchInput.value.length > 0) {
+					toastr.warning("Member does not existed");
+				}
+
 				return;
 			}
 
@@ -1092,10 +1101,11 @@ var AdminPanel = function (_React$Component) {
 			request.done(function (msg) {
 				if (msg === 'success') {
 					toastr.success('Add Successfully');
+					location.reload();
 				} else if (msg === 'enough') {
 					toastr.error('Full number of admin');
 				} else if (msg === 'existed') {
-					toastr.error('Member is already an admin');
+					toastr.error('Member is already an admin or an moderator');
 				} else {
 					toastr.error('Cannot Add Member');
 				}
@@ -1165,8 +1175,6 @@ var AdminPanel = function (_React$Component) {
 				lis[index].classList.add('selected');
 
 				this.searchInput.value = this.state.suggestList[index].fullname;
-
-				var addedAdmin = this.state.suggestList[index];
 
 				this.setState({
 					liIndex: index,
@@ -18715,6 +18723,32 @@ var AdminRow = function (_React$Component) {
 	}
 
 	_createClass(AdminRow, [{
+		key: 'removeAdmin',
+		value: function removeAdmin() {
+			var self = this;
+			var request = $.ajax({
+				url: '/admin/api/member/update/admin',
+				data: {
+					username: self.props.admin.username,
+					roleId: 2
+				},
+				cached: false
+			});
+
+			request.done(function (msg) {
+				if (msg === 'success') {
+					// toastr.success('Remove Successfully');		
+					location.reload();
+				} else {
+					toastr.error("Remove Fail");
+				}
+			});
+
+			request.fail(function (msg) {
+				toastr.error(msg);
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			if (this.props.admin != null) {
@@ -18749,7 +18783,9 @@ var AdminRow = function (_React$Component) {
 						{ className: 'col-md-4' },
 						_react2.default.createElement(
 							'button',
-							{ className: 'btn btn-sm btn-danger' },
+							{
+								className: 'btn btn-sm btn-danger',
+								onClick: this.removeAdmin.bind(this) },
 							'Remove'
 						)
 					)
@@ -18806,9 +18842,12 @@ var ModerPanel = function (_React$Component) {
 
 		_this.state = {
 			moderators: null,
-			suggestList: null
+			suggestList: null,
+			liIndex: -1,
+			addModerator: null
 		};
 		_this.loadAllModerator = _this.loadAllModerator.bind(_this);
+		_this.resetUl = _this.resetUl.bind(_this);
 
 		return _this;
 	}
@@ -18841,8 +18880,130 @@ var ModerPanel = function (_React$Component) {
 			});
 		}
 	}, {
+		key: 'resetUl',
+		value: function resetUl() {
+			this.setState({
+				liIndex: -1,
+				addModerator: null
+			});
+			// Remove all selected Li in ul
+			this.ulSuggest.childNodes.forEach(function (li) {
+				li.classList.remove('selected');
+			});
+		}
+	}, {
+		key: 'addNewModerator',
+		value: function addNewModerator() {
+			// console.log(this.state.addAdmin);
+			if (this.state.addModerator == null) {
+
+				// Check if value does not match any value or it is empty
+				if (this.searchInput.value.length === 0) {
+					toastr.warning("Please search member");
+				}
+				if (this.searchInput.value.length > 0) {
+					toastr.warning("Member does not existed");
+				}
+				return;
+			}
+
+			var self = this;
+			var request = $.ajax({
+				url: '/admin/api/member/update/admin',
+				data: {
+					username: self.state.addModerator.username,
+					roleId: 3 // roleId 3 means: MODERATOR 
+				},
+				cached: false
+			});
+
+			request.done(function (msg) {
+				if (msg === 'success') {
+					toastr.success('Add Successfully');
+					location.reload();
+				} else if (msg === 'enough') {
+					toastr.error('Full number of admin');
+				} else if (msg === 'existed') {
+					toastr.error('Member is already an admin or an moderator');
+				} else {
+					toastr.error('Cannot Add Member');
+				}
+			});
+
+			request.fail(function (msg) {
+				toastr.error(msg);
+			});
+		}
+	}, {
+		key: 'moveDownList',
+		value: function moveDownList(evt) {
+			if (evt.keyCode == 40) {
+				// Key Down 		
+
+				var index = this.state.liIndex + 1;
+				var lis = this.ulSuggest.childNodes;
+
+				if (index > 0) {
+					// Don't be the First In List				
+					lis[index - 1].classList.remove('selected');
+				}
+
+				if (index > lis.length - 1) {
+					index = 0;
+				}
+
+				// console.log(lis[index]);
+				lis[index].classList.add('selected');
+
+				// console.log(this.state.suggestList[index].fullname);
+
+				this.searchInput.value = this.state.suggestList[index].fullname;
+
+				this.setState({
+					liIndex: index,
+					addModerator: this.state.suggestList[index]
+				});
+			} else if (evt.keyCode == 38) {
+				// Key Up			
+
+				var index = this.state.liIndex - 1;
+				var lis = this.ulSuggest.childNodes;
+
+				if (index > -1) {
+					lis[index + 1].classList.remove('selected');
+				}
+				if (index < 0) {
+					lis[0].classList.remove('selected');
+					index = lis.length - 1;
+				}
+
+				lis[index].classList.add('selected');
+
+				this.searchInput.value = this.state.suggestList[index].fullname;
+
+				this.setState({
+					liIndex: index,
+					addModerator: this.state.suggestList[index]
+				});
+			}
+		}
+	}, {
+		key: 'removeListSuggestion',
+		value: function removeListSuggestion(evt) {
+			this.setState({
+				suggestList: null
+			});
+		}
+	}, {
 		key: 'getListSuggestion',
 		value: function getListSuggestion(evt) {
+			if (evt.keyCode == 38 || evt.keyCode == 40) {
+				return;
+			}
+			// Reset liIndex to -1
+			// Reset Ul
+			this.resetUl();
+
 			// Call AJAX
 			if (evt.target.value.length == 0) {
 				this.setState({
@@ -18865,8 +19026,6 @@ var ModerPanel = function (_React$Component) {
 					self.setState({
 						suggestList: list
 					});
-					// console.log(list);
-					// self.forceUpdate();
 				} else {
 					alert("Fail: " + " null List");
 				}
@@ -18879,13 +19038,24 @@ var ModerPanel = function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
+
 			var rows = []; // list li in ul 
 			if (this.state.suggestList != null) {
 				this.state.suggestList.forEach(function (member) {
 					rows.push(_react2.default.createElement(
 						'li',
-						{ key: member.username },
-						member.fullname
+						{ key: member.username, className: 'suggestItem' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'fullname' },
+							member.fullname
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'studentCode' },
+							member.studentCode
+						)
 					));
 				});
 			} else {
@@ -18905,7 +19075,7 @@ var ModerPanel = function (_React$Component) {
 					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'col-md-8 pull-right' },
+						{ className: 'col-md-12 pull-right' },
 						_react2.default.createElement(
 							'div',
 							{ className: 'row' },
@@ -18915,12 +19085,22 @@ var ModerPanel = function (_React$Component) {
 								_react2.default.createElement(
 									'div',
 									{ className: 'md-form' },
-									_react2.default.createElement('input', { type: 'search', id: 'admin-autocomplete',
+									_react2.default.createElement('input', {
+										ref: function ref(input) {
+											_this2.searchInput = input;
+										},
+										type: 'search', id: 'admin-autocomplete',
 										onKeyUp: this.getListSuggestion.bind(this),
+										onKeyDown: this.moveDownList.bind(this),
+										onBlur: this.removeListSuggestion.bind(this),
 										className: 'form-control mdb-autocomplete' }),
 									_react2.default.createElement(
 										'ul',
-										{ className: 'mdb-autocomplete-wrap' },
+										{
+											ref: function ref(ul) {
+												_this2.ulSuggest = ul;
+											},
+											className: 'mdb-autocomplete-wrap' },
 										rows
 									)
 								)
@@ -18930,7 +19110,9 @@ var ModerPanel = function (_React$Component) {
 								{ className: 'col-md-4 pull-right' },
 								_react2.default.createElement(
 									'button',
-									{ className: 'btn btn-primary' },
+									{
+										className: 'btn btn-primary',
+										onClick: this.addNewModerator.bind(this) },
 									'Add'
 								)
 							)
@@ -19066,6 +19248,32 @@ var ModerRow = function (_React$Component) {
 	}
 
 	_createClass(ModerRow, [{
+		key: 'removeModerator',
+		value: function removeModerator() {
+			var self = this;
+			var request = $.ajax({
+				url: '/admin/api/member/update/admin',
+				data: {
+					username: self.props.moderator.username,
+					roleId: 2
+				},
+				cached: false
+			});
+
+			request.done(function (msg) {
+				if (msg === 'success') {
+					// toastr.success('Remove Successfully');		
+					location.reload();
+				} else {
+					toastr.error("Remove Fail");
+				}
+			});
+
+			request.fail(function (msg) {
+				toastr.error(msg);
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
@@ -19099,7 +19307,9 @@ var ModerRow = function (_React$Component) {
 					{ className: 'col-md-4' },
 					_react2.default.createElement(
 						'button',
-						{ className: 'btn btn-sm btn-danger' },
+						{
+							onClick: this.removeModerator.bind(this),
+							className: 'btn btn-sm btn-danger' },
 						'Remove'
 					)
 				)

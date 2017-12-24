@@ -6,6 +6,32 @@ class ModerRow extends React.Component{
 		super(props);
 	}
 
+	removeModerator(){		
+		var self = this; 
+		var request = $.ajax({
+			url: '/admin/api/member/update/admin',
+			data: {
+				username: self.props.moderator.username,
+				roleId: 2
+			},
+			cached: false
+		}); 
+
+		request.done(function(msg){
+			if (msg === 'success'){
+				// toastr.success('Remove Successfully');		
+				location.reload();
+			} 
+			else {
+				toastr.error("Remove Fail");
+			}
+		});
+
+		request.fail(function(msg){
+			toastr.error(msg);
+		});
+	}
+
 	render(){
 		return (
 			<tr>
@@ -19,7 +45,11 @@ class ModerRow extends React.Component{
 					</div>																		
 				</td>
 				<td className="col-md-4">
-					<button className="btn btn-sm btn-danger">Remove</button>
+					<button 
+						onClick={this.removeModerator.bind(this)}
+						className="btn btn-sm btn-danger">
+						Remove
+					</button>
 				</td>				
 			</tr>
 		);

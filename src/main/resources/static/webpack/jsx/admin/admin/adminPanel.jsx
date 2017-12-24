@@ -43,6 +43,16 @@ class AdminPanel extends React.Component{
 	addNewAdmin() {
 		// console.log(this.state.addAdmin);
 		if (this.state.addAdmin == null) {
+
+			// Check if value does not match any member or it is empty
+			if (this.searchInput.value.length === 0){
+				toastr.warning("Please search member");
+			}		
+			if (this.searchInput.value.length > 0){
+				toastr.warning("Member does not existed");
+			}
+
+
 			return; 
 		}
 				
@@ -58,13 +68,14 @@ class AdminPanel extends React.Component{
 
 		request.done(function(msg){
 			if (msg === 'success'){
-				toastr.success('Add Successfully');				
+				toastr.success('Add Successfully');		
+				location.reload();
 			}
 			else if (msg === 'enough'){
 				toastr.error('Full number of admin');
 			}
 			else if (msg === 'existed'){
-				toastr.error('Member is already an admin');
+				toastr.error('Member is already an admin or an moderator');
 			}
 			else {
 				toastr.error('Cannot Add Member');
@@ -138,9 +149,7 @@ class AdminPanel extends React.Component{
 			lis[index].classList.add('selected');
 
 			this.searchInput.value = this.state.suggestList[index].fullname;	
-
-			var addedAdmin = this.state.suggestList[index];
-
+			
 			this.setState({
 				liIndex: index,
 				addAdmin: this.state.suggestList[index]
@@ -155,6 +164,7 @@ class AdminPanel extends React.Component{
 		})		
 	}
 
+
 	resetUl(){
 		this.setState({
 			liIndex: -1,
@@ -165,6 +175,8 @@ class AdminPanel extends React.Component{
 			li.classList.remove('selected');
 		});
 	}
+
+
 	getListSuggestion(evt){
 		if (evt.keyCode == 38 || evt.keyCode == 40){
 			return;

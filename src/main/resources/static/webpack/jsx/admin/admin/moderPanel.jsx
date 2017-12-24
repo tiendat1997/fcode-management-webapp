@@ -8,9 +8,12 @@ class ModerPanel extends React.Component{
 		super();
 		this.state = {
 			moderators: null,
-			suggestList: null
+			suggestList: null,		
+			liIndex: -1,
+			addModerator: null
 		}
 		this.loadAllModerator = this.loadAllModerator.bind(this);
+		this.resetUl = this.resetUl.bind(this);
 
 	}
 	componentDidMount() {
@@ -37,7 +40,138 @@ class ModerPanel extends React.Component{
 			alert(msg);
 		});
 	}
+
+	resetUl(){
+		this.setState({
+			liIndex: -1,
+			addModerator: null
+		});
+		// Remove all selected Li in ul
+		this.ulSuggest.childNodes.forEach(function(li){
+			li.classList.remove('selected');
+		});
+	}
+
+	addNewModerator() {
+		// console.log(this.state.addAdmin);
+		if (this.state.addModerator == null) {
+
+			// Check if value does not match any value or it is empty
+			if (this.searchInput.value.length === 0){
+				toastr.warning("Please search member");
+			}		
+			if (this.searchInput.value.length > 0){
+				toastr.warning("Member does not existed");
+			}
+			return; 
+		}
+				
+		var self = this;
+		var request = $.ajax({
+			url: '/admin/api/member/update/admin',
+			data: {
+				username: self.state.addModerator.username,
+				roleId: 3 // roleId 3 means: MODERATOR 
+			},
+			cached: false
+		}); 
+
+		request.done(function(msg){
+			if (msg === 'success'){
+				toastr.success('Add Successfully');		
+				location.reload();
+			}
+			else if (msg === 'enough'){
+				toastr.error('Full number of admin');
+			}
+			else if (msg === 'existed'){
+				toastr.error('Member is already an admin or an moderator');
+			}
+			else {
+				toastr.error('Cannot Add Member');
+			}
+		}); 
+
+		request.fail(function(msg){
+			toastr.error(msg);
+		});
+
+	}
+
+
+
+	moveDownList(evt) {
+		if (evt.keyCode == 40) {
+			// Key Down 		
+
+			var index = this.state.liIndex + 1; 	
+			var lis = this.ulSuggest.childNodes; 
+
+			if (index > 0) {
+				// Don't be the First In List				
+			 	lis[index - 1].classList.remove('selected');
+			}
+
+			if (index > lis.length - 1) {
+				index = 0
+			}
+
+			
+			// console.log(lis[index]);
+			lis[index].classList.add('selected');	
+
+			// console.log(this.state.suggestList[index].fullname);
+
+			this.searchInput.value = this.state.suggestList[index].fullname;			
+
+			this.setState({
+				liIndex: index,
+				addModerator: this.state.suggestList[index]
+			});
+		}
+		else if (evt.keyCode == 38){
+			// Key Up			
+			
+			var index = this.state.liIndex - 1; 	
+			var lis = this.ulSuggest.childNodes; 
+
+			if (index > -1){				
+				lis[index + 1].classList.remove('selected');
+			}
+			if (index < 0){ 
+				lis[0].classList.remove('selected');
+				index = lis.length - 1;
+
+			}
+
+			lis[index].classList.add('selected');
+
+			this.searchInput.value = this.state.suggestList[index].fullname;	
+			
+
+			this.setState({
+				liIndex: index,
+				addModerator: this.state.suggestList[index]
+			});
+			
+		}
+	}
+
+	removeListSuggestion(evt){
+		this.setState({
+			suggestList: null
+		})		
+	}
+
+
 	getListSuggestion(evt){
+		if (evt.keyCode == 38 || evt.keyCode == 40){
+			return;
+		}
+		// Reset liIndex to -1
+        // Reset Ul
+        this.resetUl();
+		
 		// Call AJAX
 		if (evt.target.value.length == 0) {
 			this.setState({
@@ -59,9 +193,7 @@ class ModerPanel extends React.Component{
 			if (list != null) {
 				self.setState({
 					suggestList: list
-				});
-				// console.log(list);
-				// self.forceUpdate();
+				});				
 			}
 			else {
 				alert("Fail: " + " null List");
@@ -80,8 +212,9 @@ class ModerPanel extends React.Component{
 		if (this.state.suggestList != null){
 			this.state.suggestList.forEach(function(member){
 				rows.push(
-					<li key={member.username}>
-						{member.fullname}
+					<li key={member.username} className="suggestItem">
+						<div className="fullname">{member.fullname}</div>
+						<div className="studentCode">{member.studentCode}</div>
 					</li>
 				)
 			});
@@ -96,25 +229,32 @@ class ModerPanel extends React.Component{
 					<div className="col-md-4">
 						Moderator 
 					</div>					
-					<div className="col-md-8 pull-right">
+				<div className="col-md-12 pull-right">						
 							<div className="row">
 								<div className="col-md-8">
 									<div className="md-form">
-										<input type="search" id="admin-autocomplete"
+										<input 				
+											ref={(input) => {this.searchInput = input}}						
+											type="search" id="admin-autocomplete"
 											onKeyUp={this.getListSuggestion.bind(this)}
+											onKeyDown={this.moveDownList.bind(this)}
+											onBlur={this.removeListSuggestion.bind(this)}
 											className="form-control mdb-autocomplete"/>
-										<ul className="mdb-autocomplete-wrap">
-											{rows}											
+										<ul 
+											ref={(ul) => {this.ulSuggest = ul}}
+											className="mdb-autocomplete-wrap">											
+											{rows}
 										</ul>		
 									</div>
-								</div>
-								
+								</div>								
 								<div className="col-md-4 pull-right">
-									<button className="btn btn-primary">Add</button>
-								</div>
-								
-							</div>							
-						
+									<button 
+										className="btn btn-primary"
+										onClick={this.addNewModerator.bind(this)}>
+										Add
+									</button>
+								</div>								
+							</div>													
 					</div>
 				</div>
 				<ModerTable moderators={this.state.moderators}/>
