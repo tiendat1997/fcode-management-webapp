@@ -17,7 +17,7 @@ public interface EventRepository extends JpaRepository<Event, Long>{
 	//find old event
 	List<Event> findByDateEndBefore(Date date);
 	//find up comming event
-	List<Event> findByDateStartAfter(Date date);
+	List<Event> findByDateStartAfterOrderByDateStartAsc(Date date);
 	//find current event
 	@Query ("select e from event e where dateStart <= ?1 and dateEnd >= ?1")
 	List<Event> findByDateStartBeforeAndDateEndAfter(Date date);

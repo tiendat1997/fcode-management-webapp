@@ -40,7 +40,7 @@ public class EventServiceImpl implements EventService{
 
 	@Override
 	public int delete(int eventId) {
-		return eventRepository.deleteByEventId(eventId);
+		return eventRepository.deleteByEventId(eventId); 
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class EventServiceImpl implements EventService{
 
 	@Override
 	public List<Event> findUpcommingEvent() {
-		return this.eventRepository.findByDateStartAfter(new Date(System.currentTimeMillis()));
+		return this.eventRepository.findByDateStartAfterOrderByDateStartAsc(new Date(System.currentTimeMillis()));
 	}
 
 	@Override
