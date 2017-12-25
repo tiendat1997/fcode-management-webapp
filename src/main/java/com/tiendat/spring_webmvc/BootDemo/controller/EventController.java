@@ -47,7 +47,7 @@ public class EventController {
 	public EventAction newEvent(@ModelAttribute Event event, @RequestParam("username") String username) {
 
 		Event e =  this.eventService.insertEvent(event);
-		EventAction action = new EventAction(username, e.getEventId().intValue(), 1, new Date());
+		EventAction action = new EventAction(username, e.getEventId(), 1, new Date());
 		return this.eventActionService.addAction(action);
 	}
 	
@@ -55,11 +55,30 @@ public class EventController {
 	public EventAction updateEvent(@ModelAttribute Event event, @RequestParam("username") String username) {
 
 		Event e =  this.eventService.update(event);
-		EventAction action = new EventAction(username, e.getEventId().intValue(), 3, new Date());
+		EventAction action = new EventAction(username, e.getEventId(), 3, new Date());
 		return this.eventActionService.addAction(action);
 	}
 	
-
+	@GetMapping(value = "/get/id/{eventId}")
+	public Event getEventById(@PathVariable("eventId") int eventId) {
+		return this.eventService.findEventById(eventId);
+	}
+	
+	@GetMapping(value = "/get/old")
+	public List<Event> getOldEvent(){
+		return this.eventService.findOldEvent();
+	}
+	
+	@GetMapping(value = "/get/current")
+	public List<Event> getCurrentEvent(){
+		return this.eventService.findCurrentEvent();
+	}
+	
+	@GetMapping(value = "/get/upcomming")
+	public List<Event> getUpcommingEvent(){
+		return this.eventService.findUpcommingEvent();
+	}
+	
 //	@GetMapping(value = "/delete", params= {"eventId", "username"})
 //	public EventAction deleteEvent(@RequestParam("eventId") String eventId, @RequestParam("username") String username) {
 //		int id = Integer.parseInt(eventId);

@@ -1,5 +1,6 @@
 package com.tiendat.spring_webmvc.BootDemo.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -45,6 +46,26 @@ public class EventServiceImpl implements EventService{
 	@Override
 	public List<Event> findAllPublicEvent() {
 		return this.eventRepository.findByNotPublicIsFalse();
+	}
+
+	@Override
+	public List<Event> findOldEvent() {
+		return this.eventRepository.findByDateEndBefore(new Date(System.currentTimeMillis()));
+	}
+
+	@Override
+	public List<Event> findCurrentEvent() {
+		return this.eventRepository.findByDateStartBeforeAndDateEndAfter(new Date(System.currentTimeMillis()));
+	}
+
+	@Override
+	public List<Event> findUpcommingEvent() {
+		return this.eventRepository.findByDateStartAfter(new Date(System.currentTimeMillis()));
+	}
+
+	@Override
+	public Event findEventById(int eventId) {
+		return this.eventRepository.findByEventId(eventId);
 	}
 
 }

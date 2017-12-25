@@ -17,7 +17,7 @@ public class Event {
 	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer eventId;
+	private int eventId;
 	private String name;
 	private Date dateStart;
 	private Date dateEnd;
@@ -30,10 +30,12 @@ public class Event {
 	public void setNotPublic(boolean notPublic) {
 		this.notPublic = notPublic;
 	}
-	public Integer getEventId() {
+	
+	
+	public int getEventId() {
 		return eventId;
 	}
-	public void setEventId(Integer eventId) {
+	public void setEventId(int eventId) {
 		this.eventId = eventId;
 	}
 	public String getName() {
