@@ -565,6 +565,52 @@ module.exports = warning;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+function checkDCE() {
+  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
+  if (
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
+  ) {
+    return;
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    // This branch is unreachable because this function is only called
+    // in production, but the condition is true only in development.
+    // Therefore if the branch is still here, dead code elimination wasn't
+    // properly applied.
+    // Don't change the message. React DevTools relies on it. Also make sure
+    // this message doesn't occur elsewhere in this function, or it will cause
+    // a false positive.
+    throw new Error('^_^');
+  }
+  try {
+    // Verify that the code above has been dead code eliminated (DCE'd).
+    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
+  } catch (err) {
+    // DevTools shouldn't crash React, no matter what.
+    // We should still report in case we break this code.
+    console.error(err);
+  }
+}
+
+if (process.env.NODE_ENV === 'production') {
+  // DCE check should happen before ReactDOM bundle executes so that
+  // DevTools can report bad minification during injection.
+  checkDCE();
+  module.exports = __webpack_require__(20);
+} else {
+  module.exports = __webpack_require__(23);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -624,52 +670,6 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 }
 
 module.exports = checkPropTypes;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-function checkDCE() {
-  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
-  if (
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
-  ) {
-    return;
-  }
-  if (process.env.NODE_ENV !== 'production') {
-    // This branch is unreachable because this function is only called
-    // in production, but the condition is true only in development.
-    // Therefore if the branch is still here, dead code elimination wasn't
-    // properly applied.
-    // Don't change the message. React DevTools relies on it. Also make sure
-    // this message doesn't occur elsewhere in this function, or it will cause
-    // a false positive.
-    throw new Error('^_^');
-  }
-  try {
-    // Verify that the code above has been dead code eliminated (DCE'd).
-    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
-  } catch (err) {
-    // DevTools shouldn't crash React, no matter what.
-    // We should still report in case we break this code.
-    console.error(err);
-  }
-}
-
-if (process.env.NODE_ENV === 'production') {
-  // DCE check should happen before ReactDOM bundle executes so that
-  // DevTools can report bad minification during injection.
-  checkDCE();
-  module.exports = __webpack_require__(20);
-} else {
-  module.exports = __webpack_require__(23);
-}
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -1005,7 +1005,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(8);
+var _reactDom = __webpack_require__(7);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -1027,10 +1027,78 @@ var EventPanel = function (_React$Component) {
 	function EventPanel() {
 		_classCallCheck(this, EventPanel);
 
-		return _possibleConstructorReturn(this, (EventPanel.__proto__ || Object.getPrototypeOf(EventPanel)).call(this));
+		var _this = _possibleConstructorReturn(this, (EventPanel.__proto__ || Object.getPrototypeOf(EventPanel)).call(this));
+
+		_this.state = {
+			events: null
+		};
+
+		_this.loadUpcomingEvent = _this.loadUpcomingEvent.bind(_this);
+		_this.loadCurrentEvent = _this.loadCurrentEvent.bind(_this);
+		return _this;
 	}
 
 	_createClass(EventPanel, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.loadUpcomingEvent();
+		}
+	}, {
+		key: 'loadUpcomingEvent',
+		value: function loadUpcomingEvent() {
+			var request = $.ajax({
+				url: '/event/get/upcoming',
+				method: "GET",
+				cached: false
+			});
+
+			var self = this;
+			request.done(function (list) {
+				if (list != null) {
+					self.setState({
+						events: list
+					});
+				}
+			});
+
+			request.fail(function (msg) {
+				alert(msg);
+			});
+		}
+	}, {
+		key: 'loadCurrentEvent',
+		value: function loadCurrentEvent() {
+			var request = $.ajax({
+				url: '/event/get/current',
+				method: "GET",
+				cached: false
+			});
+
+			var self = this;
+			request.done(function (list) {
+				if (list != null) {
+					self.setState({
+						events: list
+					});
+				}
+			});
+
+			request.fail(function (msg) {
+				alert(msg);
+			});
+		}
+	}, {
+		key: 'changeEventOption',
+		value: function changeEventOption(evt) {
+			if (evt.target.value == 1) {
+				// GET Upcoming Event
+				this.loadUpcomingEvent();
+			} else {
+				// GET Current Event
+				this.loadCurrentEvent();
+			}
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
@@ -1056,9 +1124,33 @@ var EventPanel = function (_React$Component) {
 							)
 						)
 					),
-					_react2.default.createElement('div', { className: 'col-sm-6 text-right' })
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-sm-6 text-right' },
+						_react2.default.createElement(
+							'select',
+							{ className: 'form-control', onChange: this.changeEventOption.bind(this) },
+							_react2.default.createElement(
+								'option',
+								{ value: '1' },
+								'Upcoming'
+							),
+							_react2.default.createElement(
+								'option',
+								{ value: '2' },
+								'Current'
+							)
+						),
+						_react2.default.createElement(
+							'button',
+							{ className: 'btn btn-primary' },
+							'Add Event'
+						)
+					)
 				),
-				_react2.default.createElement(_eventTable2.default, null)
+				_react2.default.createElement(_eventTable2.default, {
+					events: this.state.events
+				})
 			);
 		}
 	}]);
@@ -1123,7 +1215,7 @@ var emptyObject = __webpack_require__(4);
 var invariant = __webpack_require__(5);
 var warning = __webpack_require__(6);
 var emptyFunction = __webpack_require__(1);
-var checkPropTypes = __webpack_require__(7);
+var checkPropTypes = __webpack_require__(8);
 
 // TODO: this is special because it gets imported during build.
 
@@ -2806,7 +2898,7 @@ var shallowEqual = __webpack_require__(12);
 var containsNode = __webpack_require__(13);
 var focusNode = __webpack_require__(14);
 var emptyObject = __webpack_require__(4);
-var checkPropTypes = __webpack_require__(7);
+var checkPropTypes = __webpack_require__(8);
 var hyphenateStyleName = __webpack_require__(24);
 var camelizeStyleName = __webpack_require__(26);
 
@@ -18347,9 +18439,13 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(8);
+var _reactDom = __webpack_require__(7);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _eventRow = __webpack_require__(29);
+
+var _eventRow2 = _interopRequireDefault(_eventRow);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18371,113 +18467,57 @@ var EventTable = function (_React$Component) {
 	_createClass(EventTable, [{
 		key: 'render',
 		value: function render() {
-			return _react2.default.createElement(
-				'div',
-				{ className: 'table-responsive table-desi' },
-				_react2.default.createElement(
-					'table',
-					{ className: 'table table-hover', id: 'event-table' },
+			if (this.props.events != null) {
+				var rows = [];
+
+				this.props.events.forEach(function (event) {
+					rows.push(_react2.default.createElement(_eventRow2.default, { event: event }));
+				});
+
+				return _react2.default.createElement(
+					'div',
+					{ className: 'table-responsive table-desi' },
 					_react2.default.createElement(
-						'thead',
-						null,
+						'table',
+						{ className: 'table table-hover', id: 'event-table' },
 						_react2.default.createElement(
-							'tr',
+							'thead',
 							null,
 							_react2.default.createElement(
-								'th',
-								null,
-								'DATE/TIME'
-							),
-							_react2.default.createElement(
-								'th',
-								null,
-								'EVENT'
-							),
-							_react2.default.createElement(
-								'th',
+								'tr',
 								null,
 								_react2.default.createElement(
-									'div',
-									{ className: 'text-right' },
-									_react2.default.createElement(
-										'button',
-										{ className: 'btn btn-primary' },
-										'Add Event'
-									)
-								)
-							)
-						)
-					),
-					_react2.default.createElement(
-						'tbody',
-						null,
-						_react2.default.createElement(
-							'tr',
-							null,
-							_react2.default.createElement(
-								'td',
-								{ className: 'event-datetime' },
-								_react2.default.createElement(
-									'div',
-									{ className: 'col-md-12' },
-									'11/11/2016'
+									'th',
+									null,
+									'EVENT'
 								),
 								_react2.default.createElement(
-									'div',
-									{ className: 'col-md-12' },
-									'13:45 -17:15'
-								)
-							),
-							_react2.default.createElement(
-								'td',
-								{ className: 'event-main-col' },
-								_react2.default.createElement('img', { src: '/img/event-alt.png' }),
+									'th',
+									null,
+									'Start'
+								),
 								_react2.default.createElement(
-									'div',
-									{ className: 'info' },
-									_react2.default.createElement(
-										'div',
-										null,
-										_react2.default.createElement(
-											'a',
-											{ href: '#' },
-											'F-Code Talk 01'
-										)
-									),
-									_react2.default.createElement(
-										'div',
-										null,
-										'Dia Dang Coffee'
-									)
-								)
-							),
-							_react2.default.createElement(
-								'td',
-								null,
+									'th',
+									null,
+									'End'
+								),
 								_react2.default.createElement(
-									'div',
-									{ className: 'text-right' },
-									_react2.default.createElement(
-										'button',
-										{ className: 'btn btn-sm' },
-										'Hide'
-									),
-									_react2.default.createElement(
-										'button',
-										{ className: 'btn btn-sm' },
-										'Edit'
-									),
-									_react2.default.createElement(
-										'button',
-										{ className: 'btn btn-sm' },
-										'Delete'
-									)
+									'th',
+									null,
+									_react2.default.createElement('div', { className: 'text-right' })
 								)
 							)
+						),
+						_react2.default.createElement(
+							'tbody',
+							null,
+							rows
 						)
 					)
-				)
-			);
+				);
+			}
+
+			return _react2.default.createElement('div', null);
 		}
 	}]);
 
@@ -18485,6 +18525,116 @@ var EventTable = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = EventTable;
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(7);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EventRow = function (_React$Component) {
+	_inherits(EventRow, _React$Component);
+
+	function EventRow(props) {
+		_classCallCheck(this, EventRow);
+
+		return _possibleConstructorReturn(this, (EventRow.__proto__ || Object.getPrototypeOf(EventRow)).call(this, props));
+	}
+
+	_createClass(EventRow, [{
+		key: 'render',
+		value: function render() {
+
+			return _react2.default.createElement(
+				'tr',
+				null,
+				_react2.default.createElement(
+					'td',
+					{ className: 'event-main-col' },
+					_react2.default.createElement('img', { src: '/img/event-alt.png' }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'info' },
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(
+								'a',
+								{ href: '#' },
+								this.props.event.name
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							null,
+							'Innovation Hub'
+						)
+					)
+				),
+				_react2.default.createElement(
+					'td',
+					null,
+					this.props.event.dateStart
+				),
+				_react2.default.createElement(
+					'td',
+					null,
+					this.props.event.dateEnd
+				),
+				_react2.default.createElement(
+					'td',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'text-right' },
+						_react2.default.createElement(
+							'button',
+							{ className: 'btn btn-sm' },
+							'Hide'
+						),
+						_react2.default.createElement(
+							'button',
+							{ className: 'btn btn-sm' },
+							'Edit'
+						),
+						_react2.default.createElement(
+							'button',
+							{ className: 'btn btn-sm' },
+							'Delete'
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return EventRow;
+}(_react2.default.Component);
+
+exports.default = EventRow;
 
 /***/ })
 /******/ ]);

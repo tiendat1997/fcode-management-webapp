@@ -17,3 +17,8 @@
 .event-main-col .info{	
 	float: left;
 }
+
+select.form-control{
+	width: auto;
+	display:inline-block;
+}
