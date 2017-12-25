@@ -166,6 +166,11 @@ class ModerPanel extends React.Component{
 
 
 	getListSuggestion(evt){
+		// If Enter then Submit Adding
+		if (evt.keyCode == 13){			
+			this.addNewModerator();
+			return;
+		}
 		if (evt.keyCode == 38 || evt.keyCode == 40){
 			return;
 		}

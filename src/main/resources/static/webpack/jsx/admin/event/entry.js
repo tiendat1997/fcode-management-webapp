@@ -1,0 +1,1 @@
+import EventPanel from './eventPanel.jsx';

@@ -57,17 +57,3 @@ input[type="search"]{
     list-style-type: none;
 }
 
-.suggestItem .fullname{   
-    width: 80%;
-    float:left;
-}
-
-.suggestItem .studentCode{
-    width: 20%;
-    float:right;
-}
-
-
-li.selected .fullname{
-    background-color: #eee;
-}

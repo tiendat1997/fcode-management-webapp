@@ -14,6 +14,7 @@ class AdminPanel extends React.Component{
 		}
 	    this.loadAllAdmin = this.loadAllAdmin.bind(this);
 	    this.resetUl = this.resetUl.bind(this);
+	    this.addNewAdmin = this.addNewAdmin.bind(this);
 	}
 	componentDidMount(){
 		this.loadAllAdmin();
@@ -103,7 +104,7 @@ class AdminPanel extends React.Component{
 	}
 
 	
-	moveDownList(evt) {
+	moveDownList(evt) {		
 		if (evt.keyCode == 40) {
 			// Key Down 		
 
@@ -179,6 +180,11 @@ class AdminPanel extends React.Component{
 
 
 	getListSuggestion(evt){
+		// If Enter then Submit Adding
+		if (evt.keyCode == 13){			
+			this.addNewAdmin();
+			return;
+		}
 		if (evt.keyCode == 38 || evt.keyCode == 40){
 			return;
 		}
@@ -268,7 +274,7 @@ class AdminPanel extends React.Component{
 								<div className="col-md-4 pull-right">
 									<button 
 										className="btn btn-primary"
-										onClick={this.addNewAdmin.bind(this)}>
+										onClick={this.addNewAdmin}>
 										Add
 									</button>
 								</div>								

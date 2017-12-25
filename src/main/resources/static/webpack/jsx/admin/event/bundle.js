@@ -258,21 +258,6 @@ process.umask = function() { return 0; };
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(17);
-} else {
-  module.exports = __webpack_require__(18);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 
 
 /**
@@ -311,53 +296,22 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-function checkDCE() {
-  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
-  if (
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
-  ) {
-    return;
-  }
-  if (process.env.NODE_ENV !== 'production') {
-    // This branch is unreachable because this function is only called
-    // in production, but the condition is true only in development.
-    // Therefore if the branch is still here, dead code elimination wasn't
-    // properly applied.
-    // Don't change the message. React DevTools relies on it. Also make sure
-    // this message doesn't occur elsewhere in this function, or it will cause
-    // a false positive.
-    throw new Error('^_^');
-  }
-  try {
-    // Verify that the code above has been dead code eliminated (DCE'd).
-    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
-  } catch (err) {
-    // DevTools shouldn't crash React, no matter what.
-    // We should still report in case we break this code.
-    console.error(err);
-  }
-}
-
 if (process.env.NODE_ENV === 'production') {
-  // DCE check should happen before ReactDOM bundle executes so that
-  // DevTools can report bad minification during injection.
-  checkDCE();
-  module.exports = __webpack_require__(20);
+  module.exports = __webpack_require__(17);
 } else {
-  module.exports = __webpack_require__(23);
+  module.exports = __webpack_require__(18);
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -454,7 +408,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -478,7 +432,7 @@ module.exports = emptyObject;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -538,7 +492,7 @@ module.exports = invariant;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -552,7 +506,7 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(2);
+var emptyFunction = __webpack_require__(1);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -607,7 +561,7 @@ module.exports = warning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -621,8 +575,8 @@ module.exports = warning;
 
 
 if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(6);
-  var warning = __webpack_require__(7);
+  var invariant = __webpack_require__(5);
+  var warning = __webpack_require__(6);
   var ReactPropTypesSecret = __webpack_require__(19);
   var loggedTypeFailures = {};
 }
@@ -670,6 +624,52 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 }
 
 module.exports = checkPropTypes;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+function checkDCE() {
+  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
+  if (
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
+  ) {
+    return;
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    // This branch is unreachable because this function is only called
+    // in production, but the condition is true only in development.
+    // Therefore if the branch is still here, dead code elimination wasn't
+    // properly applied.
+    // Don't change the message. React DevTools relies on it. Also make sure
+    // this message doesn't occur elsewhere in this function, or it will cause
+    // a false positive.
+    throw new Error('^_^');
+  }
+  try {
+    // Verify that the code above has been dead code eliminated (DCE'd).
+    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
+  } catch (err) {
+    // DevTools shouldn't crash React, no matter what.
+    // We should still report in case we break this code.
+    console.error(err);
+  }
+}
+
+if (process.env.NODE_ENV === 'production') {
+  // DCE check should happen before ReactDOM bundle executes so that
+  // DevTools can report bad minification during injection.
+  checkDCE();
+  module.exports = __webpack_require__(20);
+} else {
+  module.exports = __webpack_require__(23);
+}
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -728,7 +728,7 @@ module.exports = ExecutionEnvironment;
  * @typechecks
  */
 
-var emptyFunction = __webpack_require__(2);
+var emptyFunction = __webpack_require__(1);
 
 /**
  * Upstream version of event listener. Does not take into account specific
@@ -986,13 +986,9 @@ module.exports = focusNode;
 "use strict";
 
 
-var _adminPanel = __webpack_require__(16);
+var _eventPanel = __webpack_require__(16);
 
-var _adminPanel2 = _interopRequireDefault(_adminPanel);
-
-var _moderPanel = __webpack_require__(30);
-
-var _moderPanel2 = _interopRequireDefault(_moderPanel);
+var _eventPanel2 = _interopRequireDefault(_eventPanel);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1005,17 +1001,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(3);
+var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _adminTable = __webpack_require__(28);
+var _eventTable = __webpack_require__(28);
 
-var _adminTable2 = _interopRequireDefault(_adminTable);
+var _eventTable2 = _interopRequireDefault(_eventTable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1025,259 +1021,18 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AdminPanel = function (_React$Component) {
-	_inherits(AdminPanel, _React$Component);
+var EventPanel = function (_React$Component) {
+	_inherits(EventPanel, _React$Component);
 
-	function AdminPanel() {
-		_classCallCheck(this, AdminPanel);
+	function EventPanel() {
+		_classCallCheck(this, EventPanel);
 
-		var _this = _possibleConstructorReturn(this, (AdminPanel.__proto__ || Object.getPrototypeOf(AdminPanel)).call(this));
-
-		_this.state = {
-			admins: null,
-			suggestList: null,
-			liIndex: -1,
-			addAdmin: null
-		};
-		_this.loadAllAdmin = _this.loadAllAdmin.bind(_this);
-		_this.resetUl = _this.resetUl.bind(_this);
-		_this.addNewAdmin = _this.addNewAdmin.bind(_this);
-		return _this;
+		return _possibleConstructorReturn(this, (EventPanel.__proto__ || Object.getPrototypeOf(EventPanel)).call(this));
 	}
 
-	_createClass(AdminPanel, [{
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			this.loadAllAdmin();
-		}
-	}, {
-		key: 'loadAllAdmin',
-		value: function loadAllAdmin() {
-			var request = $.ajax({
-				url: "/admin/api/member/get/admin",
-				method: "GET",
-				cached: false
-			});
-
-			var self = this;
-			request.done(function (list) {
-				if (list != null) {
-					self.setState({
-						admins: list
-					});
-				}
-			});
-
-			request.fail(function (msg) {
-				alert(msg);
-			});
-		}
-	}, {
-		key: 'addNewAdmin',
-		value: function addNewAdmin() {
-			// console.log(this.state.addAdmin);
-			if (this.state.addAdmin == null) {
-
-				// Check if search value not
-				if (this.searchInput.value.length === 0) {
-					toastr.warning("No Member was selected");
-				}
-				if (this.searchInput.value.length > 0) {
-					toastr.warning("Please choose the member in List");
-					this.searchInput.focus();
-				}
-
-				return;
-			}
-
-			var self = this;
-			var request = $.ajax({
-				url: '/admin/api/member/update/admin',
-				data: {
-					username: self.state.addAdmin.username,
-					roleId: 1 // roleId 1 means: ADMIN 
-				},
-				cached: false
-			});
-
-			request.done(function (msg) {
-				if (msg === 'success') {
-					toastr.success('Add Successfully');
-					location.reload();
-				} else if (msg === 'enough') {
-					toastr.error('Full number of admin');
-				} else if (msg === 'existed') {
-					toastr.error('Member is already an admin or an moderator');
-				} else {
-					toastr.error('Cannot Add Member');
-				}
-			});
-
-			request.fail(function (msg) {
-				toastr.error(msg);
-			});
-
-			// this.state.admins.forEach(function(admin){
-			// 	// console.log(admin);
-			// 	if (self.state.addAdmin.username === admin.username){
-			// 		existed = true;
-			// 	}			
-			// });
-
-			// if (existed == true) {
-			// 	toastr.error("This Member is already an admin");
-			// }
-			// else {
-			// 	toastr.success("HIHI");
-			// }
-		}
-	}, {
-		key: 'moveDownList',
-		value: function moveDownList(evt) {
-			if (evt.keyCode == 40) {
-				// Key Down 		
-
-				var index = this.state.liIndex + 1;
-				var lis = this.ulSuggest.childNodes;
-
-				if (index > 0) {
-					// Don't be the First In List				
-					lis[index - 1].classList.remove('selected');
-				}
-
-				if (index > lis.length - 1) {
-					index = 0;
-				}
-
-				// console.log(lis[index]);
-				lis[index].classList.add('selected');
-
-				// console.log(this.state.suggestList[index].fullname);
-
-				this.searchInput.value = this.state.suggestList[index].fullname;
-
-				this.setState({
-					liIndex: index,
-					addAdmin: this.state.suggestList[index]
-				});
-			} else if (evt.keyCode == 38) {
-				// Key Up			
-
-				var index = this.state.liIndex - 1;
-				var lis = this.ulSuggest.childNodes;
-
-				if (index > -1) {
-					lis[index + 1].classList.remove('selected');
-				}
-				if (index < 0) {
-					lis[0].classList.remove('selected');
-					index = lis.length - 1;
-				}
-
-				lis[index].classList.add('selected');
-
-				this.searchInput.value = this.state.suggestList[index].fullname;
-
-				this.setState({
-					liIndex: index,
-					addAdmin: this.state.suggestList[index]
-				});
-			}
-		}
-	}, {
-		key: 'removeListSuggestion',
-		value: function removeListSuggestion(evt) {
-			this.setState({
-				suggestList: null
-			});
-		}
-	}, {
-		key: 'resetUl',
-		value: function resetUl() {
-			this.setState({
-				liIndex: -1,
-				addAdmin: null
-			});
-			// Remove all selected Li in ul
-			this.ulSuggest.childNodes.forEach(function (li) {
-				li.classList.remove('selected');
-			});
-		}
-	}, {
-		key: 'getListSuggestion',
-		value: function getListSuggestion(evt) {
-			// If Enter then Submit Adding
-			if (evt.keyCode == 13) {
-				this.addNewAdmin();
-				return;
-			}
-			if (evt.keyCode == 38 || evt.keyCode == 40) {
-				return;
-			}
-			// Reset liIndex to -1
-			// Reset Ul
-			this.resetUl();
-
-			// Call AJAX
-			if (evt.target.value.length == 0) {
-				this.setState({
-					suggestList: null
-				});
-				return;
-			}
-
-			var request = $.ajax({
-				url: '/admin/api/member/get/10/',
-				data: {
-					fullname: evt.target.value
-				},
-				cached: false
-			});
-
-			var self = this;
-			request.done(function (list) {
-				if (list != null) {
-					self.setState({
-						suggestList: list
-					});
-					// console.log(list);
-					// self.forceUpdate();
-				} else {
-					alert("Fail: " + " null List");
-				}
-			});
-
-			request.fail(function (msg) {
-				alert("Fail " + msg);
-			});
-		}
-	}, {
+	_createClass(EventPanel, [{
 		key: 'render',
 		value: function render() {
-			var _this2 = this;
-
-			var rows = []; // list li in ul 
-			if (this.state.suggestList != null) {
-				this.state.suggestList.forEach(function (member) {
-					rows.push(_react2.default.createElement(
-						'li',
-						{ key: member.username, className: 'suggestItem' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'fullname' },
-							member.fullname
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'studentCode' },
-							member.studentCode
-						)
-					));
-				});
-			} else {
-				rows = [];
-			}
-
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -1286,67 +1041,40 @@ var AdminPanel = function (_React$Component) {
 					{ className: 'row' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'col-md-12' },
-						'Admin'
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'col-md-12 pull-right' },
+						{ className: 'col-sm-6' },
 						_react2.default.createElement(
 							'div',
 							{ className: 'row' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'col-md-8' },
+								{ className: 'col-sm-12' },
 								_react2.default.createElement(
-									'div',
-									{ className: 'md-form' },
-									_react2.default.createElement('input', {
-										ref: function ref(input) {
-											_this2.searchInput = input;
-										},
-										type: 'search', id: 'admin-autocomplete',
-										onKeyUp: this.getListSuggestion.bind(this),
-										onFocus: this.getListSuggestion.bind(this),
-										onKeyDown: this.moveDownList.bind(this),
-										onBlur: this.removeListSuggestion.bind(this),
-										className: 'form-control mdb-autocomplete' }),
-									_react2.default.createElement(
-										'ul',
-										{
-											ref: function ref(ul) {
-												_this2.ulSuggest = ul;
-											},
-											className: 'mdb-autocomplete-wrap' },
-										rows
-									)
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'col-md-4 pull-right' },
-								_react2.default.createElement(
-									'button',
-									{
-										className: 'btn btn-primary',
-										onClick: this.addNewAdmin },
-									'Add'
+									'h3',
+									{ className: 'panel-title' },
+									'Upcoming Event (number)'
 								)
 							)
 						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-sm-6 text-right' },
+						_react2.default.createElement(
+							'button',
+							null,
+							'Add Event'
+						)
 					)
 				),
-				_react2.default.createElement(_adminTable2.default, { admins: this.state.admins })
+				_react2.default.createElement(_eventTable2.default, null)
 			);
 		}
 	}]);
 
-	return AdminPanel;
+	return EventPanel;
 }(_react2.default.Component);
 
-;
-
-_reactDom2.default.render(_react2.default.createElement(AdminPanel, null), document.getElementById('admin-panel-react'));
+_reactDom2.default.render(_react2.default.createElement(EventPanel, null), document.getElementById('event-panel-react'));
 
 /***/ }),
 /* 17 */
@@ -1362,7 +1090,7 @@ _reactDom2.default.render(_react2.default.createElement(AdminPanel, null), docum
  * LICENSE file in the root directory of this source tree.
  */
 
-var m=__webpack_require__(4),n=__webpack_require__(5),p=__webpack_require__(2),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
+var m=__webpack_require__(3),n=__webpack_require__(4),p=__webpack_require__(1),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
 function y(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var z={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function A(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}A.prototype.isReactComponent={};A.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?y("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};A.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function B(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}function C(){}C.prototype=A.prototype;var D=B.prototype=new C;D.constructor=B;m(D,A.prototype);D.isPureReactComponent=!0;function E(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}var F=E.prototype=new C;F.constructor=E;m(F,A.prototype);F.unstable_isAsyncReactComponent=!0;F.render=function(){return this.props.children};var G={current:null},H=Object.prototype.hasOwnProperty,I={key:!0,ref:!0,__self:!0,__source:!0};
@@ -1398,12 +1126,12 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(4);
-var emptyObject = __webpack_require__(5);
-var invariant = __webpack_require__(6);
-var warning = __webpack_require__(7);
-var emptyFunction = __webpack_require__(2);
-var checkPropTypes = __webpack_require__(8);
+var _assign = __webpack_require__(3);
+var emptyObject = __webpack_require__(4);
+var invariant = __webpack_require__(5);
+var warning = __webpack_require__(6);
+var emptyFunction = __webpack_require__(1);
+var checkPropTypes = __webpack_require__(7);
 
 // TODO: this is special because it gets imported during build.
 
@@ -2777,7 +2505,7 @@ module.exports = ReactPropTypesSecret;
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(1),l=__webpack_require__(9),B=__webpack_require__(4),C=__webpack_require__(2),ba=__webpack_require__(10),da=__webpack_require__(11),ea=__webpack_require__(12),fa=__webpack_require__(13),ia=__webpack_require__(14),D=__webpack_require__(5);
+var aa=__webpack_require__(2),l=__webpack_require__(9),B=__webpack_require__(3),C=__webpack_require__(1),ba=__webpack_require__(10),da=__webpack_require__(11),ea=__webpack_require__(12),fa=__webpack_require__(13),ia=__webpack_require__(14),D=__webpack_require__(4);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -3074,19 +2802,19 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var React = __webpack_require__(1);
-var invariant = __webpack_require__(6);
-var warning = __webpack_require__(7);
+var React = __webpack_require__(2);
+var invariant = __webpack_require__(5);
+var warning = __webpack_require__(6);
 var ExecutionEnvironment = __webpack_require__(9);
-var _assign = __webpack_require__(4);
-var emptyFunction = __webpack_require__(2);
+var _assign = __webpack_require__(3);
+var emptyFunction = __webpack_require__(1);
 var EventListener = __webpack_require__(10);
 var getActiveElement = __webpack_require__(11);
 var shallowEqual = __webpack_require__(12);
 var containsNode = __webpack_require__(13);
 var focusNode = __webpack_require__(14);
-var emptyObject = __webpack_require__(5);
-var checkPropTypes = __webpack_require__(8);
+var emptyObject = __webpack_require__(4);
+var checkPropTypes = __webpack_require__(7);
 var hyphenateStyleName = __webpack_require__(24);
 var camelizeStyleName = __webpack_require__(26);
 
@@ -18623,93 +18351,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(3);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _adminRow = __webpack_require__(29);
-
-var _adminRow2 = _interopRequireDefault(_adminRow);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AdminTable = function (_React$Component) {
-	_inherits(AdminTable, _React$Component);
-
-	function AdminTable(props) {
-		_classCallCheck(this, AdminTable);
-
-		return _possibleConstructorReturn(this, (AdminTable.__proto__ || Object.getPrototypeOf(AdminTable)).call(this, props));
-	}
-
-	_createClass(AdminTable, [{
-		key: 'render',
-		value: function render() {
-
-			if (this.props.admins != null) {
-				var rows = [];
-				this.props.admins.forEach(function (admin) {
-
-					rows.push(_react2.default.createElement(_adminRow2.default, {
-						key: admin.username,
-						admin: admin
-					}));
-				});
-
-				return _react2.default.createElement(
-					'div',
-					{ className: 'table-responsive table-desi' },
-					_react2.default.createElement(
-						'table',
-						{ className: 'table table-hover' },
-						_react2.default.createElement(
-							'tbody',
-							null,
-							rows
-						)
-					)
-				);
-			} else {
-				return _react2.default.createElement('div', null);
-			}
-		}
-	}]);
-
-	return AdminTable;
-}(_react2.default.Component);
-
-;
-
-exports.default = AdminTable;
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(3);
+var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -18721,489 +18367,18 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AdminRow = function (_React$Component) {
-	_inherits(AdminRow, _React$Component);
+var EventTable = function (_React$Component) {
+	_inherits(EventTable, _React$Component);
 
-	function AdminRow(props) {
-		_classCallCheck(this, AdminRow);
+	function EventTable(props) {
+		_classCallCheck(this, EventTable);
 
-		return _possibleConstructorReturn(this, (AdminRow.__proto__ || Object.getPrototypeOf(AdminRow)).call(this, props));
+		return _possibleConstructorReturn(this, (EventTable.__proto__ || Object.getPrototypeOf(EventTable)).call(this, props));
 	}
 
-	_createClass(AdminRow, [{
-		key: 'removeAdmin',
-		value: function removeAdmin() {
-			var self = this;
-			var request = $.ajax({
-				url: '/admin/api/member/update/admin',
-				data: {
-					username: self.props.admin.username,
-					roleId: 2
-				},
-				cached: false
-			});
-
-			request.done(function (msg) {
-				if (msg === 'success') {
-					// toastr.success('Remove Successfully');		
-					location.reload();
-				} else {
-					toastr.error("Remove Fail");
-				}
-			});
-
-			request.fail(function (msg) {
-				toastr.error(msg);
-			});
-		}
-	}, {
+	_createClass(EventTable, [{
 		key: 'render',
 		value: function render() {
-			if (this.props.admin != null) {
-				return _react2.default.createElement(
-					'tr',
-					null,
-					_react2.default.createElement(
-						'td',
-						{ className: 'col-md-8' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'row admin-label' },
-							_react2.default.createElement('img', { src: this.props.admin.imageUrl }),
-							_react2.default.createElement(
-								'div',
-								{ className: 'info' },
-								_react2.default.createElement(
-									'div',
-									null,
-									this.props.admin.fullname
-								),
-								_react2.default.createElement(
-									'div',
-									null,
-									'Admin'
-								)
-							)
-						)
-					),
-					_react2.default.createElement(
-						'td',
-						{ className: 'col-md-4' },
-						_react2.default.createElement(
-							'button',
-							{
-								className: 'btn btn-sm btn-danger',
-								onClick: this.removeAdmin.bind(this) },
-							'Remove'
-						)
-					)
-				);
-			} else {
-				return _react2.default.createElement('div', null);
-			}
-		}
-	}]);
-
-	return AdminRow;
-}(_react2.default.Component);
-
-;
-
-exports.default = AdminRow;
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(3);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _moderTable = __webpack_require__(31);
-
-var _moderTable2 = _interopRequireDefault(_moderTable);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ModerPanel = function (_React$Component) {
-	_inherits(ModerPanel, _React$Component);
-
-	function ModerPanel() {
-		_classCallCheck(this, ModerPanel);
-
-		var _this = _possibleConstructorReturn(this, (ModerPanel.__proto__ || Object.getPrototypeOf(ModerPanel)).call(this));
-
-		_this.state = {
-			moderators: null,
-			suggestList: null,
-			liIndex: -1,
-			addModerator: null
-		};
-		_this.loadAllModerator = _this.loadAllModerator.bind(_this);
-		_this.resetUl = _this.resetUl.bind(_this);
-
-		return _this;
-	}
-
-	_createClass(ModerPanel, [{
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			this.loadAllModerator();
-		}
-	}, {
-		key: 'loadAllModerator',
-		value: function loadAllModerator() {
-			var request = $.ajax({
-				url: "/admin/api/member/get/moderator",
-				method: "GET",
-				cached: false
-			});
-
-			var self = this;
-			request.done(function (list) {
-				if (list != null) {
-					self.setState({
-						moderators: list
-					});
-				}
-			});
-
-			request.fail(function (msg) {
-				alert(msg);
-			});
-		}
-	}, {
-		key: 'resetUl',
-		value: function resetUl() {
-			this.setState({
-				liIndex: -1,
-				addModerator: null
-			});
-			// Remove all selected Li in ul
-			this.ulSuggest.childNodes.forEach(function (li) {
-				li.classList.remove('selected');
-			});
-		}
-	}, {
-		key: 'addNewModerator',
-		value: function addNewModerator() {
-			// console.log(this.state.addAdmin);
-			if (this.state.addModerator == null) {
-
-				// Check if search value not
-				if (this.searchInput.value.length === 0) {
-					toastr.warning("No Member was selected");
-				}
-				if (this.searchInput.value.length > 0) {
-					toastr.warning("Please choose the member in List");
-					this.searchInput.focus();
-				}
-				return;
-			}
-
-			var self = this;
-			var request = $.ajax({
-				url: '/admin/api/member/update/admin',
-				data: {
-					username: self.state.addModerator.username,
-					roleId: 3 // roleId 3 means: MODERATOR 
-				},
-				cached: false
-			});
-
-			request.done(function (msg) {
-				if (msg === 'success') {
-					toastr.success('Add Successfully');
-					location.reload();
-				} else if (msg === 'enough') {
-					toastr.error('Full number of admin');
-				} else if (msg === 'existed') {
-					toastr.error('Member is already an admin or an moderator');
-				} else {
-					toastr.error('Cannot Add Member');
-				}
-			});
-
-			request.fail(function (msg) {
-				toastr.error(msg);
-			});
-		}
-	}, {
-		key: 'moveDownList',
-		value: function moveDownList(evt) {
-			if (evt.keyCode == 40) {
-				// Key Down 		
-
-				var index = this.state.liIndex + 1;
-				var lis = this.ulSuggest.childNodes;
-
-				if (index > 0) {
-					// Don't be the First In List				
-					lis[index - 1].classList.remove('selected');
-				}
-
-				if (index > lis.length - 1) {
-					index = 0;
-				}
-
-				// console.log(lis[index]);
-				lis[index].classList.add('selected');
-
-				// console.log(this.state.suggestList[index].fullname);
-
-				this.searchInput.value = this.state.suggestList[index].fullname;
-
-				this.setState({
-					liIndex: index,
-					addModerator: this.state.suggestList[index]
-				});
-			} else if (evt.keyCode == 38) {
-				// Key Up			
-
-				var index = this.state.liIndex - 1;
-				var lis = this.ulSuggest.childNodes;
-
-				if (index > -1) {
-					lis[index + 1].classList.remove('selected');
-				}
-				if (index < 0) {
-					lis[0].classList.remove('selected');
-					index = lis.length - 1;
-				}
-
-				lis[index].classList.add('selected');
-
-				this.searchInput.value = this.state.suggestList[index].fullname;
-
-				this.setState({
-					liIndex: index,
-					addModerator: this.state.suggestList[index]
-				});
-			}
-		}
-	}, {
-		key: 'removeListSuggestion',
-		value: function removeListSuggestion(evt) {
-			this.setState({
-				suggestList: null
-			});
-		}
-	}, {
-		key: 'getListSuggestion',
-		value: function getListSuggestion(evt) {
-			// If Enter then Submit Adding
-			if (evt.keyCode == 13) {
-				this.addNewModerator();
-				return;
-			}
-			if (evt.keyCode == 38 || evt.keyCode == 40) {
-				return;
-			}
-			// Reset liIndex to -1
-			// Reset Ul
-			this.resetUl();
-
-			// Call AJAX
-			if (evt.target.value.length == 0) {
-				this.setState({
-					suggestList: null
-				});
-				return;
-			}
-
-			var request = $.ajax({
-				url: '/admin/api/member/get/10/',
-				data: {
-					fullname: evt.target.value
-				},
-				cached: false
-			});
-
-			var self = this;
-			request.done(function (list) {
-				if (list != null) {
-					self.setState({
-						suggestList: list
-					});
-				} else {
-					alert("Fail: " + " null List");
-				}
-			});
-
-			request.fail(function (msg) {
-				alert("Fail " + msg);
-			});
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var _this2 = this;
-
-			var rows = []; // list li in ul 
-			if (this.state.suggestList != null) {
-				this.state.suggestList.forEach(function (member) {
-					rows.push(_react2.default.createElement(
-						'li',
-						{ key: member.username, className: 'suggestItem' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'fullname' },
-							member.fullname
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'studentCode' },
-							member.studentCode
-						)
-					));
-				});
-			} else {
-				rows = [];
-			}
-
-			return _react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(
-					'div',
-					{ className: 'row' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'col-md-4' },
-						'Moderator'
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'col-md-12 pull-right' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'row' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'col-md-8' },
-								_react2.default.createElement(
-									'div',
-									{ className: 'md-form' },
-									_react2.default.createElement('input', {
-										ref: function ref(input) {
-											_this2.searchInput = input;
-										},
-										type: 'search', id: 'admin-autocomplete',
-										onKeyUp: this.getListSuggestion.bind(this),
-										onFocus: this.getListSuggestion.bind(this),
-										onKeyDown: this.moveDownList.bind(this),
-										onBlur: this.removeListSuggestion.bind(this),
-										className: 'form-control mdb-autocomplete' }),
-									_react2.default.createElement(
-										'ul',
-										{
-											ref: function ref(ul) {
-												_this2.ulSuggest = ul;
-											},
-											className: 'mdb-autocomplete-wrap' },
-										rows
-									)
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'col-md-4 pull-right' },
-								_react2.default.createElement(
-									'button',
-									{
-										className: 'btn btn-primary',
-										onClick: this.addNewModerator.bind(this) },
-									'Add'
-								)
-							)
-						)
-					)
-				),
-				_react2.default.createElement(_moderTable2.default, { moderators: this.state.moderators })
-			);
-		}
-	}]);
-
-	return ModerPanel;
-}(_react2.default.Component);
-
-;
-
-_reactDom2.default.render(_react2.default.createElement(ModerPanel, null), document.getElementById('moderator-panel-react'));
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(3);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _moderRow = __webpack_require__(32);
-
-var _moderRow2 = _interopRequireDefault(_moderRow);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ModerTable = function (_React$Component) {
-	_inherits(ModerTable, _React$Component);
-
-	function ModerTable(props) {
-		_classCallCheck(this, ModerTable);
-
-		return _possibleConstructorReturn(this, (ModerTable.__proto__ || Object.getPrototypeOf(ModerTable)).call(this, props));
-	}
-
-	_createClass(ModerTable, [{
-		key: 'render',
-		value: function render() {
-			if (this.props.moderators == null) {
-				return _react2.default.createElement('div', null);
-			}
-
-			var rows = [];
-
-			this.props.moderators.forEach(function (moderator) {
-				rows.push(_react2.default.createElement(_moderRow2.default, {
-					key: moderator.username,
-					moderator: moderator
-				}));
-			});
-
 			return _react2.default.createElement(
 				'div',
 				{ className: 'table-responsive table-desi' },
@@ -19213,134 +18388,53 @@ var ModerTable = function (_React$Component) {
 					_react2.default.createElement(
 						'tbody',
 						null,
-						rows
-					)
-				)
-			);
-		}
-	}]);
-
-	return ModerTable;
-}(_react2.default.Component);
-
-;
-
-exports.default = ModerTable;
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(3);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ModerRow = function (_React$Component) {
-	_inherits(ModerRow, _React$Component);
-
-	function ModerRow(props) {
-		_classCallCheck(this, ModerRow);
-
-		return _possibleConstructorReturn(this, (ModerRow.__proto__ || Object.getPrototypeOf(ModerRow)).call(this, props));
-	}
-
-	_createClass(ModerRow, [{
-		key: 'removeModerator',
-		value: function removeModerator() {
-			var self = this;
-			var request = $.ajax({
-				url: '/admin/api/member/update/admin',
-				data: {
-					username: self.props.moderator.username,
-					roleId: 2
-				},
-				cached: false
-			});
-
-			request.done(function (msg) {
-				if (msg === 'success') {
-					// toastr.success('Remove Successfully');		
-					location.reload();
-				} else {
-					toastr.error("Remove Fail");
-				}
-			});
-
-			request.fail(function (msg) {
-				toastr.error(msg);
-			});
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			return _react2.default.createElement(
-				'tr',
-				null,
-				_react2.default.createElement(
-					'td',
-					{ className: 'col-md-8' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'row admin-label' },
-						_react2.default.createElement('img', { src: this.props.moderator.imageUrl }),
 						_react2.default.createElement(
-							'div',
-							{ className: 'info' },
+							'tr',
+							null,
 							_react2.default.createElement(
-								'div',
+								'td',
 								null,
-								this.props.moderator.fullname
+								_react2.default.createElement('img', null),
+								_react2.default.createElement(
+									'div',
+									{ className: 'info' },
+									'F-Code Talk 01'
+								)
 							),
 							_react2.default.createElement(
-								'div',
+								'td',
 								null,
-								'Moderator'
+								_react2.default.createElement(
+									'div',
+									{ className: 'row' },
+									_react2.default.createElement(
+										'button',
+										{ className: 'btn btn-sm' },
+										'Hide'
+									),
+									_react2.default.createElement(
+										'button',
+										{ className: 'btn btn-sm' },
+										'Edit'
+									),
+									_react2.default.createElement(
+										'button',
+										{ className: 'btn btn-sm' },
+										'Delete'
+									)
+								)
 							)
 						)
 					)
-				),
-				_react2.default.createElement(
-					'td',
-					{ className: 'col-md-4' },
-					_react2.default.createElement(
-						'button',
-						{
-							onClick: this.removeModerator.bind(this),
-							className: 'btn btn-sm btn-danger' },
-						'Remove'
-					)
 				)
 			);
 		}
 	}]);
 
-	return ModerRow;
+	return EventTable;
 }(_react2.default.Component);
 
-;
-
-exports.default = ModerRow;
+exports.default = EventTable;
 
 /***/ })
 /******/ ]);

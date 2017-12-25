@@ -17,15 +17,14 @@
 					<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
 						<div class="row">
 							<div class="col-md-12">
-								<h1 class="page-header">Event</h1>
+								<h1 class="page-header">Manage Event</h1>
 							</div>
 						</div>
 		
 		
 						<div class="row">
 							<div class="col-md-12">
-							
-								
+								<div id="event-panel-react"></div>								
 							</div>			
 						</div>
 					</div>
@@ -41,6 +40,7 @@
 	
     <!-- Custom Theme JavaScript -->
     <th:block th:include="fragments/adminUtil :: scriptHeader"></th:block>
+    <script th:src="@{/webpack/jsx/admin/event/bundle.js}"></script>
     
     
   
