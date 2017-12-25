@@ -1,8 +1,6 @@
 package com.tiendat.spring_webmvc.BootDemo.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Event;
 import com.tiendat.spring_webmvc.BootDemo.model.EventAction;
+import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
 import com.tiendat.spring_webmvc.BootDemo.service.EventActionService;
 import com.tiendat.spring_webmvc.BootDemo.service.EventService;
 
@@ -27,6 +26,8 @@ public class EventController {
 	
 	@Autowired
 	private EventActionService eventActionService;
+	
+	
 
 	@GetMapping(value = "/all")
 	public List<Event> getAllEvent() {
@@ -74,9 +75,14 @@ public class EventController {
 		return this.eventService.findCurrentEvent();
 	}
 	
-	@GetMapping(value = "/get/upcomming")
-	public List<Event> getUpcommingEvent(){
-		return this.eventService.findUpcommingEvent();
+	@GetMapping(value = "/get/upcoming")
+	public List<Event> getUpcomingEvent(){
+		return this.eventService.findUpcomingEvent();
+	}
+	
+	@GetMapping(value = "/get/timeline", params= {"eventId"})
+	public List<Timeline> getEventTimeline(@RequestParam("eventId") int eventId){
+		return this.eventService.getEventTimeline(eventId);
 	}
 	
 //	@GetMapping(value = "/delete", params= {"eventId", "username"})

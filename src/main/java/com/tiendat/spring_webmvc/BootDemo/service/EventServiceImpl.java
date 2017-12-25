@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Event;
+import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
 import com.tiendat.spring_webmvc.BootDemo.respository.EventRepository;
+import com.tiendat.spring_webmvc.BootDemo.respository.TimelineRepository;
 
 @Service("eventService")
 @Transactional
@@ -17,6 +19,9 @@ public class EventServiceImpl implements EventService{
 
 	@Autowired
 	private EventRepository eventRepository;
+	
+	@Autowired
+	private TimelineRepository timelineRepository;
 	
 	@Override
 	public List<Event> findAllEvent() {	
@@ -59,13 +64,18 @@ public class EventServiceImpl implements EventService{
 	}
 
 	@Override
-	public List<Event> findUpcommingEvent() {
+	public List<Event> findUpcomingEvent() {
 		return this.eventRepository.findByDateStartAfterOrderByDateStartAsc(new Date(System.currentTimeMillis()));
 	}
 
 	@Override
 	public Event findEventById(int eventId) {
 		return this.eventRepository.findByEventId(eventId);
+	}
+
+	@Override
+	public List<Timeline> getEventTimeline(int eventId) {
+		return this.timelineRepository.findByEventId(eventId);
 	}
 
 }

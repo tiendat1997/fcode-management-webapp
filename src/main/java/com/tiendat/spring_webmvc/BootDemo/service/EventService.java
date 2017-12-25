@@ -3,6 +3,7 @@ package com.tiendat.spring_webmvc.BootDemo.service;
 import java.util.List;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Event;
+import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
 
 public interface EventService {
 
@@ -16,7 +17,7 @@ public interface EventService {
 	
 	List<Event> findCurrentEvent();
 	
-	List<Event> findUpcommingEvent();
+	List<Event> findUpcomingEvent();
 
 	Event findEventById(int eventId);
 
@@ -26,4 +27,5 @@ public interface EventService {
 
 	int delete(int eventId);
 
+	List<Timeline> getEventTimeline(int eventId);
 }
