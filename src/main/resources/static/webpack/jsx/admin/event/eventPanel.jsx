@@ -21,8 +21,7 @@ class EventPanel extends React.Component{
 							</div>		
 						</div>
 					</div>
-					<div className="col-sm-6 text-right">
-						<button>Add Event</button>
+					<div className="col-sm-6 text-right">						
 					</div>				
 				</div>
 

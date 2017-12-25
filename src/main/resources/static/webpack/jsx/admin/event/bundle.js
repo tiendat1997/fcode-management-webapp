@@ -1056,15 +1056,7 @@ var EventPanel = function (_React$Component) {
 							)
 						)
 					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'col-sm-6 text-right' },
-						_react2.default.createElement(
-							'button',
-							null,
-							'Add Event'
-						)
-					)
+					_react2.default.createElement('div', { className: 'col-sm-6 text-right' })
 				),
 				_react2.default.createElement(_eventTable2.default, null)
 			);
@@ -18384,7 +18376,38 @@ var EventTable = function (_React$Component) {
 				{ className: 'table-responsive table-desi' },
 				_react2.default.createElement(
 					'table',
-					{ className: 'table table-hover' },
+					{ className: 'table table-hover', id: 'event-table' },
+					_react2.default.createElement(
+						'thead',
+						null,
+						_react2.default.createElement(
+							'tr',
+							null,
+							_react2.default.createElement(
+								'th',
+								null,
+								'DATE/TIME'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'EVENT'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								_react2.default.createElement(
+									'div',
+									{ className: 'text-right' },
+									_react2.default.createElement(
+										'button',
+										{ className: 'btn btn-primary' },
+										'Add Event'
+									)
+								)
+							)
+						)
+					),
 					_react2.default.createElement(
 						'tbody',
 						null,
@@ -18393,12 +18416,39 @@ var EventTable = function (_React$Component) {
 							null,
 							_react2.default.createElement(
 								'td',
-								null,
-								_react2.default.createElement('img', null),
+								{ className: 'event-datetime' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'col-md-12' },
+									'11/11/2016'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'col-md-12' },
+									'13:45 -17:15'
+								)
+							),
+							_react2.default.createElement(
+								'td',
+								{ className: 'event-main-col' },
+								_react2.default.createElement('img', { src: '/img/event-alt.png' }),
 								_react2.default.createElement(
 									'div',
 									{ className: 'info' },
-									'F-Code Talk 01'
+									_react2.default.createElement(
+										'div',
+										null,
+										_react2.default.createElement(
+											'a',
+											{ href: '#' },
+											'F-Code Talk 01'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										null,
+										'Dia Dang Coffee'
+									)
 								)
 							),
 							_react2.default.createElement(
@@ -18406,7 +18456,7 @@ var EventTable = function (_React$Component) {
 								null,
 								_react2.default.createElement(
 									'div',
-									{ className: 'row' },
+									{ className: 'text-right' },
 									_react2.default.createElement(
 										'button',
 										{ className: 'btn btn-sm' },
