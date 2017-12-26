@@ -4,10 +4,13 @@
 <meta charset="ISO-8859-1">
 <title>Edit</title>
 <th:block th:include="fragments/adminUtil :: header"></th:block>
+<link rel="stylesheet" th:href="@{/css/mdbCard.css}"/>
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+<link rel="stylesheet" th:href="@{/vendor/datetimepicker/css/daterangepicker.css}" />
 </head>
 <body>
 	<header>
-		<th:block th:include="fragments/adminUtil :: nav-fragment"></th:block>		
+		<th:block th:include="fragments/adminUtil :: nav-fragment"></th:block>			
 	</header>
 	<main>
 		<div id="page-wrapper">
@@ -20,12 +23,54 @@
 								<h1 class="page-header">Update Event</h1>
 							</div>
 						</div>
-		
-		
 						<div class="row">
-							<div class="col-md-12">
-										
+							<div class="col-md-4">
+								<a type="submit" class="btn btn-unique btn-sm" href="#">
+										        	Back <i class="fa fa-arrow-left ml-1"></i>
+								</a>
+							</div>
+							 
+						</div>
+						<div class="row">
+							<div class="col-md-4">								
+								<div  th:object="${event}" class="card testimonial-card">
+									 <!--Bacground color-->
+								    <div class="card-up" style="height: 50px">
+								    	Event									   
+								    </div>								    								
+																	   
+								    <div class="card-body">
+								    	<div class="form-group md-form">
+								    		<i class="fa fa-calendar prefix grey-text"></i>
+                                        	<input type="text" class="form-control" id="daterange" placeholder="Select value">
+                                        	<label for="form3">Date</label>
+                                    	</div>		
+								    	<div class="md-form">
+									        <i class="fa fa-universal-access prefix grey-text"></i>
+									        <input 
+									         	type="text" 
+									         	id="form3" class="form-control" 
+									         	th:value="${event.name}"												         										         	
+									         	>
+									        <label for="form3">Event Name</label>
+									    </div>		
+									      <div class="text-center">
+										        <button type="submit" class="btn btn-unique">
+										        	Update <i class="fa fa-paper-plane-o ml-1"></i>
+										        </button>
+										  </div>
+									    					   									
+									    							   									  	    							   
+								    </div>
+								</div>	
+								<div>
+								</div>							
 							</div>			
+							<div class="col-md-8">
+								  <div class="card-up" style="height: 50px">
+								    	Timelines									   
+								  </div>				
+							</div>
 						</div>
 					</div>
 				</div>				
@@ -36,5 +81,13 @@
 		
     <!-- Custom Theme JavaScript -->
     <th:block th:include="fragments/adminUtil :: scriptHeader"></th:block>
+    <script th:src="@{/vendor/datetimepicker/js/moment.min.js}"></script>
+    <script th:src="@{/vendor/datetimepicker/js/daterangepicker.js}"></script>
+    
+	<script type="text/javascript">
+	  $('#daterange').daterangepicker({
+	        autoApply:true
+	   });
+    </script>    
 </body>
 </html>
