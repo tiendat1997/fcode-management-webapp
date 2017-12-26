@@ -17,6 +17,7 @@ import com.tiendat.spring_webmvc.BootDemo.model.Event;
 import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
 import com.tiendat.spring_webmvc.BootDemo.service.AccountService;
 import com.tiendat.spring_webmvc.BootDemo.service.EventService;
+import com.tiendat.spring_webmvc.BootDemo.service.TimelineService;
 
 @Controller
 @RequestMapping("/admin")
@@ -29,6 +30,9 @@ public class AdminController {
 	@Autowired
 	private EventService eventService;
 		
+	@Autowired
+	private TimelineService timelineSerivce;
+	
 	@GetMapping(value = "/dashboard")
 	public String getDashboardPage(ModelMap modelMap) {
 		return "adminHome";
@@ -88,7 +92,7 @@ public class AdminController {
 	@GetMapping(value = "/event/edit", params = {"eventId"})
 	public ModelAndView editEventPage(@RequestParam("eventId") Integer eventId) {
 			Event event = this.eventService.findEventById(eventId); 
-			List<Timeline> timelines = this.eventService.getEventTimeline(eventId);
+			List<Timeline> timelines = this.timelineSerivce.getEventTimeline(eventId);
 			
 			ModelAndView mv = new ModelAndView("adminEventEdit");
 			mv.addObject("event", event); 

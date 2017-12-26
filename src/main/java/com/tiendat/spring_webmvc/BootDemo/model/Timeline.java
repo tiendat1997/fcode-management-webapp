@@ -21,6 +21,33 @@ public class Timeline {
 	private int eventId;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
+	
+	
+
+	public Timeline() {
+		super();
+	}
+
+	
+	
+	public Timeline(int id, String name, String description, int eventId, Date date) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.eventId = eventId;
+		this.date = date;
+	}
+
+
+
+	public Timeline(String name, String description, int eventId, Date date) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.eventId = eventId;
+		this.date = date;
+	}
 
 	public int getId() {
 		return id;

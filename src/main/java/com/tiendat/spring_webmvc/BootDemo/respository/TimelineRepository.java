@@ -10,5 +10,6 @@ public interface TimelineRepository extends JpaRepository<Timeline, Long>{
 
 	List<Timeline> findByEventId(int eventId);
 	
+	Timeline save(Timeline timeline);
 	
 }

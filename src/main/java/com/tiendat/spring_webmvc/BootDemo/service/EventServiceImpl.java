@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Event;
 import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
+import com.tiendat.spring_webmvc.BootDemo.model.TimelineAction;
 import com.tiendat.spring_webmvc.BootDemo.respository.EventRepository;
+import com.tiendat.spring_webmvc.BootDemo.respository.TimelineActionRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.TimelineRepository;
 
 @Service("eventService")
@@ -23,6 +25,8 @@ public class EventServiceImpl implements EventService{
 	@Autowired
 	private TimelineRepository timelineRepository;
 	
+	
+	
 	@Override
 	public List<Event> findAllEvent() {	
 		return this.eventRepository.findAll();
@@ -30,7 +34,11 @@ public class EventServiceImpl implements EventService{
 
 	@Override
 	public Event insertEvent(Event event) {
-		return eventRepository.save(event);
+		Event e = eventRepository.saveAndFlush(event);
+		//add default timeline for event
+		Timeline timeline = new Timeline(event.getName(),"",event.getEventId(),event.getDateStart());
+		timelineRepository.save(timeline);
+		return e;
 	}
 
 	@Override
@@ -73,9 +81,6 @@ public class EventServiceImpl implements EventService{
 		return this.eventRepository.findByEventId(eventId);
 	}
 
-	@Override
-	public List<Timeline> getEventTimeline(int eventId) {
-		return this.timelineRepository.findByEventId(eventId);
-	}
+	
 
 }

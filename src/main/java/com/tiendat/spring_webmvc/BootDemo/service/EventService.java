@@ -26,6 +26,5 @@ public interface EventService {
 	Event update(Event event);
 
 	int delete(int eventId);
-
-	List<Timeline> getEventTimeline(int eventId);
+	
 }

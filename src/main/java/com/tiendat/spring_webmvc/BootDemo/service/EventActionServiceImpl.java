@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.tiendat.spring_webmvc.BootDemo.model.EventAction;
 import com.tiendat.spring_webmvc.BootDemo.respository.EventActionRepository;
+import com.tiendat.spring_webmvc.BootDemo.respository.TimelineRepository;
 
 @Service("eventActionService")
 @Transactional
@@ -17,6 +18,9 @@ public class EventActionServiceImpl implements EventActionService{
 
 	@Autowired
 	private EventActionRepository eventActionRepository;
+	
+	@Autowired
+	private TimelineRepository timelineRepository;
 	
 	@Override
 	public List<EventAction> findAll() {

@@ -23,6 +23,20 @@ public class TimelineAction {
 	private Date date;
 	private int action;
 
+	
+	
+	public TimelineAction(int timelineId, String memberId, Date date, int action) {
+		super();
+		this.timelineId = timelineId;
+		this.memberId = memberId;
+		this.date = date;
+		this.action = action;
+	}
+
+	public TimelineAction() {
+		super();
+	}
+
 	public int getId() {
 		return id;
 	}

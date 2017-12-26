@@ -1,7 +1,11 @@
 package com.tiendat.spring_webmvc.BootDemo.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tiendat.spring_webmvc.BootDemo.model.Account;
 import com.tiendat.spring_webmvc.BootDemo.model.Event;
 import com.tiendat.spring_webmvc.BootDemo.model.EventAction;
 import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
 import com.tiendat.spring_webmvc.BootDemo.service.EventActionService;
 import com.tiendat.spring_webmvc.BootDemo.service.EventService;
+import com.tiendat.spring_webmvc.BootDemo.service.TimelineService;
 
 @RestController
 @RequestMapping("admin/api/event")
@@ -27,7 +33,8 @@ public class EventController {
 	@Autowired
 	private EventActionService eventActionService;
 	
-	
+	@Autowired
+	private TimelineService timelineService;
 
 	@GetMapping(value = "/all")
 	public List<Event> getAllEvent() {
@@ -42,22 +49,6 @@ public class EventController {
 	@GetMapping(value = "/public")
 	public List<Event> getPublicEvent(){
 		return this.eventService.findAllPublicEvent();
-	}
-
-	@GetMapping(value = "/new", params = { "name", "dateStart", "dateEnd", "description", "username","notPublic"})
-	public EventAction newEvent(@ModelAttribute Event event, @RequestParam("username") String username) {
-
-		Event e =  this.eventService.insertEvent(event);
-		EventAction action = new EventAction(username, e.getEventId(), 1, new Date());
-		return this.eventActionService.addAction(action);
-	}
-	
-	@GetMapping(value = "/update", params = { "eventId","name", "dateStart", "dateEnd", "description", "username","notPublic"})
-	public EventAction updateEvent(@ModelAttribute Event event, @RequestParam("username") String username) {
-
-		Event e =  this.eventService.update(event);
-		EventAction action = new EventAction(username, e.getEventId(), 3, new Date());
-		return this.eventActionService.addAction(action);
 	}
 	
 	@GetMapping(value = "/get/id/{eventId}")
@@ -82,8 +73,78 @@ public class EventController {
 	
 	@GetMapping(value = "/get/timeline", params= {"eventId"})
 	public List<Timeline> getEventTimeline(@RequestParam("eventId") int eventId){
-		return this.eventService.getEventTimeline(eventId);
+		return this.timelineService.getEventTimeline(eventId);
 	}
+	
+	@GetMapping(value = "/new", params = { "name", "dateStart", "dateEnd", "description","notPublic"})
+	public EventAction newEvent(@ModelAttribute Event event, HttpSession session) {
+		String username = getUsername(session);
+		Event e =  this.eventService.insertEvent(event);
+		EventAction action = new EventAction(username, e.getEventId(), 1, new Date());
+		return this.eventActionService.addAction(action);
+	}
+	
+	@GetMapping(value = "/update", params = { "eventId","name", "dateStart", "dateEnd", "description","notPublic"})
+	public EventAction updateEvent(@ModelAttribute Event event, HttpSession session) {
+		String username = getUsername(session);
+		Event e =  this.eventService.update(event);
+		EventAction action = new EventAction(username, e.getEventId(), 3, new Date());
+		return this.eventActionService.addAction(action);
+	}
+	
+	@GetMapping(value = "/add/timeline", params = {"name", "description", "eventId", "date"})
+	public boolean addTimeline(
+			@RequestParam("name") String name, 
+			@RequestParam("description") String description,
+			@RequestParam("eventId") int eventId,
+			@RequestParam("date") String date,
+			HttpSession session) {
+		String username = getUsername(session);
+		SimpleDateFormat format = new SimpleDateFormat("y-M-d H:m:s");
+		boolean result = false;
+		try {
+			result = this.timelineService.addTimeline(new Timeline(name, description, eventId, format.parse(date)),username);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	@GetMapping(value = "/update/timeline", params = {"id","name", "description", "eventId", "date"})
+	public boolean updateTimeline(
+			@RequestParam("id") int id, 
+			@RequestParam("name") String name, 
+			@RequestParam("description") String description,
+			@RequestParam("eventId") int eventId,
+			@RequestParam("date") String date,
+			HttpSession session) {
+		String username = getUsername(session);
+		SimpleDateFormat format = new SimpleDateFormat("y-M-d H:m:s");
+		boolean result = false;
+		try {
+			result = this.timelineService.updateTimeline(new Timeline(id,name, description, eventId, format.parse(date)),username);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+//	*************************
+//	JUST FOR TEST
+//	***************************
+	private String getUsername(HttpSession session) {
+		String username = null;
+		if (session != null) {
+			Account account = (Account) session.getAttribute("account");
+			if (account == null)
+				username = "tiendat";
+		}else {
+			username = "tiendat";
+		}
+		return username;
+	}
+	
 	
 //	@GetMapping(value = "/delete", params= {"eventId", "username"})
 //	public EventAction deleteEvent(@RequestParam("eventId") String eventId, @RequestParam("username") String username) {

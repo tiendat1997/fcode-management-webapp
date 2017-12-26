@@ -27,6 +27,7 @@ public interface EventRepository extends JpaRepository<Event, Long>{
 	
 	
 	Event save(Event event);
+	Event saveAndFlush(Event event);
 	int deleteByEventId(int eventId);
 	
 	
