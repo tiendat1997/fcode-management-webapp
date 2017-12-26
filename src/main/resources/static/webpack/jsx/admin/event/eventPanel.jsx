@@ -20,7 +20,7 @@ class EventPanel extends React.Component{
 
 	loadUpcomingEvent(){
 		var request = $.ajax({
-			url: '/event/get/upcoming',
+			url: '/admin/api/event/get/upcoming',
 			method: "GET",
 			cached: false
 		}); 
@@ -40,7 +40,7 @@ class EventPanel extends React.Component{
 	}
 	loadCurrentEvent(){
 		var request = $.ajax({
-			url: '/event/get/current',
+			url: '/admin/api/event/get/current',
 			method: "GET",
 			cached: false
 		}); 
@@ -76,13 +76,19 @@ class EventPanel extends React.Component{
 
 
 	render(){
+		if (this.state.events == null) {
+			return (
+				<div></div>
+			)
+		}
+		
 		return(
 			<div>
 				<div className="row">
 					<div className="col-sm-6">
 						<div className="row">
 							<div className="col-sm-12">
-								<h3 className="panel-title">Upcoming Event (number)</h3>								
+								<h3 className="panel-title">Upcoming Event {this.state.events.length}</h3>								
 							</div>		
 						</div>
 					</div>

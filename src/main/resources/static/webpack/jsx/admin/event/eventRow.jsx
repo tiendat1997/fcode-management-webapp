@@ -23,7 +23,10 @@ class EventRow extends React.Component{
 				<td>
 					<div className="text-right">
 						<button className="btn btn-sm">Hide</button>
-						<button className="btn btn-sm">Edit</button>
+						<a className="btn btn-sm"
+							href={'/admin/event/edit?eventId=' + this.props.event.eventId}>
+							Edit
+						</a>
 						<button className="btn btn-sm">Delete</button>	
 					</div>								
 				</td>							

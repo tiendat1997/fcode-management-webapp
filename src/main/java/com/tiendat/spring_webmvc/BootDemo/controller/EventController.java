@@ -18,7 +18,7 @@ import com.tiendat.spring_webmvc.BootDemo.service.EventActionService;
 import com.tiendat.spring_webmvc.BootDemo.service.EventService;
 
 @RestController
-@RequestMapping("/event")
+@RequestMapping("admin/api/event")
 public class EventController {
 
 	@Autowired

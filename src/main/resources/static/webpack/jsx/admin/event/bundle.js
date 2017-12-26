@@ -1047,7 +1047,7 @@ var EventPanel = function (_React$Component) {
 		key: 'loadUpcomingEvent',
 		value: function loadUpcomingEvent() {
 			var request = $.ajax({
-				url: '/event/get/upcoming',
+				url: '/admin/api/event/get/upcoming',
 				method: "GET",
 				cached: false
 			});
@@ -1069,7 +1069,7 @@ var EventPanel = function (_React$Component) {
 		key: 'loadCurrentEvent',
 		value: function loadCurrentEvent() {
 			var request = $.ajax({
-				url: '/event/get/current',
+				url: '/admin/api/event/get/current',
 				method: "GET",
 				cached: false
 			});
@@ -1101,6 +1101,10 @@ var EventPanel = function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+			if (this.state.events == null) {
+				return _react2.default.createElement('div', null);
+			}
+
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -1119,7 +1123,8 @@ var EventPanel = function (_React$Component) {
 								_react2.default.createElement(
 									'h3',
 									{ className: 'panel-title' },
-									'Upcoming Event (number)'
+									'Upcoming Event ',
+									this.state.events.length
 								)
 							)
 						)
@@ -18616,8 +18621,9 @@ var EventRow = function (_React$Component) {
 							'Hide'
 						),
 						_react2.default.createElement(
-							'button',
-							{ className: 'btn btn-sm' },
+							'a',
+							{ className: 'btn btn-sm',
+								href: '/admin/event/edit?eventId=' + this.props.event.eventId },
 							'Edit'
 						),
 						_react2.default.createElement(

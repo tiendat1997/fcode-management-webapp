@@ -1,5 +1,7 @@
 package com.tiendat.spring_webmvc.BootDemo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Account;
+import com.tiendat.spring_webmvc.BootDemo.model.Event;
+import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
 import com.tiendat.spring_webmvc.BootDemo.service.AccountService;
+import com.tiendat.spring_webmvc.BootDemo.service.EventService;
 
 @Controller
 @RequestMapping("/admin")
@@ -19,7 +24,10 @@ public class AdminController {
 	
 	
 	@Autowired
-	private AccountService accountService; 
+	private AccountService accountService;
+	
+	@Autowired
+	private EventService eventService;
 		
 	@GetMapping(value = "/dashboard")
 	public String getDashboardPage(ModelMap modelMap) {
@@ -77,6 +85,19 @@ public class AdminController {
 	public String getEventPage(ModelMap modelMap) {
 		return "adminEvent";
 	}
+	@GetMapping(value = "/event/edit", params = {"eventId"})
+	public ModelAndView editEventPage(@RequestParam("eventId") Integer eventId) {
+			Event event = this.eventService.findEventById(eventId); 
+			List<Timeline> timelines = this.eventService.getEventTimeline(eventId);
+			
+			ModelAndView mv = new ModelAndView("adminEventEdit");
+			mv.addObject("event", event); 
+			mv.addObject("timelines", timelines); 			
+			return mv; 			
+	}
+	
+	
+	
 	
 	@GetMapping(value = "/project")
 	public String getProjectPage(ModelMap modelMap) {
