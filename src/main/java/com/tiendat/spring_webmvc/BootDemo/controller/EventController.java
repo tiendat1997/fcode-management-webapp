@@ -119,12 +119,13 @@ public class EventController {
 			@RequestParam("date") String date,
 			HttpSession session) {
 		String username = getUsername(session);
-		SimpleDateFormat format = new SimpleDateFormat("y-M-d H:m:s");
+		SimpleDateFormat format = new SimpleDateFormat("M/d/y h:m a");
 		boolean result = false;
 		try {
-			result = this.timelineService.updateTimeline(new Timeline(id,name, description, eventId, format.parse(date)),username);
+			Date d = format.parse(date);
+			System.out.println(d.getDate() + "-"+d.getMonth() + "-" + d.getYear());
+			result = this.timelineService.updateTimeline(new Timeline(id,name, description, eventId, d),username);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
