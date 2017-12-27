@@ -2,7 +2,7 @@ package com.tiendat.spring_webmvc.BootDemo.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -29,10 +29,10 @@ public class EventController {
 
 	@Autowired
 	private EventService eventService;
-	
+
 	@Autowired
 	private EventActionService eventActionService;
-	
+
 	@Autowired
 	private TimelineService timelineService;
 
@@ -40,122 +40,135 @@ public class EventController {
 	public List<Event> getAllEvent() {
 		return this.eventService.findAllEvent();
 	}
-	
+
 	@GetMapping(value = "/get/{name}")
-	public List<Event> getByName(@PathVariable String name){
+	public List<Event> getByName(@PathVariable String name) {
 		return this.eventService.findEventByName(name);
 	}
-	
+
 	@GetMapping(value = "/public")
-	public List<Event> getPublicEvent(){
+	public List<Event> getPublicEvent() {
 		return this.eventService.findAllPublicEvent();
 	}
-	
+
 	@GetMapping(value = "/get/id/{eventId}")
 	public Event getEventById(@PathVariable("eventId") int eventId) {
 		return this.eventService.findEventById(eventId);
 	}
-	
+
 	@GetMapping(value = "/get/old")
-	public List<Event> getOldEvent(){
+	public List<Event> getOldEvent() {
 		return this.eventService.findOldEvent();
 	}
-	
+
 	@GetMapping(value = "/get/current")
-	public List<Event> getCurrentEvent(){
+	public List<Event> getCurrentEvent() {
 		return this.eventService.findCurrentEvent();
 	}
-	
+
 	@GetMapping(value = "/get/upcoming")
-	public List<Event> getUpcomingEvent(){
+	public List<Event> getUpcomingEvent() {
 		return this.eventService.findUpcomingEvent();
 	}
-	
-	@GetMapping(value = "/get/timeline", params= {"eventId"})
-	public List<Timeline> getEventTimeline(@RequestParam("eventId") int eventId){
+
+	@GetMapping(value = "/get/timeline", params = { "eventId" })
+	public List<Timeline> getEventTimeline(@RequestParam("eventId") int eventId) {
 		return this.timelineService.getEventTimeline(eventId);
 	}
-	
-	@GetMapping(value = "/new", params = { "name", "dateStart", "dateEnd", "description","notPublic"})
+
+	@GetMapping(value = "/new", params = { "name", "dateStart", "dateEnd", "description", "notPublic" })
 	public EventAction newEvent(@ModelAttribute Event event, HttpSession session) {
 		String username = getUsername(session);
-		Event e =  this.eventService.insertEvent(event);
-		EventAction action = new EventAction(username, e.getEventId(), 1, new Date());
+		Event e = this.eventService.insertEvent(event);
+		EventAction action = new EventAction(username, e.getEventId(), 1, new java.util.Date());
 		return this.eventActionService.addAction(action);
 	}
-	
-	@GetMapping(value = "/update", params = { "eventId","name", "dateStart", "dateEnd", "description","notPublic"})
-	public EventAction updateEvent(@ModelAttribute Event event, HttpSession session) {
-		String username = getUsername(session);
-		Event e =  this.eventService.update(event);
-		EventAction action = new EventAction(username, e.getEventId(), 3, new Date());
-		return this.eventActionService.addAction(action);
-	}
-	
-	@GetMapping(value = "/add/timeline", params = {"name", "description", "eventId", "date"})
-	public boolean addTimeline(
-			@RequestParam("name") String name, 
-			@RequestParam("description") String description,
-			@RequestParam("eventId") int eventId,
-			@RequestParam("date") String date,
+
+	@GetMapping(value = "/update", params = { "eventId", "name", "dateStart", "dateEnd", "description", "notPublic" })
+	public EventAction updateEvent(@RequestParam("eventId") int eventId, @RequestParam("name") String name,
+			@RequestParam("dateStart") String dateStart, @RequestParam("dateEnd") String dateEnd,
+			@RequestParam("description") String description, @RequestParam("notPublic") boolean notPublic,
 			HttpSession session) {
 		String username = getUsername(session);
-		SimpleDateFormat format = new SimpleDateFormat("y-M-d H:m:s");
+		SimpleDateFormat format = new SimpleDateFormat("M/d/y");
+		java.util.Date dStart, dEnd;
+		try {
+			dStart = format.parse(dateStart);
+			dEnd = format.parse(dateEnd);
+			Event event = new Event(eventId, username, new Date(dStart.getTime()), new Date(dEnd.getTime()), description,
+					notPublic);
+			Event e = this.eventService.update(event);
+			EventAction action = new EventAction(username, e.getEventId(), 3, new java.util.Date());
+			return this.eventActionService.addAction(action);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	@GetMapping(value = "/add/timeline", params = { "name", "description", "eventId", "date" })
+	public boolean addTimeline(@RequestParam("name") String name, @RequestParam("description") String description,
+			@RequestParam("eventId") int eventId, @RequestParam("date") String date, HttpSession session) {
+		String username = getUsername(session);
+		SimpleDateFormat format = new SimpleDateFormat("M/d/y h:m a");
 		boolean result = false;
 		try {
-			result = this.timelineService.addTimeline(new Timeline(name, description, eventId, format.parse(date)),username);
+			result = this.timelineService.addTimeline(new Timeline(name, description, eventId, format.parse(date)),
+					username);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
 	}
-	@GetMapping(value = "/update/timeline", params = {"id","name", "description", "eventId", "date"})
-	public boolean updateTimeline(
-			@RequestParam("id") int id, 
-			@RequestParam("name") String name, 
-			@RequestParam("description") String description,
-			@RequestParam("eventId") int eventId,
-			@RequestParam("date") String date,
-			HttpSession session) {
-		String username = getUsername(session);
-		SimpleDateFormat format = new SimpleDateFormat("M/d/y h:m a");
-		boolean result = false;
-		try {
-			Date d = format.parse(date);
-			System.out.println(d.getDate() + "-"+d.getMonth() + "-" + d.getYear());
-			result = this.timelineService.updateTimeline(new Timeline(id,name, description, eventId, d),username);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-	
-//	*************************
-//	JUST FOR TEST
-//	***************************
+
+	// @GetMapping(value = "/update/timeline", params = {"id","name", "description",
+	// "eventId", "date"})
+	// public boolean updateTimeline(
+	// @RequestParam("id") int id,
+	// @RequestParam("name") String name,
+	// @RequestParam("description") String description,
+	// @RequestParam("eventId") int eventId,
+	// @RequestParam("date") String date,
+	// HttpSession session) {
+	// String username = getUsername(session);
+	// SimpleDateFormat format = new SimpleDateFormat("M/d/y h:m a");
+	// boolean result = false;
+	// try {
+	// Date d = format.parse(date);
+	// System.out.println(d.getDate() + "-"+d.getMonth() + "-" + d.getYear());
+	// result = this.timelineService.updateTimeline(new Timeline(id,name,
+	// description, eventId, d),username);
+	// } catch (ParseException e) {
+	// e.printStackTrace();
+	// }
+	// return result;
+	// }
+	//
+	// *************************
+	// JUST FOR TEST
+	// ***************************
 	private String getUsername(HttpSession session) {
 		String username = null;
 		if (session != null) {
 			Account account = (Account) session.getAttribute("account");
 			if (account == null)
 				username = "tiendat";
-		}else {
+		} else {
 			username = "tiendat";
 		}
 		return username;
 	}
-	
-	
-//	@GetMapping(value = "/delete", params= {"eventId", "username"})
-//	public EventAction deleteEvent(@RequestParam("eventId") String eventId, @RequestParam("username") String username) {
-//		int id = Integer.parseInt(eventId);
-//		eventService.delete(id);
-//		return eventActionService.addAction(new EventAction(username, id, 2, new Date()));
-//	}
-	
 
-	
-	
-	
+	// @GetMapping(value = "/delete", params= {"eventId", "username"})
+	// public EventAction deleteEvent(@RequestParam("eventId") String eventId,
+	// @RequestParam("username") String username) {
+	// int id = Integer.parseInt(eventId);
+	// eventService.delete(id);
+	// return eventActionService.addAction(new EventAction(username, id, 2, new
+	// Date()));
+	// }
+
 }

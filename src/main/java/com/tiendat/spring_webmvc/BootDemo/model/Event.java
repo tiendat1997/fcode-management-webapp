@@ -24,6 +24,20 @@ public class Event {
 	private String description;
 	private boolean notPublic;
 
+	
+	
+	public Event() {
+		super();
+	}
+	public Event(int eventId, String name, Date dateStart, Date dateEnd, String description, boolean notPublic) {
+		super();
+		this.eventId = eventId;
+		this.name = name;
+		this.dateStart = dateStart;
+		this.dateEnd = dateEnd;
+		this.description = description;
+		this.notPublic = notPublic;
+	}
 	public boolean isNotPublic() {
 		return notPublic;
 	}
