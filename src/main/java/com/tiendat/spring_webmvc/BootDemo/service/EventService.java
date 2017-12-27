@@ -3,27 +3,27 @@ package com.tiendat.spring_webmvc.BootDemo.service;
 import java.util.List;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Event;
-import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
+import com.tiendat.spring_webmvc.BootDemo.model.EventInformation;
 
 public interface EventService {
 
-	List<Event> findAllEvent();
+	List<EventInformation> findAllEvent();
 
-	List<Event> findEventByName(String name);
+	List<EventInformation> findEventByName(String name);
 
-	List<Event> findAllPublicEvent();
+	List<EventInformation> findAllPublicEvent();
 	
-	List<Event> findOldEvent();
+	List<EventInformation> findOldEvent();
 	
-	List<Event> findCurrentEvent();
+	List<EventInformation> findCurrentEvent();
 	
-	List<Event> findUpcomingEvent();
+	List<EventInformation> findUpcomingEvent();
 
-	Event findEventById(int eventId);
+	EventInformation findEventById(int eventId);
 
-	Event insertEvent(Event event);
+	Event insertEvent(Event event, String username);
 
-	Event update(Event event);
+	Event update(Event event, String username);
 
 	int delete(int eventId);
 	

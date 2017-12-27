@@ -7,12 +7,26 @@ public class EventInformation {
 
 	private int eventId;
 	private String name;
-	private Date dateStart;
-	private Date dateEnd;
+	private String dateStart;
+	private String dateEnd;
 	private String description;
 	private boolean notPublic;
 	
 	private List<Timeline> timelines;
+
+	
+	
+	public EventInformation(int eventId, String name, String dateStart, String dateEnd, String description,
+			boolean notPublic, List<Timeline> timelines) {
+		super();
+		this.eventId = eventId;
+		this.name = name;
+		this.dateStart = dateStart;
+		this.dateEnd = dateEnd;
+		this.description = description;
+		this.notPublic = notPublic;
+		this.timelines = timelines;
+	}
 
 	public int getEventId() {
 		return eventId;
@@ -30,19 +44,19 @@ public class EventInformation {
 		this.name = name;
 	}
 
-	public Date getDateStart() {
+	public String getDateStart() {
 		return dateStart;
 	}
 
-	public void setDateStart(Date dateStart) {
+	public void setDateStart(String dateStart) {
 		this.dateStart = dateStart;
 	}
 
-	public Date getDateEnd() {
+	public String getDateEnd() {
 		return dateEnd;
 	}
 
-	public void setDateEnd(Date dateEnd) {
+	public void setDateEnd(String dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 

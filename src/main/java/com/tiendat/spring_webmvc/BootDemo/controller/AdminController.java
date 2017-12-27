@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Account;
-import com.tiendat.spring_webmvc.BootDemo.model.Event;
+import com.tiendat.spring_webmvc.BootDemo.model.EventInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
 import com.tiendat.spring_webmvc.BootDemo.service.AccountService;
 import com.tiendat.spring_webmvc.BootDemo.service.EventService;
@@ -91,7 +91,7 @@ public class AdminController {
 	}
 	@GetMapping(value = "/event/edit", params = {"eventId"})
 	public ModelAndView editEventPage(@RequestParam("eventId") Integer eventId) {
-			Event event = this.eventService.findEventById(eventId); 
+			EventInformation event = this.eventService.findEventById(eventId); 
 			List<Timeline> timelines = this.timelineSerivce.getEventTimeline(eventId);
 			
 			ModelAndView mv = new ModelAndView("adminEventEdit");
