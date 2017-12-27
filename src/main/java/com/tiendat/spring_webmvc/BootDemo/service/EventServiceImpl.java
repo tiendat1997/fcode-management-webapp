@@ -31,6 +31,9 @@ public class EventServiceImpl implements EventService{
 	@Autowired
 	private EventActionRepository eventActionRepository;
 	
+	@Autowired
+	private TimelineService timelineService;
+	
 	private EventInformation getAllInfomation(Event event) {
 		SimpleDateFormat format = new SimpleDateFormat("M/d/y");
 		return new EventInformation(
@@ -40,7 +43,7 @@ public class EventServiceImpl implements EventService{
 				format.format(event.getDateEnd()), 
 				event.getDescription(), 
 				event.isNotPublic(), 
-				timelineRepository.findByEventId(event.getEventId()));
+				timelineService.getEventTimeline(event.getEventId()));
 	}
 	
 	private List<EventInformation> getAllListInfomation(List<Event> events){

@@ -18,6 +18,7 @@ import com.tiendat.spring_webmvc.BootDemo.model.Account;
 import com.tiendat.spring_webmvc.BootDemo.model.Event;
 import com.tiendat.spring_webmvc.BootDemo.model.EventInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
+import com.tiendat.spring_webmvc.BootDemo.model.TimelineInformation;
 import com.tiendat.spring_webmvc.BootDemo.service.EventService;
 import com.tiendat.spring_webmvc.BootDemo.service.TimelineService;
 
@@ -72,7 +73,7 @@ public class EventController {
 	}
 
 	@GetMapping(value = "/get/timeline", params = { "eventId" })
-	public List<Timeline> getEventTimeline(@RequestParam("eventId") int eventId) {
+	public List<TimelineInformation> getEventTimeline(@RequestParam("eventId") int eventId) {
 		return this.timelineService.getEventTimeline(eventId);
 	}
 

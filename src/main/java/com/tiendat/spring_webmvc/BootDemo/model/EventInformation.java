@@ -12,12 +12,12 @@ public class EventInformation {
 	private String description;
 	private boolean notPublic;
 	
-	private List<Timeline> timelines;
+	private List<TimelineInformation> timelines;
 
 	
 	
 	public EventInformation(int eventId, String name, String dateStart, String dateEnd, String description,
-			boolean notPublic, List<Timeline> timelines) {
+			boolean notPublic, List<TimelineInformation> timelines) {
 		super();
 		this.eventId = eventId;
 		this.name = name;
@@ -76,13 +76,14 @@ public class EventInformation {
 		this.notPublic = notPublic;
 	}
 
-	public List<Timeline> getTimelines() {
+	public List<TimelineInformation> getTimelines() {
 		return timelines;
 	}
 
-	public void setTimelines(List<Timeline> timelines) {
+	public void setTimelines(List<TimelineInformation> timelines) {
 		this.timelines = timelines;
 	}
+
 	
 	
 	
