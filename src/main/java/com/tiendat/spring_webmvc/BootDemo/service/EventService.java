@@ -25,6 +25,6 @@ public interface EventService {
 
 	boolean update(Event event, String username);
 
-	int delete(int eventId);
+	boolean delete(int eventId, String username);
 	
 }

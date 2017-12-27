@@ -175,6 +175,14 @@ public class EventController {
 		return FAIL;
 	}
 	
+	@GetMapping(value = "/delete/event", params= {"eventId"})
+	public String deleteEvent(@RequestParam("eventId") int eventId, HttpSession session) {
+		String username = this.getUsername(session);
+		boolean result = this.eventService.delete(eventId, username);
+		if (result)
+			return SUCCESS;
+		return FAIL;
+	}
 	// *************************
 	// JUST FOR TEST
 	// ***************************

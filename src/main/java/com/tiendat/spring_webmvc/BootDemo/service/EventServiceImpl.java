@@ -126,8 +126,12 @@ public class EventServiceImpl implements EventService{
 
 
 	@Override
-	public int delete(int eventId) {
-		return eventRepository.deleteByEventId(eventId); 
+	public boolean delete(int eventId, String username) {
+		EventAction action = new EventAction(username, eventId, 2, new java.util.Date());
+		Long result = eventRepository.deleteByEventId(eventId);
+		if (result > 0)
+			return true;
+		return false;
 	}
 
 }
