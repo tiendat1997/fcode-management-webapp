@@ -33,11 +33,24 @@ public class TimelineServiceImpl implements TimelineService{
 		return this.timelineRepository.findByEventId(eventId);
 	}
 
+	private boolean isValidDateStarDateEnd(Timeline timeline) {
+		Event event = eventRepository.findByEventId(timeline.getEventId());
+		long eStart = event.getDateStart().getTime();
+		long eEnd = event.getDateEnd().getTime();
+		long tStart = timeline.getDateStart().getTime();
+		long tEnd = timeline.getDateEnd().getTime();
+		if(eStart < tStart && eEnd > tStart)
+			if (eStart < tEnd && eEnd > tEnd)
+				if (tStart < tEnd)
+					return true;
+		
+		
+		return false;
+	}
+	
 	@Override
 	public boolean addTimeline(Timeline timeline, String username) {
-		Event event = eventRepository.findByEventId(timeline.getEventId());
-		long t = timeline.getDate().getTime();
-		if (t >= event.getDateStart().getTime() && t <= event.getDateEnd().getTime()) {
+		if (isValidDateStarDateEnd(timeline)) {
 			timelineRepository.save(timeline);
 			timelineActionRepository.save(new TimelineAction(timeline.getId(), username, new Date(), 1));
 			return true;
@@ -50,10 +63,7 @@ public class TimelineServiceImpl implements TimelineService{
 	
 	@Override
 	public boolean updateTimeline(Timeline timeline, String username) {
-		
-		Event event = eventRepository.findByEventId(timeline.getEventId());
-		long t = timeline.getDate().getTime();
-		if (t >= event.getDateStart().getTime() && t <= event.getDateEnd().getTime()) {
+		if (isValidDateStarDateEnd(timeline)){
 			timelineRepository.save(timeline);
 			timelineActionRepository.save(new TimelineAction(timeline.getId(), username, new Date(), 3));
 			return true;

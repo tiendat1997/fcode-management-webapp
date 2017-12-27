@@ -95,8 +95,8 @@ public class EventController {
 		try {
 			dStart = format.parse(dateStart);
 			dEnd = format.parse(dateEnd);
-			Event event = new Event(eventId, username, new Date(dStart.getTime()), new Date(dEnd.getTime()), description,
-					notPublic);
+			Event event = new Event(eventId, username, new Date(dStart.getTime()), new Date(dEnd.getTime()),
+					description, notPublic);
 			Event e = this.eventService.update(event);
 			EventAction action = new EventAction(username, e.getEventId(), 3, new java.util.Date());
 			return this.eventActionService.addAction(action);
@@ -104,49 +104,42 @@ public class EventController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		return null;
 	}
 
-	@GetMapping(value = "/add/timeline", params = { "name", "description", "eventId", "date" })
+	@GetMapping(value = "/add/timeline", params = { "name", "description", "eventId", "dateStart", "dateEnd" })
 	public boolean addTimeline(@RequestParam("name") String name, @RequestParam("description") String description,
-			@RequestParam("eventId") int eventId, @RequestParam("date") String date, HttpSession session) {
+			@RequestParam("eventId") int eventId, @RequestParam("dateStart") String dateStart,
+			@RequestParam("dateEnd") String dateEnd, HttpSession session) {
 		String username = getUsername(session);
 		SimpleDateFormat format = new SimpleDateFormat("M/d/y h:m a");
 		boolean result = false;
 		try {
-			result = this.timelineService.addTimeline(new Timeline(name, description, eventId, format.parse(date)),
-					username);
+			result = this.timelineService.addTimeline(
+					new Timeline(name, description, eventId, format.parse(dateStart), format.parse(dateEnd)), username);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
 	}
 
-	// @GetMapping(value = "/update/timeline", params = {"id","name", "description",
-	// "eventId", "date"})
-	// public boolean updateTimeline(
-	// @RequestParam("id") int id,
-	// @RequestParam("name") String name,
-	// @RequestParam("description") String description,
-	// @RequestParam("eventId") int eventId,
-	// @RequestParam("date") String date,
-	// HttpSession session) {
-	// String username = getUsername(session);
-	// SimpleDateFormat format = new SimpleDateFormat("M/d/y h:m a");
-	// boolean result = false;
-	// try {
-	// Date d = format.parse(date);
-	// System.out.println(d.getDate() + "-"+d.getMonth() + "-" + d.getYear());
-	// result = this.timelineService.updateTimeline(new Timeline(id,name,
-	// description, eventId, d),username);
-	// } catch (ParseException e) {
-	// e.printStackTrace();
-	// }
-	// return result;
-	// }
-	//
+	@GetMapping(value = "/update/timeline", params = { "id", "name", "description", "eventId", "dateStart","dateEnd" })
+	public boolean updateTimeline(@RequestParam("id") int id, @RequestParam("name") String name,
+			@RequestParam("description") String description, @RequestParam("eventId") int eventId,
+			@RequestParam("dateStart") String dateStart, @RequestParam("dateEnd") String dateEnd, HttpSession session) {
+		String username = getUsername(session);
+		SimpleDateFormat format = new SimpleDateFormat("M/d/y h:m a");
+		boolean result = false;
+		try {
+			
+			result = this.timelineService.updateTimeline(new Timeline(id, name, description, eventId, format.parse(dateStart),format.parse(dateEnd)), username);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	// *************************
 	// JUST FOR TEST
 	// ***************************

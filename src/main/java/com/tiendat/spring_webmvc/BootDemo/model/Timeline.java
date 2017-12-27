@@ -20,34 +20,35 @@ public class Timeline {
 	private String description;
 	private int eventId;
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date date;
+	private Date dateStart;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateEnd;
 	
-	
-
 	public Timeline() {
 		super();
 	}
+	
+	public Timeline(String name, String description, int eventId, Date dateStart, Date dateEnd) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.eventId = eventId;
+		this.dateStart = dateStart;
+		this.dateEnd = dateEnd;
+	}
 
-	
-	
-	public Timeline(int id, String name, String description, int eventId, Date date) {
+	public Timeline(int id, String name, String description, int eventId, Date dateStart, Date dateEnd) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.eventId = eventId;
-		this.date = date;
+		this.dateStart = dateStart;
+		this.dateEnd = dateEnd;
 	}
 
 
 
-	public Timeline(String name, String description, int eventId, Date date) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.eventId = eventId;
-		this.date = date;
-	}
 
 	public int getId() {
 		return id;
@@ -81,12 +82,20 @@ public class Timeline {
 		this.eventId = eventId;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getDateStart() {
+		return dateStart;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDateStart(Date dateStart) {
+		this.dateStart = dateStart;
+	}
+
+	public Date getDateEnd() {
+		return dateEnd;
+	}
+
+	public void setDateEnd(Date dateEnd) {
+		this.dateEnd = dateEnd;
 	}
 
 	public static long getSerialversionuid() {

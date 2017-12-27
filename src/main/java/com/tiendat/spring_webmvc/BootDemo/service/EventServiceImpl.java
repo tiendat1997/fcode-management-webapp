@@ -36,7 +36,7 @@ public class EventServiceImpl implements EventService{
 	public Event insertEvent(Event event) {
 		Event e = eventRepository.saveAndFlush(event);
 		//add default timeline for event
-		Timeline timeline = new Timeline(event.getName(),"",event.getEventId(),event.getDateStart());
+		Timeline timeline = new Timeline(event.getName(),"",event.getEventId(),event.getDateStart(),event.getDateEnd());
 		timelineRepository.save(timeline);
 		return e;
 	}
