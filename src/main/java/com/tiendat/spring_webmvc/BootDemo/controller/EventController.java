@@ -105,8 +105,7 @@ public class EventController {
 			@RequestParam("dateStart") String dateStart, @RequestParam("dateEnd") String dateEnd,
 			@RequestParam("description") String description, @RequestParam("notPublic") boolean notPublic,
 			HttpSession session) {
-		System.out
-				.println(eventId + "-" + name + "-" + dateStart + "-" + dateEnd + "-" + description + "-" + notPublic);
+		
 		String username = getUsername(session);
 		SimpleDateFormat format = new SimpleDateFormat("M/d/y");
 		java.util.Date dStart, dEnd;
