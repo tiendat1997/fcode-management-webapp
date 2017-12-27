@@ -166,6 +166,15 @@ public class EventController {
 		return this.timelineService.getById(id);
 	}
 	
+	@GetMapping(value = "/delete/timeline", params= {"id"})
+	public String deleteTimeline(@RequestParam("id") int id, HttpSession session) {
+		String username = this.getUsername(session);
+		boolean result = this.timelineService.deleteTimeline(id, username);
+		if (result)
+			return SUCCESS;
+		return FAIL;
+	}
+	
 	// *************************
 	// JUST FOR TEST
 	// ***************************

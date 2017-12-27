@@ -92,6 +92,12 @@ public class TimelineServiceImpl implements TimelineService {
 
 	@Override
 	public boolean deleteTimeline(int id, String username) {
+		Long result = this.timelineRepository.deleteById(id);
+		if (result > 0) {
+			timelineActionRepository.save(new TimelineAction(id, username, new Date(), 2));
+			return true;
+		}
+			
 		return false;
 	}
 
