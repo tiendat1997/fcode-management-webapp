@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Account;
+import com.tiendat.spring_webmvc.BootDemo.model.Event;
 import com.tiendat.spring_webmvc.BootDemo.model.EventInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
+import com.tiendat.spring_webmvc.BootDemo.model.TimelineInformation;
 import com.tiendat.spring_webmvc.BootDemo.service.AccountService;
 import com.tiendat.spring_webmvc.BootDemo.service.EventService;
 import com.tiendat.spring_webmvc.BootDemo.service.TimelineService;
@@ -99,8 +101,20 @@ public class AdminController {
 			return mv; 			
 	}
 	
-	
-	
+	@GetMapping(value = "/timeline/edit", params = {"id"})
+	public ModelAndView editTimelinePage(@RequestParam("id") int id) {
+		ModelAndView mv = new ModelAndView("adminTimelineEdit");
+		
+		TimelineInformation timeline = this.timelineSerivce.getById(id);
+		EventInformation event = this.eventService.findEventById(timeline.getEventId());
+		
+		mv.addObject("event", event);
+		mv.addObject("timeline", timeline);
+		
+		
+		
+		return mv;
+	}
 	
 	@GetMapping(value = "/project")
 	public String getProjectPage(ModelMap modelMap) {

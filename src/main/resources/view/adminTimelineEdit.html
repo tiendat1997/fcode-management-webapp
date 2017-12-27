@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit timeline</title>
+<th:block th:include="fragments/adminUtil :: header"></th:block>
+<link rel="stylesheet" th:href="@{/css/mdbCard.css}"/>
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+<link rel="stylesheet" th:href="@{/vendor/datetimepicker/css/daterangepicker.css}" />
+<link rel="stylesheet" th:href="@{/css/adminTimlineEdit.css}"/>
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+</head>
+<body>
+	<header>
+		<th:block th:include="fragments/adminUtil :: nav-fragment"></th:block>			
+	</header>
+	<main>
+		<div id="page-wrapper">
+			<div class="container-fluid">
+				<div class="row">					
+					<th:block th:include="fragments/adminUtil :: sidebar-fragment"></th:block>																	
+					<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+						<div class="row">
+							<div class="col-md-12">
+								<h1 class="page-header">Edit Timeline</h1>
+							</div>
+						</div>
+						<div class="row">		
+							<div class="col-md-12">
+								<a type="submit" class="btn btn-unique btn-sm" th:href="@{/admin/event/edit(eventId=${event.eventId})}">
+									<i class="fa fa-arrow-left mr-1"></i>Back 
+								</a>
+							</div>					
+														
+						</div>
+		
+						<div class="row">
+									
+						<div class="col-md-8">														
+								<div class="card testimonial-card">									
+									<div class="card-body">
+										<form id="form-timeline">
+											<div class="row">
+											    	<input id="timelineId" th:value="${timeline.id}"  style="display:none"/>										    	
+											    	<input id="eventId" th:value="${timeline.eventId}"] style="display:none"/>
+											    	<div class="col-md-12">
+														<div class="md-form form-group">
+													    	<i class="fa fa-calendar prefix grey-text"></i>
+									                        <input
+									                        	th:value="${timeline.dateStart + ' - ' + timeline.dateEnd}" 
+									                        	type="text" class="form-control" id="datetime" placeholder="Select value">
+									                        <label for="form3">Datetime</label>
+									                    </div>
+									                    <div class="md-form">
+													        <i class="fa fa-user-o prefix grey-text"></i>
+													        <input
+													        	id="timelineName" 
+													        	type="text" class="form-control" 
+													        	th:value="${timeline.name}">
+													        <label for="form3">Timeline Name</label>
+													    </div>
+													    <div class="md-form">
+													     	<i class="fa fa-pencil prefix grey-text"></i>
+													    	<textarea type="text" 													    		
+													    		id="timelinetDescription" 
+												    			class="md-textarea validate"
+												    			th:field="${timeline.description}"								    			 								    														    															    		
+												    			rows="2">								    												    	
+													    	</textarea>
+													    	<label for="">Description</label>
+														</div>								
+													</div>																			    									
+											    </div>		
+											     <div class="text-center">
+												        <button type="button" class="btn btn-unique" 
+												        		id="btn-update-timeline">
+												        	Update <i class="fa fa-paper-plane-o ml-1"></i>
+											        	</button>
+											    	</div>														    
+										</form>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">												
+								<div class="card testimonial-card">
+									 <!--Bacground color-->
+								    <div class="card-up indigo lighten-1">
+								    </div>
+								
+								    <!--Avatar-->
+								    <div class="avatar"><img th:src="${event.eventCategory.imgUrl}" class="rounded-circle">
+								    </div>
+								    
+								    
+								    <div class="card-body">
+								    	<div class="md-form">
+									        <i class="fa fa-superpowers prefix grey-text"></i>
+									        <input
+									         	type="text" 
+									         	id="form3" class="form-control" 
+									         	th:value="${event.name}"												         	
+									         	disabled="disabled"
+									         	>
+									        <label for="form3">Event Name</label>
+									    </div>	
+									    <div class="md-form">
+									        <i class="fa fa-step-forward prefix grey-text"></i>
+									        <input
+									         	type="text" 
+									         	id="form3" class="form-control" 
+									         	th:value="${event.dateStart}"												         	
+									         	disabled="disabled"
+									         	>
+									        <label for="form3">Date Start</label>									        
+									    </div>		
+									     <div class="md-form">
+									        <i class="fa fa-stop-circle prefix grey-text"></i>
+									        <input
+									         	type="text" 
+									         	id="form3" class="form-control" 
+									         	th:value="${event.dateEnd}"												         	
+									         	disabled="disabled"
+									         	>
+									        <label for="form3">End Date</label>									        
+									    </div>										
+								    </div>							    								
+								</div>										
+						</div>						
+					</div>
+				</div>
+				
+
+
+			</div>
+		</div>
+	</main>
+	<footer></footer>
+    <!-- Custom Theme JavaScript -->
+    <th:block th:include="fragments/adminUtil :: scriptHeader"></th:block>
+    <script th:src="@{/vendor/datetimepicker/js/moment.min.js}"></script>
+    <script th:src="@{/vendor/datetimepicker/js/daterangepicker.js}"></script>
+    
+	<script th:src="@{/js/adminTimelineEdit.js}"></script>	
+</body>
+</html>

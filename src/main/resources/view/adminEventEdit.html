@@ -24,40 +24,56 @@
                 </button>
 	      </div>
 	      <div class="modal-body mx-3">
-	        	<form id="form-new-member" class="" method="post" action="">	        		
-					<input type="reset" style="display: none"/>				
-					<div class="md-form form-group">
-				    	<i class="fa fa-calendar prefix grey-text"></i>
-                        <input type="text" class="form-control" id="datetime" placeholder="Select value">
-                        <label for="form3">Datetime</label>
-                    </div>								
-	                <label class="error studentCode"></label>
-					<div class="md-form">																												
-						<i class="fa fa-lock fa-lg prefix grey-text" aria-hidden="true"></i>
-						<input type="text" class="form-control validate" name="" id="input-timeline-name"/>
-						<label data-error="" data-success="" for="defaultForm-email">
-							Name <span style="color:red"> ( * ) </span>
-						</label>								
+	      		<div class="col-md-6" style="margin: 0 auto">
+					<!--Panel-->
+					<div class="card">
+					    <div class="card-header primary-color lighten-1 white-text">
+					        <label class="" th:text="${event.name}"></label>
+					        <div class="" th:text="${event.dateStart + ' - ' +  event.dateEnd}"></div>
+					    </div>
+					    <div class="card-body">
+					       <form id="form-new-member" class="" method="post" action="">	        		
+								<input type="reset" style="display: none"/>				
+								<div class="md-form form-group">
+							    	<i class="fa fa-calendar prefix grey-text"></i>
+			                        <input type="text" class="form-control" id="datetime" placeholder="Select value">
+			                        <label for="form3">Datetime</label>
+			                    </div>								
+				                <label class="error studentCode"></label>
+								<div class="md-form">																												
+									<i class="fa fa-lock fa-lg prefix grey-text" aria-hidden="true"></i>
+									<input type="text" class="form-control validate" name="" id="input-timeline-name"/>
+									<label data-error="" data-success="" for="defaultForm-email">
+										Name <span style="color:red"> ( * ) </span>
+									</label>								
+								</div>
+								<div class="md-form">
+							     	<i class="fa fa-pencil prefix grey-text"></i>
+							    	<textarea type="text" 
+							    		id="eventDescription" 
+						    			class="md-textarea validate"								    			 								    		
+						    			th:field="${event.description}"
+						    			id="input-timeline-description"
+						    			rows="2">								    												    	
+							    	</textarea>
+							    	<label for="">Description</label>
+								</div>
+															
+								
+								<div class="row d-flex justify-content-center">
+									<button type="button" id="btn-new-timeline" class="btn btn-primary">Add</button>
+							        <button type="button" id="btn-close-new-timeline" class="btn btn-danger" data-dismiss="modal" aria-label="Close">                
+							        	Cancel  
+						             </button>	  
+								</div>							
+				    				    					
+							</form>
+					    </div>
 					</div>
-					
-										
-					<div class="md-form">																														
-						<i class="fa fa-user fa prefix grey-text" aria-hidden="true"></i>
-						<input type="text" class="form-control validate" name="" id="input-timeline-description"/>
-						<label data-error="" data-success="" for="defaultForm-email">
-							Description <span style="color:red"> ( * ) </span>
-						</label>								
-					</div>									
-				    
-					
-				</form>
+					<!--/.Panel-->
+	      		</div>	      		
 	      </div>
-	      <div class="modal-footer d-flex justify-content-center">
-	        <button type="button" id="btn-new-timeline" class="btn btn-primary">Add</button>
-	        <button type="button" id="btn-close-new-timeline" class="btn btn-danger" data-dismiss="modal" aria-label="Close">                
-	        	Cancel  
-             </button>	        
-	      </div>
+	      
 	    </div>
 	
 	  </div>
@@ -190,7 +206,7 @@
 									  	 			<td th:text="${timeline.dateStart}"></td>
 									  	 			<td th:text="${timeline.dateEnd}"></td>
 									  	 			<td align="center">
-									                  <a>
+									                  <a th:href="@{/admin/timeline/edit(id=${timeline.id})}">
 									                  	<i class="fa fa-pencil"></i>
 									                  </a>                 
 									                </td>
