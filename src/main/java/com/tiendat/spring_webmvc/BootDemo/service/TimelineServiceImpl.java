@@ -90,4 +90,14 @@ public class TimelineServiceImpl implements TimelineService {
 		return false;
 	}
 
+	@Override
+	public boolean deleteTimeline(int id, String username) {
+		return false;
+	}
+
+	@Override
+	public TimelineInformation getById(int id) {
+		return getAllInfomation(timelineRepository.findById(id));
+	}
+
 }

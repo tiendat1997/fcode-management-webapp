@@ -161,6 +161,11 @@ public class EventController {
 		return url;
 	}
 
+	@GetMapping(value = "/get/timeline", params= {"id"})
+	public TimelineInformation getTimelineById(@RequestParam("id") int id) {
+		return this.timelineService.getById(id);
+	}
+	
 	// *************************
 	// JUST FOR TEST
 	// ***************************
