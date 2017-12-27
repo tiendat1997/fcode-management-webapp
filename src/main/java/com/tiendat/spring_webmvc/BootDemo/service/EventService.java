@@ -21,9 +21,9 @@ public interface EventService {
 
 	EventInformation findEventById(int eventId);
 
-	Event insertEvent(Event event, String username);
+	boolean insertEvent(Event event, String username);
 
-	Event update(Event event, String username);
+	boolean update(Event event, String username);
 
 	int delete(int eventId);
 	

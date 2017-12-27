@@ -100,22 +100,23 @@ public class EventServiceImpl implements EventService{
 	}
 
 	@Override
-	public Event insertEvent(Event event, String username) {
+	public boolean insertEvent(Event event, String username) {
 		Event e = eventRepository.saveAndFlush(event);
 		//add default timeline for event
 		Timeline timeline = new Timeline(event.getName(),"",event.getEventId(),event.getDateStart(),event.getDateEnd());
 		timelineRepository.save(timeline);
 		EventAction action = new EventAction(username, e.getEventId(), 1, new java.util.Date());
 		this.eventActionRepository.save(action);
-		return e;
+		return true;
 	}
 	
 	@Override
-	public Event update(Event event, String username) {
+	public boolean update(Event event, String username) {
 		
 		EventAction action = new EventAction(username, event.getEventId(), 3, new java.util.Date());
 		this.eventActionRepository.save(action);
-		return eventRepository.save(event);
+		eventRepository.save(event);
+		return true;
 	}
 
 

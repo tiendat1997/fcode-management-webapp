@@ -28,15 +28,15 @@ public class EventController {
 
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
-	
+
 	@Autowired
 	private EventService eventService;
 
 	@Autowired
 	private TimelineService timelineService;
 
-//	************************************
-	
+	// ************************************
+
 	@GetMapping(value = "/all")
 	public List<EventInformation> getAllEvent() {
 		return this.eventService.findAllEvent();
@@ -77,27 +77,19 @@ public class EventController {
 		return this.timelineService.getEventTimeline(eventId);
 	}
 
-//	********************************
-	
+	// ********************************
+
 	@GetMapping(value = "/new", params = { "name", "dateStart", "dateEnd", "description", "notPublic" })
-	public String addEvent(
-			@RequestParam("name") String name,
-			@RequestParam("dateStart") String dateStart, 
-			@RequestParam("dateEnd") String dateEnd,
-			@RequestParam("description") String description, 
-			@RequestParam("notPublic") boolean notPublic,
-			HttpSession session) {
+	public String addEvent(@RequestParam("name") String name, @RequestParam("dateStart") String dateStart,
+			@RequestParam("dateEnd") String dateEnd, @RequestParam("description") String description,
+			@RequestParam("notPublic") boolean notPublic, HttpSession session) {
 		String username = getUsername(session);
 		SimpleDateFormat format = new SimpleDateFormat("M/d/y");
 		java.util.Date dStart, dEnd;
 		try {
 			dStart = format.parse(dateStart);
 			dEnd = format.parse(dateEnd);
-			Event event = new Event(
-					username, 
-					new Date(dStart.getTime()), 
-					new Date(dEnd.getTime()),
-					description, 
+			Event event = new Event(name, new Date(dStart.getTime()), new Date(dEnd.getTime()), description,
 					notPublic);
 			this.eventService.insertEvent(event, username);
 			return SUCCESS;
@@ -109,28 +101,21 @@ public class EventController {
 	}
 
 	@GetMapping(value = "/update", params = { "eventId", "name", "dateStart", "dateEnd", "description", "notPublic" })
-	public String updateEvent(
-			@RequestParam("eventId") int eventId, 
-			@RequestParam("name") String name,
-			@RequestParam("dateStart") String dateStart, 
-			@RequestParam("dateEnd") String dateEnd,
-			@RequestParam("description") String description, 
-			@RequestParam("notPublic") boolean notPublic,
+	public String updateEvent(@RequestParam("eventId") int eventId, @RequestParam("name") String name,
+			@RequestParam("dateStart") String dateStart, @RequestParam("dateEnd") String dateEnd,
+			@RequestParam("description") String description, @RequestParam("notPublic") boolean notPublic,
 			HttpSession session) {
+		System.out
+				.println(eventId + "-" + name + "-" + dateStart + "-" + dateEnd + "-" + description + "-" + notPublic);
 		String username = getUsername(session);
 		SimpleDateFormat format = new SimpleDateFormat("M/d/y");
 		java.util.Date dStart, dEnd;
 		try {
 			dStart = format.parse(dateStart);
 			dEnd = format.parse(dateEnd);
-			Event event = new Event(
-					eventId, 
-					username, 
-					new Date(dStart.getTime()), 
-					new Date(dEnd.getTime()),
-					description, 
-					notPublic);
-			this.eventService.update(event,username);
+			Event event = new Event(eventId, name, new Date(dStart.getTime()), new Date(dEnd.getTime()),
+					description, notPublic);
+			this.eventService.update(event, username);
 			return SUCCESS;
 		} catch (ParseException e1) {
 			e1.printStackTrace();
@@ -140,35 +125,25 @@ public class EventController {
 	}
 
 	@GetMapping(value = "/add/timeline", params = { "name", "description", "eventId", "dateStart", "dateEnd" })
-	public String addTimeline(
-			@RequestParam("name") String name, 
-			@RequestParam("description") String description,
-			@RequestParam("eventId") int eventId, 
-			@RequestParam("dateStart") String dateStart,
-			@RequestParam("dateEnd") String dateEnd, 
-			HttpSession session) {
+	public String addTimeline(@RequestParam("name") String name, @RequestParam("description") String description,
+			@RequestParam("eventId") int eventId, @RequestParam("dateStart") String dateStart,
+			@RequestParam("dateEnd") String dateEnd, HttpSession session) {
 		String username = getUsername(session);
 		SimpleDateFormat format = new SimpleDateFormat("M/d/y h:m a");
 		String url = FAIL;
 		try {
 			boolean result = this.timelineService.addTimeline(
-					new Timeline(
-							name, 
-							description, 
-							eventId, 
-							format.parse(dateStart), 
-							format.parse(dateEnd)), 
-							username);
+					new Timeline(name, description, eventId, format.parse(dateStart), format.parse(dateEnd)), username);
 			if (result)
 				url = SUCCESS;
-				
+
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return url;
 	}
 
-	@GetMapping(value = "/update/timeline", params = { "id", "name", "description", "eventId", "dateStart","dateEnd" })
+	@GetMapping(value = "/update/timeline", params = { "id", "name", "description", "eventId", "dateStart", "dateEnd" })
 	public String updateTimeline(@RequestParam("id") int id, @RequestParam("name") String name,
 			@RequestParam("description") String description, @RequestParam("eventId") int eventId,
 			@RequestParam("dateStart") String dateStart, @RequestParam("dateEnd") String dateEnd, HttpSession session) {
@@ -176,16 +151,10 @@ public class EventController {
 		SimpleDateFormat format = new SimpleDateFormat("M/d/y h:m a");
 		String url = FAIL;
 		try {
-			
+
 			boolean result = this.timelineService.updateTimeline(
-					new Timeline(
-							id, 
-							name, 
-							description, 
-							eventId, 
-							format.parse(dateStart),
-							format.parse(dateEnd)), 
-							username);
+					new Timeline(id, name, description, eventId, format.parse(dateStart), format.parse(dateEnd)),
+					username);
 			if (result)
 				url = SUCCESS;
 		} catch (ParseException e) {
@@ -194,8 +163,6 @@ public class EventController {
 		return url;
 	}
 
-	
-	
 	// *************************
 	// JUST FOR TEST
 	// ***************************
