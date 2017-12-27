@@ -15,6 +15,7 @@ import com.tiendat.spring_webmvc.BootDemo.model.EventAction;
 import com.tiendat.spring_webmvc.BootDemo.model.EventInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
 import com.tiendat.spring_webmvc.BootDemo.respository.EventActionRepository;
+import com.tiendat.spring_webmvc.BootDemo.respository.EventCategoryRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.EventRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.TimelineRepository;
 
@@ -34,6 +35,9 @@ public class EventServiceImpl implements EventService{
 	@Autowired
 	private TimelineService timelineService;
 	
+	@Autowired
+	private EventCategoryRepository eventCategoryRepository;
+	
 	private EventInformation getAllInfomation(Event event) {
 		SimpleDateFormat format = new SimpleDateFormat("M/d/y");
 		return new EventInformation(
@@ -43,6 +47,7 @@ public class EventServiceImpl implements EventService{
 				format.format(event.getDateEnd()), 
 				event.getDescription(), 
 				event.isNotPublic(), 
+				eventCategoryRepository.findById(event.getCategoryId()),
 				timelineService.getEventTimeline(event.getEventId()));
 	}
 	

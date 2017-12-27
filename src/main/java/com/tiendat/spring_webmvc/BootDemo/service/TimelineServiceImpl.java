@@ -34,13 +34,8 @@ public class TimelineServiceImpl implements TimelineService {
 
 	private TimelineInformation getAllInfomation(Timeline timeline) {
 		SimpleDateFormat format = new SimpleDateFormat("M/d/y h:m a");
-		return new TimelineInformation(
-				timeline.getId(), 
-				timeline.getName(), 
-				timeline.getDescription(),
-				timeline.getEventId(), 
-				format.format(timeline.getDateStart()), 
-				format.format(timeline.getDateEnd()));
+		return new TimelineInformation(timeline.getId(), timeline.getName(), timeline.getDescription(),
+				timeline.getEventId(), format.format(timeline.getDateStart()), format.format(timeline.getDateEnd()));
 	}
 
 	private List<TimelineInformation> getAllListInfomation(List<Timeline> timelines) {

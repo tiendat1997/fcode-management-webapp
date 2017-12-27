@@ -79,18 +79,17 @@ public class EventController {
 
 	// ********************************
 
-	@GetMapping(value = "/new", params = { "name", "dateStart", "dateEnd", "description", "notPublic" })
+	@GetMapping(value = "/new", params = { "name", "dateStart", "dateEnd", "description", "notPublic", "categoryId" })
 	public String addEvent(@RequestParam("name") String name, @RequestParam("dateStart") String dateStart,
 			@RequestParam("dateEnd") String dateEnd, @RequestParam("description") String description,
-			@RequestParam("notPublic") boolean notPublic, HttpSession session) {
+			@RequestParam("notPublic") boolean notPublic, @RequestParam("categoryId") int categoryId, HttpSession session) {
 		String username = getUsername(session);
 		SimpleDateFormat format = new SimpleDateFormat("M/d/y");
 		java.util.Date dStart, dEnd;
 		try {
 			dStart = format.parse(dateStart);
 			dEnd = format.parse(dateEnd);
-			Event event = new Event(name, new Date(dStart.getTime()), new Date(dEnd.getTime()), description,
-					notPublic);
+			Event event = new Event(name, new Date(dStart.getTime()), new Date(dEnd.getTime()), description, notPublic,categoryId);
 			this.eventService.insertEvent(event, username);
 			return SUCCESS;
 		} catch (ParseException e1) {
@@ -104,16 +103,16 @@ public class EventController {
 	public String updateEvent(@RequestParam("eventId") int eventId, @RequestParam("name") String name,
 			@RequestParam("dateStart") String dateStart, @RequestParam("dateEnd") String dateEnd,
 			@RequestParam("description") String description, @RequestParam("notPublic") boolean notPublic,
-			HttpSession session) {
-		
+			@RequestParam("categoryId") int categoryId, HttpSession session) {
+
 		String username = getUsername(session);
 		SimpleDateFormat format = new SimpleDateFormat("M/d/y");
 		java.util.Date dStart, dEnd;
 		try {
 			dStart = format.parse(dateStart);
 			dEnd = format.parse(dateEnd);
-			Event event = new Event(eventId, name, new Date(dStart.getTime()), new Date(dEnd.getTime()),
-					description, notPublic);
+			Event event = new Event(eventId, name, new Date(dStart.getTime()), new Date(dEnd.getTime()), description,
+					notPublic,categoryId);
 			this.eventService.update(event, username);
 			return SUCCESS;
 		} catch (ParseException e1) {

@@ -24,23 +24,28 @@ public class Event {
 	private Date dateEnd;
 	private String description;
 	private boolean notPublic;
+	private int categoryId;
 
 	public Event() {
 		super();
 	}
 
-	public Event(String name, Date dateStart, Date dateEnd, String description, boolean notPublic) {
+	
+
+	public Event(String name, Date dateStart, Date dateEnd, String description, boolean notPublic, int categoryId) {
 		super();
 		this.name = name;
 		this.dateStart = dateStart;
 		this.dateEnd = dateEnd;
 		this.description = description;
 		this.notPublic = notPublic;
+		this.categoryId = categoryId;
 	}
-	
-	
 
-	public Event(int eventId, String name, Date dateStart, Date dateEnd, String description, boolean notPublic) {
+
+
+	public Event(int eventId, String name, Date dateStart, Date dateEnd, String description, boolean notPublic,
+			int categoryId) {
 		super();
 		this.eventId = eventId;
 		this.name = name;
@@ -48,7 +53,22 @@ public class Event {
 		this.dateEnd = dateEnd;
 		this.description = description;
 		this.notPublic = notPublic;
+		this.categoryId = categoryId;
 	}
+
+
+
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+
+
 
 	public boolean isNotPublic() {
 		return notPublic;

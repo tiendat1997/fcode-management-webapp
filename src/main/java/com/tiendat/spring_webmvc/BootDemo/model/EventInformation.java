@@ -12,12 +12,15 @@ public class EventInformation {
 	private String description;
 	private boolean notPublic;
 	
+	private EventCategory eventCategory;
 	private List<TimelineInformation> timelines;
 
 	
 	
+	
+
 	public EventInformation(int eventId, String name, String dateStart, String dateEnd, String description,
-			boolean notPublic, List<TimelineInformation> timelines) {
+			boolean notPublic, EventCategory eventCategory, List<TimelineInformation> timelines) {
 		super();
 		this.eventId = eventId;
 		this.name = name;
@@ -25,6 +28,7 @@ public class EventInformation {
 		this.dateEnd = dateEnd;
 		this.description = description;
 		this.notPublic = notPublic;
+		this.eventCategory = eventCategory;
 		this.timelines = timelines;
 	}
 
@@ -82,6 +86,14 @@ public class EventInformation {
 
 	public void setTimelines(List<TimelineInformation> timelines) {
 		this.timelines = timelines;
+	}
+
+	public EventCategory getEventCategory() {
+		return eventCategory;
+	}
+
+	public void setEventCategory(EventCategory eventCategory) {
+		this.eventCategory = eventCategory;
 	}
 
 	
