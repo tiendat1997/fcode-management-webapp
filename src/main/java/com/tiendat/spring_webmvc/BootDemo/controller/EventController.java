@@ -79,7 +79,7 @@ public class EventController {
 
 //	********************************
 	
-	@GetMapping(value = "/update", params = { "name", "dateStart", "dateEnd", "description", "notPublic" })
+	@GetMapping(value = "/new", params = { "name", "dateStart", "dateEnd", "description", "notPublic" })
 	public String addEvent(
 			@RequestParam("name") String name,
 			@RequestParam("dateStart") String dateStart, 
