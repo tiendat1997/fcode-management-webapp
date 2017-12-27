@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
 <link rel="stylesheet" th:href="@{/vendor/datetimepicker/css/daterangepicker.css}" />
 <link rel="stylesheet" th:href="@{/css/adminEventEdit.css}"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"/>
 </head>
 <body>
 	<!-- Modal -->
@@ -72,40 +73,70 @@
 							<div class="col-md-12">
 								<h1 class="page-header">Update Event</h1>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<a type="submit" class="btn btn-unique btn-sm" href="#">
-									<i class="fa fa-arrow-left mr-1"></i>Back 
-								</a>
-							</div>
-							 
-						</div>
+						</div>					
 						<div class="row">
 							<div class="col-md-4">								
-								<div  th:object="${event}" class="card testimonial-card">
+								<div  th:object="${event}" class="card testimonial-card" id="card-event">
 									 <!--Bacground color-->
 								    <div class="card-up" style="height: 50px">
-								    	Event									   
+								    	<div>
+											<a type="submit" class="btn btn-unique btn-sm" href="/admin/event">
+												<i class="fa fa-arrow-left mr-1"></i>Back 
+											</a>
+										</div>											   
 								    </div>								    								
 																	   
 								    <div class="card-body">
+								    	
 								    	<div class="form-group md-form">
+								    		<input id="eventId" style="display: none" th:value="${event.eventId}"></input>
 								    		<i class="fa fa-calendar prefix grey-text"></i>
-                                        	<input type="text" class="form-control" id="daterange" placeholder="Select value">
+                                        	<input type="text" class="form-control"
+                                        			th:value="${event.dateStart + ' - ' + event.dateEnd}" 
+                                        			id="daterange" placeholder="Select value">
                                         	<label for="form3">Date</label>
                                     	</div>		
 								    	<div class="md-form">
 									        <i class="fa fa-universal-access prefix grey-text"></i>
 									        <input 
 									         	type="text" 
-									         	id="form3" class="form-control" 
+									         	id="eventName" class="form-control" 
 									         	th:value="${event.name}"												         										         	
 									         	>
-									        <label for="form3">Event Name</label>
+									        <label for="">Event Name</label>
 									    </div>		
+									    <div class="md-form">
+									     	<i class="fa fa-pencil prefix grey-text"></i>
+									    	<textarea type="text" 
+									    		id="eventDescription" 
+								    			class="md-textarea"								    			 								    		
+								    			th:field="${event.description}"
+								    			style="height: 100px">								    												    	
+									    	</textarea>
+									    	<label for="">Description</label>
+									    </div>
+									    <div class="form-group">									    	
+									    	<div class="pretty p-icon p-rotate" style="margin-left: 3rem">
+									    		<div th:if="${event.notPublic}">
+									    			<input type="checkbox" id="cb-public" />
+											        <div class="state p-success">
+											            <i class="icon mdi mdi-check"></i>
+											            <label>Public</label>
+											        </div>
+									    		</div>
+									    		
+									    		<div th:unless="${event.notPublic}">
+									    			<input type="checkbox" id="cb-public" checked="checked"/>
+											        <div class="state p-success">
+											            <i class="icon mdi mdi-check"></i>
+											            <label>Public</label>
+											        </div>
+									    		</div>
+										        
+										    </div>
+									    </div>
 									      <div class="text-center">
-										        <button type="submit" class="btn btn-unique">
+										        <button type="button" class="btn btn-unique" id="btn-update-event">
 										        	Update <i class="fa fa-paper-plane-o ml-1"></i>
 										        </button>										        
 										  </div>
@@ -113,55 +144,59 @@
 									    							   									  	    							   
 								    </div>
 								</div>	
-								<div>
-								</div>							
+												
 							</div>			
 							<div class="col-md-8">
-								 <div class="cart-up" style="height: 50px">
-								 	<div class="row" >
-								 		<div class="col-md-12 text-right">
-								 			<button class="btn btn-primary" 
-								 					data-toggle="modal" 
-													data-target="#addNewModal">
-								 				Add New
-								 			</button>
-								 		</div>
-								 	</div>
-								 </div>
-								  <div class="card-body" th:object="${timelines}">
-								  	 <table class="table table-hover">
-								  	 	<thead>
-								  	 		<tr>
-									  	 		<th>NAME</th>
-									  	 		<th>Datetime</th>
-									  	 		<th>Edit</th>
-									  	 		<th>Delete</th>									  	 						  	 		
-									  	 	</tr>
-								  	 	</thead>
-								  	 	<tbody>
-								  	 		<tr th:each="timeline : ${timelines}">
-								  	 			<td th:text="${timeline.name}"></td>
-								  	 			<td th:text="${timeline.date}"></td>
-								  	 			<td align="center">
-								                  <a>
-								                  	<i class="fa fa-pencil"></i>
-								                  </a>                 
-								                </td>
-								                <td align="center">
-								                	<a> 		                  		  				  							  														  								
-									                  	<i									                  		
-									                  		class="fa fa-trash">
-									                  	</i>
-								                  	</a>
-								                </td>								  	 		
-								  	 		<tr>
-								  	 	</tbody>
-								  	 	
-								  	 	
-								  	 </table>
-								  	
-								  </div>	
+								<div class="card testimonial-card">
+										<div class="cart-up" style="height: 50px">
+									 	<div class="row" >
+									 		<div class="col-md-12 text-right">
+									 			<button class="btn btn-primary" 
+									 					data-toggle="modal" 
+														data-target="#addNewModal">
+									 				Add New
+									 			</button>
+									 		</div>
+									 	</div>
+									 </div>
+									  <div class="card-body">
+									  	 <table class="table table-hover">
+									  	 	<thead>
+									  	 		<tr>
+										  	 		<th>NAME</th>
+										  	 		<th>Start</th>
+										  	 		<th>End</th>										  	 		
+										  	 		<th>Edit</th>
+										  	 		<th>Delete</th>									  	 						  	 		
+										  	 	</tr>
+									  	 	</thead>
+									  	 	<tbody>
+									  	 		<tr th:each="timeline : ${event.timelines}">
+									  	 			<td th:text="${timeline.name}"></td>
+									  	 			<td th:text="${timeline.dateStart}"></td>
+									  	 			<td th:text="${timeline.dateEnd}"></td>
+									  	 			<td align="center">
+									                  <a>
+									                  	<i class="fa fa-pencil"></i>
+									                  </a>                 
+									                </td>
+									                <td align="center">
+									                	<a> 		                  		  				  							  														  								
+										                  	<i									                  		
+										                  		class="fa fa-trash">
+										                  	</i>
+									                  	</a>
+									                </td>								  	 		
+									  	 		<tr>
+									  	 	</tbody>
+									  	 	
+									  	 	
+									  	 </table>
+									  	
+									  </div>	
+								</div>
 							</div>
+								 
 						</div>
 					</div>
 				</div>				
