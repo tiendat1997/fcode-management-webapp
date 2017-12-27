@@ -99,7 +99,7 @@ public class EventController {
 		return FAIL;
 	}
 
-	@GetMapping(value = "/update", params = { "eventId", "name", "dateStart", "dateEnd", "description", "notPublic" })
+	@GetMapping(value = "/update", params = { "eventId", "name", "dateStart", "dateEnd", "description", "notPublic", "categoryId" })
 	public String updateEvent(@RequestParam("eventId") int eventId, @RequestParam("name") String name,
 			@RequestParam("dateStart") String dateStart, @RequestParam("dateEnd") String dateEnd,
 			@RequestParam("description") String description, @RequestParam("notPublic") boolean notPublic,
