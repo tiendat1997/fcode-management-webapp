@@ -114,9 +114,21 @@
 									    		id="eventDescription" 
 								    			class="md-textarea"								    			 								    		
 								    			th:field="${event.description}"
-								    			style="height: 100px">								    												    	
+								    			rows="2">								    												    	
 									    	</textarea>
 									    	<label for="">Description</label>
+									    </div>
+									    <div class="form-group" style="margin-left: 3rem" >
+									    	<select class="form-control"
+									    		id="select-type-event"									    		
+									    		th:value="${event.eventCategory.name}">
+									    		<option value="1">workshop</option>
+									    		<option value="2">teambuilding</option>
+									    		<option value="3">training</option>
+									    		<option value="4">meeting</option>
+									    		<option value="5">competition</option>
+									    		<option value="6">seminar</option>
+									    	</select>
 									    </div>
 									    <div class="form-group">									    	
 									    	<div class="pretty p-icon p-rotate" style="margin-left: 3rem">
@@ -134,8 +146,7 @@
 											            <i class="icon mdi mdi-check"></i>
 											            <label>Public</label>
 											        </div>
-									    		</div>
-										        
+									    		</div>										        
 										    </div>
 									    </div>
 									      <div class="text-center">
@@ -163,7 +174,7 @@
 									 	</div>
 									 </div>
 									  <div class="card-body">
-									  	 <table class="table table-hover">
+									  	 <table class="table table-hover table-desi">
 									  	 	<thead>
 									  	 		<tr>
 										  	 		<th>NAME</th>
@@ -191,11 +202,8 @@
 									                  	</a>
 									                </td>								  	 		
 									  	 		<tr>
-									  	 	</tbody>
-									  	 	
-									  	 	
-									  	 </table>
-									  	
+									  	 	</tbody>									  	 										  	
+									  	 </table>									  	
 									  </div>	
 								</div>
 							</div>

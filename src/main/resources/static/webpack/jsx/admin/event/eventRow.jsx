@@ -12,10 +12,10 @@ class EventRow extends React.Component{
 		return(
 			<tr>							
 				<td className="event-main-col">
-					<img src="/img/event-alt.png"/>
+					<img src={this.props.event.eventCategory.imgUrl}/>
 					<div className="info">
 						<div><a href="#">{this.props.event.name}</a></div>
-						<div>Innovation Hub</div>						
+						<div>{this.props.event.eventCategory.name}</div>						
 					</div>
 				</td>
 				<td>{this.props.event.dateStart}</td>

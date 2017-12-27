@@ -18579,7 +18579,7 @@ var EventRow = function (_React$Component) {
 				_react2.default.createElement(
 					'td',
 					{ className: 'event-main-col' },
-					_react2.default.createElement('img', { src: '/img/event-alt.png' }),
+					_react2.default.createElement('img', { src: this.props.event.eventCategory.imgUrl }),
 					_react2.default.createElement(
 						'div',
 						{ className: 'info' },
@@ -18595,7 +18595,7 @@ var EventRow = function (_React$Component) {
 						_react2.default.createElement(
 							'div',
 							null,
-							'Innovation Hub'
+							this.props.event.eventCategory.name
 						)
 					)
 				),

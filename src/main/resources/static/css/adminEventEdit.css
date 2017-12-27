@@ -68,6 +68,16 @@
 
 }
 
+.table-desi i {
+    background: #58b392;
+    color: #ffffff;
+    padding: 5px 6px;
+    border-radius: 2px;
+    font-size: 13px;
+    text-align: center;
+    margin-right: 10px;
+}
+
 
 @media (min-width: 576px){
   .modal-dialog {

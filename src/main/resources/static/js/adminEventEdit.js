@@ -38,6 +38,8 @@ $('#btn-update-event').on('click', function(){
 	var date = $("#daterange").val();
 	var description = $("#eventDescription").val();
 	var isPublic = $('#cb-public').prop('checked');
+	var categoryId = $('#select-type-event').val();
+
 	
 	var notPublic = !isPublic;
 
@@ -50,6 +52,7 @@ $('#btn-update-event').on('click', function(){
 	console.log(dateEnd);
 	console.log(description);
 	console.log(notPublic);
+	console.log(categoryId);
 
 	
 
@@ -61,7 +64,8 @@ $('#btn-update-event').on('click', function(){
 			dateStart: dateStart,
 			dateEnd: dateEnd,
 			description: description,
-			notPublic: notPublic
+			notPublic: notPublic,
+			categoryId: categoryId
 		},
 		cached: false
 	});
