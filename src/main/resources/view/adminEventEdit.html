@@ -24,7 +24,7 @@
                 </button>
 	      </div>
 	      <div class="modal-body mx-3">
-	        	<form id="form-new-member" class="" method="post" action="">
+	        	<form id="form-new-member" class="" method="post" action="">	        		
 					<input type="reset" style="display: none"/>				
 					<div class="md-form form-group">
 				    	<i class="fa fa-calendar prefix grey-text"></i>
@@ -34,7 +34,7 @@
 	                <label class="error studentCode"></label>
 					<div class="md-form">																												
 						<i class="fa fa-lock fa-lg prefix grey-text" aria-hidden="true"></i>
-						<input type="text" class="form-control validate" name="studentCode"/>
+						<input type="text" class="form-control validate" name="" id="input-timeline-name"/>
 						<label data-error="" data-success="" for="defaultForm-email">
 							Name <span style="color:red"> ( * ) </span>
 						</label>								
@@ -43,7 +43,7 @@
 										
 					<div class="md-form">																														
 						<i class="fa fa-user fa prefix grey-text" aria-hidden="true"></i>
-						<input type="text" class="form-control validate" name="fullname"/>
+						<input type="text" class="form-control validate" name="" id="input-timeline-description"/>
 						<label data-error="" data-success="" for="defaultForm-email">
 							Description <span style="color:red"> ( * ) </span>
 						</label>								
@@ -53,7 +53,10 @@
 				</form>
 	      </div>
 	      <div class="modal-footer d-flex justify-content-center">
-	        <button type="button" id="btn-new-member" class="btn btn-primary">Add</button>	        
+	        <button type="button" id="btn-new-timeline" class="btn btn-primary">Add</button>
+	        <button type="button" id="btn-close-new-timeline" class="btn btn-danger" data-dismiss="modal" aria-label="Close">                
+	        	Cancel  
+             </button>	        
 	      </div>
 	    </div>
 	

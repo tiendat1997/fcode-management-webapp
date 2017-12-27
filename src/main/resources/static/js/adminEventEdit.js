@@ -22,12 +22,19 @@ $('#datetime').daterangepicker({
 
 
 
+// UPDATE EVENT FUNCTION
 
 $('#btn-update-event').on('click', function(){
 	
 	var eventId = $('#eventId').val();
 	console.log(eventId);
 	var name = $("#eventName").val();
+	if (name.length == 0 || name == null) {
+		toastr.warning("Name Of Event is required");
+		$("#eventName").focus();
+		return;
+	}
+
 	var date = $("#daterange").val();
 	var description = $("#eventDescription").val();
 	var isPublic = $('#cb-public').prop('checked');
@@ -60,17 +67,78 @@ $('#btn-update-event').on('click', function(){
 	});
 
 	request.done(function(msg){
-		console.log(msg);		
+		if (msg === 'success') {
+			toastr.success('Update Successfully');
+		}
+		if (msg === 'fail') {
+			toastr.error('Cannot Update');
+		}
 	});
 
 	request.fail(function(msg){
-		console.log(msg);
+		toastr.error('Cannot Update');
 	});
 
+	
 
+});
+
+
+// ADD NEW TIMELINE FUNCTION
+$('#btn-new-timeline').on('click', function(){
+
+	var eventId = $('#eventId').val();
+	var datetime = $('#datetime').val(); 
+	var name = $('#input-timeline-name').val();
+	if (name.length == 0 || name == null) {
+
+		toastr.warning('Timeline Name is required !');
+		$('#input-timeline-name').focus();
+		return;
+	}
+	var description = $('#input-timeline-description').val(); 
+
+	var token = datetime.split(' - ');
+	var start = token[0]; 
+	var end = token[1]; 
+
+	// console.log(start)
+	// console.log(end);
+	// console.log(name);
+	// console.log(description);
+
+
+	var request = $.ajax({
+		url: '/admin/api/event/add/timeline',
+		data: {
+			name: name,
+			description: description, 
+			eventId: eventId,
+			dateStart: start, 
+			dateEnd: end,
+		},
+		cached: false
+	}); 
+
+	request.done(function(msg){
+		console.log(msg)
+			if (msg === 'success'){					
+				location.reload();
+			}
+			else {
+				toastr.error('Date invalid !');
+			}
+
+	});
+
+	request.fail(function(msg){
+		toastr.error('Add Fail');
+		console.error(msg);
+	});
 
 
 
 	
+
 
 });
