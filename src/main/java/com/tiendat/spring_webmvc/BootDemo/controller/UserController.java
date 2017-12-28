@@ -16,25 +16,24 @@ import com.tiendat.spring_webmvc.BootDemo.respository.AccountRepository;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-	
-	@Autowired
-	private AccountRepository userRespository; 
-	
-	@GetMapping(value="/all")
-	public List<Account> findAll(){
-		return userRespository.findAll();
-	}
-	
-	@GetMapping(value= "/{name}")
-	public Account findByName(@PathVariable final String name) {
-		return userRespository.findByUsername(name);
-	}
-	
-	@PostMapping(value = "/load")
-	public Account load(@RequestBody final Account account) {
-		userRespository.save(account);
-		return userRespository.findByUsername(account.getUsername());
-	}
-	
-	
+
+    @Autowired
+    private AccountRepository userRespository;
+
+    @GetMapping(value = "/all")
+    public List<Account> findAll() {
+        return userRespository.findAll();
+    }
+
+    @GetMapping(value = "/{name}")
+    public Account findByName(@PathVariable final String name) {
+        return userRespository.findByUsername(name);
+    }
+
+    @PostMapping(value = "/load")
+    public Account load(@RequestBody final Account account) {
+        userRespository.save(account);
+        return userRespository.findByUsername(account.getUsername());
+    }
+
 }

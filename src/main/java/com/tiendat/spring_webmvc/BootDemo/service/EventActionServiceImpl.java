@@ -14,44 +14,42 @@ import com.tiendat.spring_webmvc.BootDemo.respository.TimelineRepository;
 
 @Service("eventActionService")
 @Transactional
-public class EventActionServiceImpl implements EventActionService{
+public class EventActionServiceImpl implements EventActionService {
 
-	@Autowired
-	private EventActionRepository eventActionRepository;
-	
-	@Autowired
-	private TimelineRepository timelineRepository;
-	
-	@Override
-	public List<EventAction> findAll() {
-		return this.eventActionRepository.findAll();
-	}
+    @Autowired
+    private EventActionRepository eventActionRepository;
 
-	@Override
-	public List<EventAction> findActionByEventId(int eventId) {
-		return this.eventActionRepository.findByEventId(eventId);
-	}
+    @Autowired
+    private TimelineRepository timelineRepository;
 
-	@Override
-	public List<EventAction> findActionByMemberId(String memberId) {
-		return this.eventActionRepository.findByMemberId(memberId);
-	}
+    @Override
+    public List<EventAction> findAll() {
+        return this.eventActionRepository.findAll();
+    }
 
-	@Override
-	public List<EventAction> findActionByAction(int action) {
-		return this.eventActionRepository.findByAction(action);
-	}
+    @Override
+    public List<EventAction> findActionByEventId(int eventId) {
+        return this.eventActionRepository.findByEventId(eventId);
+    }
 
-	@Override
-	public List<EventAction> findActionByDate(Timestamp date) {
-		return this.eventActionRepository.findByDate(date);
-	}
+    @Override
+    public List<EventAction> findActionByMemberId(String memberId) {
+        return this.eventActionRepository.findByMemberId(memberId);
+    }
 
-	@Override
-	public EventAction addAction(EventAction eventAction) {
-		return this.eventActionRepository.save(eventAction);
-	}
-	
-	
-	
+    @Override
+    public List<EventAction> findActionByAction(int action) {
+        return this.eventActionRepository.findByAction(action);
+    }
+
+    @Override
+    public List<EventAction> findActionByDate(Timestamp date) {
+        return this.eventActionRepository.findByDate(date);
+    }
+
+    @Override
+    public EventAction addAction(EventAction eventAction) {
+        return this.eventActionRepository.save(eventAction);
+    }
+
 }

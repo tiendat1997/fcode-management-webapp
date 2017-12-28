@@ -14,37 +14,37 @@ import com.tiendat.spring_webmvc.BootDemo.respository.PictureRespository;
 @Transactional
 public class PictureServiceImpl implements PictureService {
 
-	@Autowired
-	private PictureRespository pictureRespository;
-	
-	@Override
-	public List<Picture> findAllPicture() {
-		return this.pictureRespository.findAll();
-	}
+    @Autowired
+    private PictureRespository pictureRespository;
 
-	@Override
-	public List<Picture> findPictureByEventId(int eventId) {
-		return this.pictureRespository.findByEventId(eventId);
-	}
+    @Override
+    public List<Picture> findAllPicture() {
+        return this.pictureRespository.findAll();
+    }
 
-	@Override
-	public Picture uploadPicture(Picture newPicture) {
-		return this.pictureRespository.save(newPicture);
-	}
+    @Override
+    public List<Picture> findPictureByEventId(int eventId) {
+        return this.pictureRespository.findByEventId(eventId);
+    }
 
-	@Override
-	public int deletePicture(int pictureId) {
-		return this.pictureRespository.deleteByPictureId(pictureId);
-	}
+    @Override
+    public Picture uploadPicture(Picture newPicture) {
+        return this.pictureRespository.save(newPicture);
+    }
 
-	@Override
-	public Picture updatePicture(Picture picture) {
-		return this.pictureRespository.save(picture);
-	}
+    @Override
+    public int deletePicture(int pictureId) {
+        return this.pictureRespository.deleteByPictureId(pictureId);
+    }
 
-	@Override
-	public List<Picture> findPublicPicture() {
-		return this.pictureRespository.findByNotPublicIsFalse();
-	}
+    @Override
+    public Picture updatePicture(Picture picture) {
+        return this.pictureRespository.save(picture);
+    }
+
+    @Override
+    public List<Picture> findPublicPicture() {
+        return this.pictureRespository.findByNotPublicIsFalse();
+    }
 
 }

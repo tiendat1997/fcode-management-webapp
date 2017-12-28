@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class GreetingController {
-	@RequestMapping("/greeting")
-	public String greeting() {
-		return "HIHI - This is DAt";
-	}
+
+    @RequestMapping("/greeting")
+    public String greeting() {
+        return "HIHI - This is DAt";
+    }
 }

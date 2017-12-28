@@ -6,10 +6,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MainController {
-	
-	// defaul to login 
-	@RequestMapping("/")
-	public String firstPage() {		
-		return "redirect:/account";		
-	}
+
+    // defaul to login 
+    @RequestMapping("/")
+    public String firstPage() {
+        return "redirect:/account";
+    }
 }

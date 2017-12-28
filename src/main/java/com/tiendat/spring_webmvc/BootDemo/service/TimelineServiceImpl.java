@@ -23,87 +23,91 @@ import com.tiendat.spring_webmvc.BootDemo.respository.TimelineRepository;
 @Transactional
 public class TimelineServiceImpl implements TimelineService {
 
-	@Autowired
-	private EventRepository eventRepository;
+    @Autowired
+    private EventRepository eventRepository;
 
-	@Autowired
-	private TimelineRepository timelineRepository;
+    @Autowired
+    private TimelineRepository timelineRepository;
 
-	@Autowired
-	private TimelineActionRepository timelineActionRepository;
+    @Autowired
+    private TimelineActionRepository timelineActionRepository;
 
-	private TimelineInformation getAllInfomation(Timeline timeline) {
-		SimpleDateFormat format = new SimpleDateFormat("M/d/y h:m a");
-		return new TimelineInformation(timeline.getId(), timeline.getName(), timeline.getDescription(),
-				timeline.getEventId(), format.format(timeline.getDateStart()), format.format(timeline.getDateEnd()));
-	}
+    private TimelineInformation getAllInfomation(Timeline timeline) {
+        SimpleDateFormat format = new SimpleDateFormat("M/d/y h:m a");
+        return new TimelineInformation(timeline.getId(), timeline.getName(), timeline.getDescription(),
+                timeline.getEventId(), format.format(timeline.getDateStart()), format.format(timeline.getDateEnd()));
+    }
 
-	private List<TimelineInformation> getAllListInfomation(List<Timeline> timelines) {
-		List<TimelineInformation> listTimelines = null;
-		for (Timeline timeline : timelines) {
-			if (listTimelines == null)
-				listTimelines = new ArrayList<>();
-			listTimelines.add(getAllInfomation(timeline));
-		}
-		return listTimelines;
-	}
+    private List<TimelineInformation> getAllListInfomation(List<Timeline> timelines) {
+        List<TimelineInformation> listTimelines = null;
+        for (Timeline timeline : timelines) {
+            if (listTimelines == null) {
+                listTimelines = new ArrayList<>();
+            }
+            listTimelines.add(getAllInfomation(timeline));
+        }
+        return listTimelines;
+    }
 
-	@Override
-	public List<TimelineInformation> getEventTimeline(int eventId) {
-		List<Timeline> timelines = this.timelineRepository.findByEventId(eventId);
-		return this.getAllListInfomation(timelines);
-	}
+    @Override
+    public List<TimelineInformation> getEventTimeline(int eventId) {
+        List<Timeline> timelines = this.timelineRepository.findByEventId(eventId);
+        return this.getAllListInfomation(timelines);
+    }
 
-	private boolean isValidDateStarDateEnd(Timeline timeline) {
-		Event event = eventRepository.findByEventId(timeline.getEventId());
-		long eStart = event.getDateStart().getTime();
-		long eEnd = event.getDateEnd().getTime();
-		long tStart = timeline.getDateStart().getTime();
-		long tEnd = timeline.getDateEnd().getTime();
-		if (eStart < tStart && eEnd > tStart)
-			if (eStart < tEnd && eEnd > tEnd)
-				if (tStart < tEnd)
-					return true;
+    private boolean isValidDateStarDateEnd(Timeline timeline) {
+        Event event = eventRepository.findByEventId(timeline.getEventId());
+        long eStart = event.getDateStart().getTime();
+        long eEnd = event.getDateEnd().getTime();
+        long tStart = timeline.getDateStart().getTime();
+        long tEnd = timeline.getDateEnd().getTime();
+        if (eStart < tStart && eEnd > tStart) {
+            if (eStart < tEnd && eEnd > tEnd) {
+                if (tStart < tEnd) {
+                    return true;
+                }
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public boolean addTimeline(Timeline timeline, String username) {
-		if (isValidDateStarDateEnd(timeline)) {
-			timelineRepository.save(timeline);
-			timelineActionRepository.save(new TimelineAction(timeline.getId(), username, new Date(), 1));
-			return true;
-		}
+    @Override
+    public boolean addTimeline(Timeline timeline, String username) {
+        if (isValidDateStarDateEnd(timeline)) {
+            timelineRepository.save(timeline);
+            timelineActionRepository.save(new TimelineAction(timeline.getId(), username, new Date(), 1));
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public boolean updateTimeline(Timeline timeline, String username) {
-		if (isValidDateStarDateEnd(timeline)) {
-			timelineRepository.save(timeline);
-			timelineActionRepository.save(new TimelineAction(timeline.getId(), username, new Date(), 3));
-			return true;
-		}
+    @Override
+    public boolean updateTimeline(Timeline timeline, String username) {
+        if (isValidDateStarDateEnd(timeline)) {
+            timelineRepository.save(timeline);
+            timelineActionRepository.save(new TimelineAction(timeline.getId(), username, new Date(), 3));
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public boolean deleteTimeline(int id, String username) {
-		Long result = this.timelineRepository.deleteById(id);
-		if (result > 0) {
-			timelineActionRepository.save(new TimelineAction(id, username, new Date(), 2));
-			return true;
-		}
-			
-		return false;
-	}
+    @Override
+    public boolean deleteTimeline(int id, String username) {
+        Long result = this.timelineRepository.deleteById(id);
+        if (result > 0) {
+            timelineActionRepository.save(new TimelineAction(id, username, new Date(), 2));
+            return true;
+        }
 
-	@Override
-	public TimelineInformation getById(int id) {
-		return getAllInfomation(timelineRepository.findById(id));
-	}
+        return false;
+    }
+
+    @Override
+    public TimelineInformation getById(int id) {
+        return getAllInfomation(timelineRepository.findById(id));
+    }
 
 }

@@ -15,47 +15,45 @@ import com.tiendat.spring_webmvc.BootDemo.respository.PostRepository;
 @Transactional
 public class PostServiceImpl implements PostService {
 
-	@Autowired
-	private PostRepository postRepository;
-	
-	@Autowired
-	private PostActionRepository postActionRepository;
-	
-	@Override
-	public List<Post> findAllPost() {
-		return this.postRepository.findAll();
-	}
+    @Autowired
+    private PostRepository postRepository;
 
-	@Override
-	public List<Post> findPostByName(String name) {
-		return this.postRepository.findByNameContaining(name);
-	}
+    @Autowired
+    private PostActionRepository postActionRepository;
 
-	@Override
-	public List<Post> findPostByEventId(int eventId) {
-		return this.postRepository.findByEventId(eventId);
-	}
+    @Override
+    public List<Post> findAllPost() {
+        return this.postRepository.findAll();
+    }
 
-	@Override
-	public Post findPostByPostId(int postId) {
-		return this.postRepository.findByPostId(postId);
-	}
+    @Override
+    public List<Post> findPostByName(String name) {
+        return this.postRepository.findByNameContaining(name);
+    }
 
-	@Override
-	public Post insertPost(Post post) {
-		return this.postRepository.save(post);
-	}
+    @Override
+    public List<Post> findPostByEventId(int eventId) {
+        return this.postRepository.findByEventId(eventId);
+    }
 
-	@Override
-	public Post updatePost(Post post) {
-		return this.postRepository.save(post);
-	}
+    @Override
+    public Post findPostByPostId(int postId) {
+        return this.postRepository.findByPostId(postId);
+    }
 
-	@Override
-	public List<Post> findPublicPost() {
-		return this.postRepository.findByNotPublicIsFalse();
-	}
+    @Override
+    public Post insertPost(Post post) {
+        return this.postRepository.save(post);
+    }
 
-	
-	
+    @Override
+    public Post updatePost(Post post) {
+        return this.postRepository.save(post);
+    }
+
+    @Override
+    public List<Post> findPublicPost() {
+        return this.postRepository.findByNotPublicIsFalse();
+    }
+
 }
