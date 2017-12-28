@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -107,8 +108,9 @@ public class EventServiceImpl implements EventService {
     private boolean isValidDate(Event event) {
         long dStart = event.getDateStart().getTime();
         long dEnd = event.getDateEnd().getTime();
-        long now = (new Date(System.currentTimeMillis())).getTime();
-        if (dStart >= now) {
+        long now = new Date(System.currentTimeMillis()).getTime();
+        
+        if (now - dStart < (1000*60*60*24)) {
             if (dEnd >= dStart) {
                 return true;
             }
