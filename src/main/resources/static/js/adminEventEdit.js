@@ -140,9 +140,34 @@ $('#btn-new-timeline').on('click', function(){
 		console.error(msg);
 	});
 
-
-
-	
-
-
 });
+
+
+// DELETE TIMELINE BY ID 
+deleteTimeline = function(id){
+	var request = $.ajax({
+		url: '/admin/api/event/delete/timeline',
+		data: {
+			id: id
+		},
+		cached: false
+	});
+
+	request.done(function(msg){
+		if (msg === 'success'){
+			location.reload();			
+		}
+		else {
+			toastr.error('Delete Fail');
+		}
+	});
+
+	request.fail(function(msg){
+		toastr.error('Delete Fail');
+	});
+
+
+}
+
+
+

@@ -12,9 +12,8 @@ $('#datetime').daterangepicker({
 });
 
 
+
 // UPDATE TIMELINE FUNCTION 
-
-
 $('#btn-update-timeline').on('click', function(){
 	var datetime = $('#datetime').val();
 	var token = datetime.split(' - ');
@@ -22,17 +21,23 @@ $('#btn-update-timeline').on('click', function(){
 	var dateEnd = token[1]; 
 
 	var name = $('#timelineName').val(); 
+	if (name == null || name.length == 0 ){
+		$('#timelineName').focus(); 
+		toastr.warning('Timeline Name is required');
+		return; 
+	}
+
 	var description = $('#timelinetDescription').val(); 
 	var id = $('#timelineId').val(); 
 	var eventId = $('#eventId').val(); 
 
-	console.log(id);
-	console.log(name);
-	console.log(description);
-	console.log(eventId);
-	console.log(eventId);
-	console.log(dateStart);
-	console.log(dateEnd);
+	// console.log(id);
+	// console.log(name);
+	// console.log(description);
+	// console.log(eventId);
+	// console.log(eventId);
+	// console.log(dateStart);
+	// console.log(dateEnd);
 
 
 	var request = $.ajax({
