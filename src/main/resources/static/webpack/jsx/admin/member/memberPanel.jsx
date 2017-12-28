@@ -152,9 +152,8 @@ class MemberPanel extends React.Component{
 		});
 	}
 
-	changeRowOfPage(evt){		
-		
-		if (this.state.openFilter){
+	changeRowOfPage(evt){				
+		if (this.state.openFilter && this.state.filterValue != null){
 			this.filterMembersFromServer(this.state.filterValue, 0, evt.target.value);			
 		}
 		else {
@@ -165,7 +164,6 @@ class MemberPanel extends React.Component{
 			defaultSize: evt.target.value,
 			numPage: 1			
 		});
-
 	}
 
 	render(){
@@ -208,11 +206,11 @@ class MemberPanel extends React.Component{
 										<option value="2">expired</option>										
 									</select>								
 								 	<select className="form-control" onChange={this.changeRowOfPage.bind(this)}>				    							
-				    							<option value="5">5</option>
-				    							<option value="10">10</option>
-				    							<option value="20">20</option>
-				    							<option value="50">50</option>
-				    							<option value="100">100</option>
+		    							<option value="5">5</option>
+		    							<option value="10">10</option>
+		    							<option value="20">20</option>
+		    							<option value="50">50</option>
+		    							<option value="100">100</option>
 				    				</select>
 									<button 
 										className="btn btn-sm btn-primary btn-circle"

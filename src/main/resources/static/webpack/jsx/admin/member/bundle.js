@@ -1198,8 +1198,7 @@ var MemberPanel = function (_React$Component) {
 	}, {
 		key: 'changeRowOfPage',
 		value: function changeRowOfPage(evt) {
-
-			if (this.state.openFilter) {
+			if (this.state.openFilter && this.state.filterValue != null) {
 				this.filterMembersFromServer(this.state.filterValue, 0, evt.target.value);
 			} else {
 				this.loadMembersFromServer(0, evt.target.value);

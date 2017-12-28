@@ -18648,13 +18648,8 @@ var EventRow = function (_React$Component) {
 						'div',
 						{ className: 'text-right' },
 						_react2.default.createElement(
-							'button',
-							{ className: 'btn btn-sm' },
-							'Hide'
-						),
-						_react2.default.createElement(
 							'a',
-							{ className: 'btn btn-sm',
+							{ className: 'btn btn-sm btn-primary',
 								href: '/admin/event/edit?eventId=' + this.props.event.eventId },
 							'Edit'
 						),
@@ -18662,7 +18657,7 @@ var EventRow = function (_React$Component) {
 							'button',
 							{
 								onClick: this.deleteEvent,
-								className: 'btn btn-sm' },
+								className: 'btn btn-sm btn-danger' },
 							'Delete'
 						)
 					)

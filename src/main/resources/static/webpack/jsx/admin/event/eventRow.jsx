@@ -52,15 +52,14 @@ class EventRow extends React.Component{
 				<td>{this.props.event.dateStart}</td>
 				<td>{this.props.event.dateEnd}</td>
 				<td>
-					<div className="text-right">
-						<button className="btn btn-sm">Hide</button>
-						<a className="btn btn-sm"
+					<div className="text-right">						
+						<a className="btn btn-sm btn-primary"
 							href={'/admin/event/edit?eventId=' + this.props.event.eventId}>
 							Edit
 						</a>
 						<button 
 							onClick={this.deleteEvent}
-							className="btn btn-sm">Delete
+							className="btn btn-sm btn-danger">Delete
 						</button>	
 					</div>								
 				</td>							
