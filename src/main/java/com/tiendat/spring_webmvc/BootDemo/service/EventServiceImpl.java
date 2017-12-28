@@ -109,7 +109,7 @@ public class EventServiceImpl implements EventService {
         long dEnd = event.getDateEnd().getTime();
         long now = (new Date(System.currentTimeMillis())).getTime();
         if (dStart >= now) {
-            if (dEnd > dStart) {
+            if (dEnd >= dStart) {
                 return true;
             }
         }
