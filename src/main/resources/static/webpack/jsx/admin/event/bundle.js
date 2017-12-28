@@ -1147,8 +1147,8 @@ var EventPanel = function (_React$Component) {
 							)
 						),
 						_react2.default.createElement(
-							'button',
-							{ className: 'btn btn-primary' },
+							'a',
+							{ href: '/admin/event/new', className: 'btn btn-primary' },
 							'Add Event'
 						)
 					)

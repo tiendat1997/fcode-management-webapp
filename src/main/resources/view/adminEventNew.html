@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>New Event</title>
+<th:block th:include="fragments/adminUtil :: header"></th:block>
+<link rel="stylesheet" th:href="@{/css/mdbCard.css}"/>
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+<link rel="stylesheet" th:href="@{/vendor/datetimepicker/css/daterangepicker.css}" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"/>
+<link rel="stylesheet" th:href="@{/css/adminEventNew.css}" />
+</head>
+<body>
+	<header>
+		<th:block th:include="fragments/adminUtil :: nav-fragment"></th:block>		
+	</header>
+	<main>				
+		<div id="page-wrapper">
+			<div class="container-fluid">				
+				<div class="row">					
+					<th:block th:include="fragments/adminUtil :: sidebar-fragment"></th:block>																	
+					<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+						<div class="row">
+							<div class="col-md-12">
+								<h1 class="page-header">New Event</h1>
+							</div>
+						</div>
+		
+		
+						<div class="row">
+							<div class="col-md-12">
+								<!--Card-->
+								<div class="card testimonial-card">
+									<div class="card-up" style="height: 50px">
+								    	<div class="col-md-4">
+											<a type="submit" class="btn btn-unique btn-sm" href="/admin/event">
+												<i class="fa fa-arrow-left mr-1"></i>Back 
+											</a>																														
+										</div>
+																					  
+								    </div>				
+								
+								    <!--Bacground color
+								    <div class="card-up indigo lighten-1">								    
+								    </div>
+								    -->
+								
+								    <!--Avatar
+								    <div class="avatar"><img th:src="@{/img/event-alt.png}" class="rounded-circle">
+								    </div>
+								    -->
+								
+								    <div class="card-body">
+												        <!-- Form contact -->
+										<form method="post" th:action="@{/admin/event/new}">											
+										    <div class="row">										    	
+										    	<div class="col-md-6">										    					    
+												    
+												    <div class="md-form">
+												        <i class="fa fa-user-o prefix grey-text"></i>
+												        <input required="required"
+												        	th:value="${event.name}" 
+												        	type="text" id="eventName" name="name" class="form-control">
+												        <label for="eventName">Event Name</label>
+												    </div>
+												     <div class="md-form form-group">
+												     	<i class="fa fa-pencil prefix grey-text"></i>
+												    	<textarea 
+												    		rows="3"
+												    		th:value="${event.description}"
+												    		id="eventDescription" 
+											    			class="md-textarea"
+											    			name="description">													    							    												    
+												    	</textarea>
+												    	<label for="">Description</label>
+												    </div>							
+												     <div class="form-group" style="margin-left: 3rem" >
+												    	<select class="form-control"												    		
+												    		th:field="${event.categoryId}" 
+												    		name="categoryId">
+												    		<option value="1">workshop</option>
+												    		<option value="2">teambuilding</option>
+												    		<option value="3">training</option>
+												    		<option value="4">meeting</option>
+												    		<option value="5">competition</option>
+												    		<option value="6">seminar</option>
+												    	</select>
+												    </div>												    												    								 
+										    	</div>
+										    	<div class="col-md-6">				
+										    		<div class="md-form text-right">										    	
+														<label th:if="${error != null}" class="error" th:text="${error.invalidDate}"></label>										
+										    		</div>						    		
+										    		<!--  DATESTART -->
+													<div class="form-group md-form" th:if="${event.dateStart != null}">											    		
+											    		<i class="fa fa-step-forward prefix grey-text"></i>											    		
+												    	<input type="text" class="form-control"			  
+		                                        			name="dateStart"  			                                        		
+		                                        			th:value="${#dates.format(event.dateStart, 'MM-dd-yyyy')}"                                    			 
+		                                        			id="date-start" placeholder="Select value">			                                        												    													    													    	
+											    		<label for="date-start">Date Start</label>
+			                                        	
+			                                    	</div>	
+			                                    	<div class="form-group md-form" th:if="${event.dateStart == null}">											    		
+											    		<i class="fa fa-step-forward prefix grey-text"></i>											    		
+												    	<input type="text" class="form-control"			  
+		                                        			name="dateStart"  			                                        				                                        			                                    			
+		                                        			id="date-start" placeholder="Select value">			                                        												    													    													    	
+											    		<label for="date-start">Date Start</label>			                                        	
+			                                    	</div>			
+			                                    	<!--  /.DATESTART -->
+			                                    	
+			                                    	<!--  DATE END  -->
+			                                    	<div class="form-group md-form" th:if="${event.dateEnd != null}">											    		
+											    		<i class="fa fa-stop-circle prefix grey-text"></i>
+			                                        	<input type="text" class="form-control"			                                        			
+			                                        			id="date-end"
+			                                        			th:value="${#dates.format(event.dateEnd, 'MM-dd-yyyy')}"
+			                                        			name="dateEnd"   
+			                                        			placeholder="Select value">
+			                                        	<label for="date-end">Date End</label>
+			                                    	</div>
+			                                    	<div class="form-group md-form" th:if="${event.dateEnd == null}">											    		
+											    		<i class="fa fa-stop-circle prefix grey-text"></i>
+			                                        	<input type="text" class="form-control"			                                        			
+			                                        			id="date-end"			                                        			
+			                                        			name="dateEnd"   
+			                                        			placeholder="Select value">
+			                                        	<label for="date-end">Date End</label>
+			                                    	</div>				
+			                                    	<!--  /.DATE END  -->	
+			                                    	<div class="form-group">									    	
+												    	<div class="pretty p-icon p-rotate" style="margin-left: 3rem">												    		
+											    			<input type="radio"											    				
+											    				th:value="${false}"
+											    				th:checked="${event.notPublic == false}"
+											    				name="notPublic"
+											    			/>
+													        <div class="state p-success">
+													            <i class="icon mdi mdi-check"></i>
+													            <label>Public</label>
+													        </div>												    		
+											    		</div>
+											    		<div class="pretty p-icon p-rotate" style="margin-left: 3rem">												    		
+											    			<input type="radio" 
+											    				th:value="${true}"
+											    				th:checked="${event.notPublic == true}"
+											    				name="notPublic"
+											    				
+											    			/>
+													        <div class="state p-success">
+													            <i class="icon mdi mdi-check"></i>
+													            <label>Not Public</label>
+													        </div>												    		
+											    		</div>
+											    	</div>				   												    				
+												</div>
+										    </div>			
+										    <div class="text-center">
+										        <button type="submit" class="btn btn-unique">
+										        	ADD NEW <i class="fa fa-paper-plane-o ml-1"></i>
+										        </button>
+										    </div>
+										
+										</form>
+										<!-- Form contact -->
+								    </div>
+								
+								</div>
+								<!--/.Card-->
+								
+																						
+							</div>			
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</main>
+	<footer></footer>
+	
+    <!-- Custom Theme JavaScript -->
+    <th:block th:include="fragments/adminUtil :: scriptHeader"></th:block>
+    <script th:src="@{/vendor/datetimepicker/js/moment.min.js}"></script>
+    <script th:src="@{/vendor/datetimepicker/js/daterangepicker.js}"></script>
+    <script th:src="@{/js/adminEventNew.js}"></script>
+    <script type="text/javascript">
+    	// auto create extra space in textarea
+    	$('#eventDescription').text('');    	
+    </script>
+    
+</body>
+</html>

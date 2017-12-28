@@ -97,7 +97,7 @@ class EventPanel extends React.Component{
 							<option value="1">Upcoming</option>
 							<option value="2">Current</option>
 						</select>
-						<button className="btn btn-primary">Add Event</button>				
+						<a href="/admin/event/new" className="btn btn-primary">Add Event</a>				
 					</div>				
 				</div>
 

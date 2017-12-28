@@ -33,7 +33,7 @@ public class Event {
 	
 
 	public Event(String name, Date dateStart, Date dateEnd, String description, boolean notPublic, int categoryId) {
-		super();
+	
 		this.name = name;
 		this.dateStart = dateStart;
 		this.dateEnd = dateEnd;
@@ -56,6 +56,7 @@ public class Event {
 		this.categoryId = categoryId;
 	}
 
+	
 
 
 	public int getCategoryId() {
