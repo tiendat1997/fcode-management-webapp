@@ -18566,16 +18566,48 @@ var EventRow = function (_React$Component) {
 	function EventRow(props) {
 		_classCallCheck(this, EventRow);
 
-		return _possibleConstructorReturn(this, (EventRow.__proto__ || Object.getPrototypeOf(EventRow)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (EventRow.__proto__ || Object.getPrototypeOf(EventRow)).call(this, props));
+
+		_this.deleteEvent = _this.deleteEvent.bind(_this);
+		return _this;
 	}
 
 	_createClass(EventRow, [{
+		key: 'deleteEvent',
+		value: function deleteEvent() {
+			var self = this;
+
+			var request = $.ajax({
+				url: '/admin/api/event/delete/event',
+				data: {
+					eventId: self.props.event.eventId
+				},
+				cached: false
+			});
+
+			request.done(function (msg) {
+				if (msg === 'success') {
+					toastr.success('Delete Successfully');
+					self.row.remove();
+				} else {
+					toastr.error('Delete Failure');
+				}
+			});
+
+			request.fail(function (msg) {
+				toastr.error('Delete Failure');
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
 
 			return _react2.default.createElement(
 				'tr',
-				null,
+				{ ref: function ref(row) {
+						return _this2.row = row;
+					} },
 				_react2.default.createElement(
 					'td',
 					{ className: 'event-main-col' },
@@ -18628,7 +18660,9 @@ var EventRow = function (_React$Component) {
 						),
 						_react2.default.createElement(
 							'button',
-							{ className: 'btn btn-sm' },
+							{
+								onClick: this.deleteEvent,
+								className: 'btn btn-sm' },
 							'Delete'
 						)
 					)

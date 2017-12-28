@@ -4,13 +4,44 @@ import ReactDOM from 'react-dom';
 class EventRow extends React.Component{
 	constructor(props){
 		super(props);
+		this.deleteEvent = this.deleteEvent.bind(this);
 	}
+
+	deleteEvent(){
+		var self = this;
+
+		var request = $.ajax({
+			url: '/admin/api/event/delete/event',
+			data: {
+				eventId: self.props.event.eventId
+			},
+			cached: false
+		}); 
+
+		request.done(function(msg){
+			if (msg === 'success') {
+				toastr.success('Delete Successfully');
+				self.row.remove();
+			}
+			else {
+				toastr.error('Delete Failure');
+			}
+		}); 
+
+		request.fail(function(msg){
+			toastr.error('Delete Failure');
+		});
+
+
+		
+	}
+
 
 
 	render(){
 
 		return(
-			<tr>							
+			<tr ref={(row) => this.row = row}>							
 				<td className="event-main-col">
 					<img src={this.props.event.eventCategory.imgUrl}/>
 					<div className="info">
@@ -27,7 +58,10 @@ class EventRow extends React.Component{
 							href={'/admin/event/edit?eventId=' + this.props.event.eventId}>
 							Edit
 						</a>
-						<button className="btn btn-sm">Delete</button>	
+						<button 
+							onClick={this.deleteEvent}
+							className="btn btn-sm">Delete
+						</button>	
 					</div>								
 				</td>							
 			</tr>
