@@ -104,24 +104,40 @@ public class EventServiceImpl implements EventService{
 		return this.getAllInfomation(event);
 	}
 
+	private boolean isValidDate(Event event) {
+		long dStart = event.getDateStart().getTime();
+		long dEnd = event.getDateEnd().getTime();
+		long now = (new Date(System.currentTimeMillis())).getTime();
+		if (dStart >= now)
+			if (dEnd > dStart)
+				return true;
+		
+		return false;
+	}
+	
 	@Override
 	public boolean insertEvent(Event event, String username) {
-		Event e = eventRepository.saveAndFlush(event);
-		//add default timeline for event
-		Timeline timeline = new Timeline(event.getName(),"",event.getEventId(),event.getDateStart(),event.getDateEnd());
-		timelineRepository.save(timeline);
-		EventAction action = new EventAction(username, e.getEventId(), 1, new java.util.Date());
-		this.eventActionRepository.save(action);
-		return true;
+		if (isValidDate(event)) {
+			Event e = eventRepository.saveAndFlush(event);
+			//add default timeline for event
+			Timeline timeline = new Timeline(event.getName(),"",event.getEventId(),event.getDateStart(),event.getDateEnd());
+			timelineRepository.save(timeline);
+			EventAction action = new EventAction(username, e.getEventId(), 1, new java.util.Date());
+			this.eventActionRepository.save(action);
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
 	public boolean update(Event event, String username) {
-		
-		EventAction action = new EventAction(username, event.getEventId(), 3, new java.util.Date());
-		this.eventActionRepository.save(action);
-		eventRepository.save(event);
-		return true;
+		if (isValidDate(event)) {
+			EventAction action = new EventAction(username, event.getEventId(), 3, new java.util.Date());
+			this.eventActionRepository.save(action);
+			eventRepository.save(event);
+			return true;
+		}
+		return false;
 	}
 
 

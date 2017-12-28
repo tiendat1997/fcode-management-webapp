@@ -90,8 +90,11 @@ public class EventController {
 			dStart = format.parse(dateStart);
 			dEnd = format.parse(dateEnd);
 			Event event = new Event(name, new Date(dStart.getTime()), new Date(dEnd.getTime()), description, notPublic,categoryId);
-			this.eventService.insertEvent(event, username);
-			return SUCCESS;
+			boolean result = this.eventService.insertEvent(event, username);
+			if (result) {
+				return SUCCESS;
+			}
+			
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
@@ -113,8 +116,11 @@ public class EventController {
 			dEnd = format.parse(dateEnd);
 			Event event = new Event(eventId, name, new Date(dStart.getTime()), new Date(dEnd.getTime()), description,
 					notPublic,categoryId);
-			this.eventService.update(event, username);
-			return SUCCESS;
+			boolean result = this.eventService.update(event, username);
+			if (result) {
+				return SUCCESS;
+			}
+			
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
