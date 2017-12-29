@@ -21,10 +21,12 @@ import com.tiendat.spring_webmvc.BootDemo.error.EventError;
 import com.tiendat.spring_webmvc.BootDemo.model.Account;
 import com.tiendat.spring_webmvc.BootDemo.model.Event;
 import com.tiendat.spring_webmvc.BootDemo.model.EventInformation;
+import com.tiendat.spring_webmvc.BootDemo.model.ProjectInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
 import com.tiendat.spring_webmvc.BootDemo.model.TimelineInformation;
 import com.tiendat.spring_webmvc.BootDemo.service.AccountService;
 import com.tiendat.spring_webmvc.BootDemo.service.EventService;
+import com.tiendat.spring_webmvc.BootDemo.service.ProjectService;
 import com.tiendat.spring_webmvc.BootDemo.service.TimelineService;
 
 @Controller
@@ -40,6 +42,10 @@ public class AdminController {
 		
 	@Autowired
 	private TimelineService timelineSerivce;
+	
+	@Autowired
+	private ProjectService projectService; 
+	
 	
 	@GetMapping(value = "/dashboard")
 	public String getDashboardPage(ModelMap modelMap) {
@@ -157,8 +163,7 @@ public class AdminController {
 		mv.addObject("event", event);
 		mv.addObject("timeline", timeline);
 		
-		
-		
+				
 		return mv;
 	}
 	
@@ -167,6 +172,19 @@ public class AdminController {
 		return "adminProject";		
 	}
 	
+	@GetMapping(value = "/project/details", params = {"projectId"})
+	public ModelAndView getProjectDetailsPage(@RequestParam("projectId") int id) {
+		ProjectInformation projectInfo = this.projectService.findProjectById(id);
+		
+		Account leader = this.accountService.findByUsername(projectInfo.getProject().getMemberId());
+		
+		ModelAndView mv = new ModelAndView("adminProjectDetails");			
+		mv.addObject("projectInfo", projectInfo); 
+		mv.addObject("leader", leader);
+		
+		return mv; 
+				
+	}
 	
 	private String getUsername(HttpSession session) {
 		String username = null;

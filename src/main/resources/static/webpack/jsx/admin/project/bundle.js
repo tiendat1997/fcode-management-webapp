@@ -18766,7 +18766,9 @@ var AwaitRow = function (_React$Component) {
 							),
 							_react2.default.createElement(
 								'a',
-								{ className: 'btn btn-sm btn-amber' },
+								{
+									href: '/admin/project/details?projectId=' + this.props.project.project.projectId,
+									className: 'btn btn-sm btn-amber' },
 								'Details'
 							),
 							_react2.default.createElement(
@@ -19095,7 +19097,9 @@ var ApprovedRow = function (_React$Component) {
 							),
 							_react2.default.createElement(
 								'a',
-								{ className: 'btn btn-sm btn-amber' },
+								{
+									href: '/admin/project/details?projectId=' + this.props.project.project.projectId,
+									className: 'btn btn-sm btn-amber' },
 								'Details'
 							),
 							_react2.default.createElement(

@@ -129,7 +129,9 @@ class AwaitRow extends React.Component{
 								target="_blank">
 								Review
 							</a>					
-							<a className="btn btn-sm btn-amber">													
+							<a 
+								href={'/admin/project/details?projectId=' + this.props.project.project.projectId}
+								className="btn btn-sm btn-amber">													
 								Details
 							</a>
 							<button 							

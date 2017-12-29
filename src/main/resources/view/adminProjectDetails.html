@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Details</title>
+<th:block th:include="fragments/adminUtil :: header"></th:block>
+<link rel="stylesheet" th:href="@{/css/mdbCard.css}"/>
+
+<link rel="stylesheet" th:href="@{/css/loader.css}" />
+
+</head>
+<body>
+	<header>
+		<th:block th:include="fragments/adminUtil :: nav-fragment"></th:block>
+	</header>
+	<main>
+		<div id="page-wrapper">
+			<div class="container-fluid">
+				<div class="row">					
+					<th:block th:include="fragments/adminUtil :: sidebar-fragment"></th:block>																	
+					<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+						<div class="row">
+							<div class="col-md-12">
+								<h1 class="page-header">Project Details</h1>
+							</div>
+						</div>				
+						<div class="row">
+							<div>
+								<a type="submit" class="btn btn-unique btn-sm" href="/admin/project">
+									<i class="fa fa-arrow-left mr-1"></i>Back 
+								</a>
+							</div>		
+						</div>
+						<div class="row">
+							<div class="col-md-4">							
+								<div  class="card testimonial-card" id="card-project">
+								 <!--Bacground color-->
+								    <div class="card-up indigo lighten-1">
+								    </div>
+								
+								    <!--Avatar-->
+								    <div class="avatar">
+								    	<img th:src="${projectInfo.project.imgUrl}" class="rounded-circle">														   
+									</div>
+									
+									<div class="card-body text-center">
+										<a href="${projectInfo.project.link}" style="font-size: xx-large">
+											<i class="fa fa-github" aria-hidden="true"></i>
+										</a>
+										<h4>
+											<strong th:text="${projectInfo.project.name}"></strong>
+										</h4>																			
+										<h5 class="indigo-text">
+											<strong th:text="${leader.fullname}"></strong>
+										</h5>
+										<p class="card-text" th:text="${projectInfo.project.description}">
+				                        </p>
+				                        <div 
+				                        	th:each="category : ${projectInfo.categories}"
+				                        	style="display:inline-block">
+				                        					                        					                        					                        					                        	
+				                        	<span class="badge red" th:text="${category.name}"></span>
+				                        </div>				                        
+									</div>																		
+								</div>			
+						</div>
+						<div class="col-md-8">
+							<div class="card testimonial-card">
+								<div class="cart-up text-center">
+									<strong>MEMBERS <span></span></strong>
+								</div>
+								<div class="card-body">
+									<table class="table table-hover table-desi">
+										<thead>
+								  	 		<tr>
+								  	 			<th>Leader</th>									  	 		
+									  	 		<th>Fullname</th>
+									  	 		<th>Email</th>
+									  	 		<th>Phone</th>										  	 											  	 											  	 						  	 	
+									  	 	</tr>											  	 									  	 
+								  	 	</thead>
+								  	 	<tbody>
+								  	 		<tr>
+								  	 			<td>
+								  	 				<i style="color: red" class="fa fa-first-order" aria-hidden="true"></i>
+								  	 			</td>								  	 			
+								  	 			<td th:text="${leader.fullname}"></td>
+								  	 			<td th:text="${leader.email}"></td>
+								  	 			<td th:text="${leader.phone}"></td>
+								  	 		</tr>
+								  	 		<tr th:each="member : ${projectInfo.members}">
+								  	 			<td></td>
+								  	 			<td th:text="${member.fullname}"></td>
+								  	 			<td th:text="${member.email}"></td>
+								  	 			<td th:text="${member.phone}"></td>
+								  	 		</tr>
+								  	 	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</main>
+	<footer></footer>
+	
+	<!-- Custom Theme JavaScript -->
+    <th:block th:include="fragments/adminUtil :: scriptHeader"></th:block>
+</body>
+</html>
