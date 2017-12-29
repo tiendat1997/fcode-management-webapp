@@ -21,7 +21,8 @@
 							</div>
 						</div>				
 						<div class="row">
-							<div class="col-md-12">															
+							<div class="col-md-12">
+								<div id="project-panel-react"></div>															
 							</div>			
 						</div>
 					</div>
@@ -33,6 +34,7 @@
 	
 	
     <!-- Custom Theme JavaScript -->
-    <th:block th:include="fragments/adminUtil :: scriptHeader"></th:block> 
+    <th:block th:include="fragments/adminUtil :: scriptHeader"></th:block>
+    <script th:src="@{/webpack/jsx/admin/project/bundle.js}"></script> 
 </body>
 </html>

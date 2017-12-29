@@ -19,10 +19,17 @@ import com.tiendat.spring_webmvc.BootDemo.service.AccountService;
 
 @RestController
 @RequestMapping("/admin/api")
-public class AdminRestController {
+public class AccountRestController {
 
     @Autowired
     private AccountService accountService;
+    
+    
+    @GetMapping(value = "/member/get" , params = {"username"})
+    public Account getAccount(@RequestParam("username") String username) {
+    	return this.accountService.findByUsername(username);
+    }
+    
 
     // GetAccount not expired
     @GetMapping(value = "/member/current")
