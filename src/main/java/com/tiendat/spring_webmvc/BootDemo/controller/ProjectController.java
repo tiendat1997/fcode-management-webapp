@@ -36,7 +36,7 @@ public class ProjectController {
     	return this.projectService.findPublicProject();
     }
     
-    @GetMapping(value = "/get/notpublic")
+    @GetMapping(value = "/get/notPublic")
     public List<ProjectInformation> getNotPublicProject(){    
     	return this.projectService.findNotPublicProject();
     }
