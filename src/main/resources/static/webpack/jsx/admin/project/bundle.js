@@ -258,6 +258,21 @@ process.umask = function() { return 0; };
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports = __webpack_require__(17);
+} else {
+  module.exports = __webpack_require__(18);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
 /**
@@ -296,22 +311,53 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
+function checkDCE() {
+  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
+  if (
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
+  ) {
+    return;
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    // This branch is unreachable because this function is only called
+    // in production, but the condition is true only in development.
+    // Therefore if the branch is still here, dead code elimination wasn't
+    // properly applied.
+    // Don't change the message. React DevTools relies on it. Also make sure
+    // this message doesn't occur elsewhere in this function, or it will cause
+    // a false positive.
+    throw new Error('^_^');
+  }
+  try {
+    // Verify that the code above has been dead code eliminated (DCE'd).
+    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
+  } catch (err) {
+    // DevTools shouldn't crash React, no matter what.
+    // We should still report in case we break this code.
+    console.error(err);
+  }
+}
+
 if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(17);
+  // DCE check should happen before ReactDOM bundle executes so that
+  // DevTools can report bad minification during injection.
+  checkDCE();
+  module.exports = __webpack_require__(20);
 } else {
-  module.exports = __webpack_require__(18);
+  module.exports = __webpack_require__(23);
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -408,7 +454,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -432,7 +478,7 @@ module.exports = emptyObject;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -492,7 +538,7 @@ module.exports = invariant;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -506,7 +552,7 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(1);
+var emptyFunction = __webpack_require__(2);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -561,52 +607,6 @@ module.exports = warning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-function checkDCE() {
-  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
-  if (
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
-  ) {
-    return;
-  }
-  if (process.env.NODE_ENV !== 'production') {
-    // This branch is unreachable because this function is only called
-    // in production, but the condition is true only in development.
-    // Therefore if the branch is still here, dead code elimination wasn't
-    // properly applied.
-    // Don't change the message. React DevTools relies on it. Also make sure
-    // this message doesn't occur elsewhere in this function, or it will cause
-    // a false positive.
-    throw new Error('^_^');
-  }
-  try {
-    // Verify that the code above has been dead code eliminated (DCE'd).
-    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
-  } catch (err) {
-    // DevTools shouldn't crash React, no matter what.
-    // We should still report in case we break this code.
-    console.error(err);
-  }
-}
-
-if (process.env.NODE_ENV === 'production') {
-  // DCE check should happen before ReactDOM bundle executes so that
-  // DevTools can report bad minification during injection.
-  checkDCE();
-  module.exports = __webpack_require__(20);
-} else {
-  module.exports = __webpack_require__(23);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -621,8 +621,8 @@ if (process.env.NODE_ENV === 'production') {
 
 
 if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(5);
-  var warning = __webpack_require__(6);
+  var invariant = __webpack_require__(6);
+  var warning = __webpack_require__(7);
   var ReactPropTypesSecret = __webpack_require__(19);
   var loggedTypeFailures = {};
 }
@@ -728,7 +728,7 @@ module.exports = ExecutionEnvironment;
  * @typechecks
  */
 
-var emptyFunction = __webpack_require__(1);
+var emptyFunction = __webpack_require__(2);
 
 /**
  * Upstream version of event listener. Does not take into account specific
@@ -1001,17 +1001,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(7);
+var _reactDom = __webpack_require__(3);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _projectTable = __webpack_require__(28);
+var _awaitTable = __webpack_require__(28);
 
-var _projectTable2 = _interopRequireDefault(_projectTable);
+var _awaitTable2 = _interopRequireDefault(_awaitTable);
+
+var _approvedTable = __webpack_require__(30);
+
+var _approvedTable2 = _interopRequireDefault(_approvedTable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1030,20 +1034,23 @@ var ProjectPanel = function (_React$Component) {
 		var _this = _possibleConstructorReturn(this, (ProjectPanel.__proto__ || Object.getPrototypeOf(ProjectPanel)).call(this));
 
 		_this.state = {
-			projects: null
+			projects: null,
+			notPublic: true
 		};
 		_this.loadWaitingProject = _this.loadWaitingProject.bind(_this);
+		_this.loadApprovedProject = _this.loadApprovedProject.bind(_this);
 		return _this;
 	}
 
 	_createClass(ProjectPanel, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			this.loadWaitingProject();
+			this.loadWaitingProject(1);
 		}
 	}, {
 		key: 'loadWaitingProject',
-		value: function loadWaitingProject() {
+		value: function loadWaitingProject(init) {
+
 			var request = $.ajax({
 				url: '/admin/api/project/get/notPublic',
 				cached: false
@@ -1051,10 +1058,18 @@ var ProjectPanel = function (_React$Component) {
 
 			var self = this;
 			request.done(function (list) {
+				if (init == 1) {
+					$('#loading').fadeOut();
+				} else {
+					$('#table-loading').fadeOut();
+					$('#project-table tbody tr').fadeIn();
+				}
+
 				if (list != null) {
 					console.log(list);
 					self.setState({
-						projects: list
+						projects: list,
+						notPublic: true
 					});
 				}
 			});
@@ -1064,52 +1079,116 @@ var ProjectPanel = function (_React$Component) {
 			});
 		}
 	}, {
+		key: 'loadApprovedProject',
+		value: function loadApprovedProject() {
+			var request = $.ajax({
+				url: '/admin/api/project/get/public',
+				cached: false
+			});
+
+			var self = this;
+			request.done(function (list) {
+				if (list != null) {
+					console.log(list);
+					self.setState({
+						projects: list,
+						notPublic: false
+					});
+				}
+				$('#table-loading').fadeOut();
+				$('#project-table tbody tr').fadeIn();
+			});
+
+			request.fail(function (msg) {
+				alert(msg);
+			});
+		}
+	}, {
+		key: 'changeProjectOption',
+		value: function changeProjectOption(evt) {
+			if (evt.target.value == 1) {
+				// GET AWAIT PROJECT
+				$('#project-table tbody tr').hide();
+				$('#table-loading').fadeIn();
+				this.loadWaitingProject();
+				this.forceUpdate();
+			} else {
+				// GET APPROVED PROJECT
+				$('#project-table tbody tr').hide();
+				$('#table-loading').fadeIn();
+				this.loadApprovedProject();
+				this.forceUpdate();
+			}
+		}
+	}, {
 		key: 'render',
 		value: function render() {
-			return _react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(
+
+			if (this.state.projects != null) {
+				var table = [];
+				if (this.state.notPublic == true) {
+					table.push(_react2.default.createElement(_awaitTable2.default, {
+						key: 'await-table',
+						projects: this.state.projects,
+						notPublic: this.state.notPublic
+					}));
+				} else {
+					table.push(_react2.default.createElement(_approvedTable2.default, {
+						key: 'approved-table',
+						projects: this.state.projects,
+						notPublic: this.state.notPublic
+					}));
+				}
+
+				return _react2.default.createElement(
 					'div',
-					{ className: 'row' },
+					null,
 					_react2.default.createElement(
 						'div',
-						{ className: 'col-sm-6' },
+						{ className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'row' },
+							{ className: 'col-sm-6' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'col-sm-12' },
+								{ className: 'row' },
 								_react2.default.createElement(
-									'h3',
-									{ className: 'panel-title' },
-									'Waiting Project (Number)'
+									'div',
+									{ className: 'col-sm-12' },
+									_react2.default.createElement(
+										'h3',
+										{ className: 'panel-title' },
+										'Waiting Project ',
+										this.state.projects.length
+									)
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-sm-6 text-right' },
+							_react2.default.createElement(
+								'select',
+								{ className: 'form-control', onChange: this.changeProjectOption.bind(this) },
+								_react2.default.createElement(
+									'option',
+									{ value: '1' },
+									'Waiting'
+								),
+								_react2.default.createElement(
+									'option',
+									{ value: '2' },
+									'Approved'
 								)
 							)
 						)
 					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'col-sm-6 text-right' },
-						_react2.default.createElement(
-							'select',
-							{ className: 'form-control' },
-							_react2.default.createElement(
-								'option',
-								{ value: '1' },
-								'Waiting'
-							),
-							_react2.default.createElement(
-								'option',
-								{ value: '2' },
-								'Approved'
-							)
-						)
-					)
-				),
-				_react2.default.createElement(_projectTable2.default, { projects: this.state.projects })
-			);
+					table
+				);
+			}
+
+			// NULL PROJECTS 
+			return _react2.default.createElement('div', null);
 		}
 	}]);
 
@@ -1132,7 +1211,7 @@ _reactDom2.default.render(_react2.default.createElement(ProjectPanel, null), doc
  * LICENSE file in the root directory of this source tree.
  */
 
-var m=__webpack_require__(3),n=__webpack_require__(4),p=__webpack_require__(1),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
+var m=__webpack_require__(4),n=__webpack_require__(5),p=__webpack_require__(2),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
 function y(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var z={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function A(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}A.prototype.isReactComponent={};A.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?y("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};A.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function B(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}function C(){}C.prototype=A.prototype;var D=B.prototype=new C;D.constructor=B;m(D,A.prototype);D.isPureReactComponent=!0;function E(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}var F=E.prototype=new C;F.constructor=E;m(F,A.prototype);F.unstable_isAsyncReactComponent=!0;F.render=function(){return this.props.children};var G={current:null},H=Object.prototype.hasOwnProperty,I={key:!0,ref:!0,__self:!0,__source:!0};
@@ -1168,11 +1247,11 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(3);
-var emptyObject = __webpack_require__(4);
-var invariant = __webpack_require__(5);
-var warning = __webpack_require__(6);
-var emptyFunction = __webpack_require__(1);
+var _assign = __webpack_require__(4);
+var emptyObject = __webpack_require__(5);
+var invariant = __webpack_require__(6);
+var warning = __webpack_require__(7);
+var emptyFunction = __webpack_require__(2);
 var checkPropTypes = __webpack_require__(8);
 
 // TODO: this is special because it gets imported during build.
@@ -2547,7 +2626,7 @@ module.exports = ReactPropTypesSecret;
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(2),l=__webpack_require__(9),B=__webpack_require__(3),C=__webpack_require__(1),ba=__webpack_require__(10),da=__webpack_require__(11),ea=__webpack_require__(12),fa=__webpack_require__(13),ia=__webpack_require__(14),D=__webpack_require__(4);
+var aa=__webpack_require__(1),l=__webpack_require__(9),B=__webpack_require__(4),C=__webpack_require__(2),ba=__webpack_require__(10),da=__webpack_require__(11),ea=__webpack_require__(12),fa=__webpack_require__(13),ia=__webpack_require__(14),D=__webpack_require__(5);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -2844,18 +2923,18 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var React = __webpack_require__(2);
-var invariant = __webpack_require__(5);
-var warning = __webpack_require__(6);
+var React = __webpack_require__(1);
+var invariant = __webpack_require__(6);
+var warning = __webpack_require__(7);
 var ExecutionEnvironment = __webpack_require__(9);
-var _assign = __webpack_require__(3);
-var emptyFunction = __webpack_require__(1);
+var _assign = __webpack_require__(4);
+var emptyFunction = __webpack_require__(2);
 var EventListener = __webpack_require__(10);
 var getActiveElement = __webpack_require__(11);
 var shallowEqual = __webpack_require__(12);
 var containsNode = __webpack_require__(13);
 var focusNode = __webpack_require__(14);
-var emptyObject = __webpack_require__(4);
+var emptyObject = __webpack_require__(5);
 var checkPropTypes = __webpack_require__(8);
 var hyphenateStyleName = __webpack_require__(24);
 var camelizeStyleName = __webpack_require__(26);
@@ -18393,17 +18472,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(7);
+var _reactDom = __webpack_require__(3);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _projectRow = __webpack_require__(29);
+var _awaitRow = __webpack_require__(29);
 
-var _projectRow2 = _interopRequireDefault(_projectRow);
+var _awaitRow2 = _interopRequireDefault(_awaitRow);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18413,22 +18492,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var ProjectTable = function (_React$Component) {
-	_inherits(ProjectTable, _React$Component);
+var AwaitTable = function (_React$Component) {
+	_inherits(AwaitTable, _React$Component);
 
-	function ProjectTable(props) {
-		_classCallCheck(this, ProjectTable);
+	function AwaitTable(props) {
+		_classCallCheck(this, AwaitTable);
 
-		return _possibleConstructorReturn(this, (ProjectTable.__proto__ || Object.getPrototypeOf(ProjectTable)).call(this, props));
+		return _possibleConstructorReturn(this, (AwaitTable.__proto__ || Object.getPrototypeOf(AwaitTable)).call(this, props));
 	}
 
-	_createClass(ProjectTable, [{
+	_createClass(AwaitTable, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			$('#table-loading').hide();
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			if (this.props.projects != null) {
 				var rows = [];
+
 				this.props.projects.forEach(function (project) {
-					rows.push(_react2.default.createElement(_projectRow2.default, {
+					rows.push(_react2.default.createElement(_awaitRow2.default, {
 						key: project.project.projectId,
 						project: project }));
 				});
@@ -18460,6 +18545,19 @@ var ProjectTable = function (_React$Component) {
 						_react2.default.createElement(
 							'tbody',
 							null,
+							_react2.default.createElement(
+								'div',
+								{ id: 'table-loading', className: 'table-full-loader' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'load-container load6' },
+									_react2.default.createElement(
+										'div',
+										{ className: 'loader loader-sm' },
+										'Loading...'
+									)
+								)
+							),
 							rows
 						)
 					)
@@ -18471,12 +18569,12 @@ var ProjectTable = function (_React$Component) {
 		}
 	}]);
 
-	return ProjectTable;
+	return AwaitTable;
 }(_react2.default.Component);
 
 ;
 
-exports.default = ProjectTable;
+exports.default = AwaitTable;
 
 /***/ }),
 /* 29 */
@@ -18491,11 +18589,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(7);
+var _reactDom = __webpack_require__(3);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -18507,23 +18605,24 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var ProjectRow = function (_React$Component) {
-	_inherits(ProjectRow, _React$Component);
+var AwaitRow = function (_React$Component) {
+	_inherits(AwaitRow, _React$Component);
 
-	function ProjectRow(props) {
-		_classCallCheck(this, ProjectRow);
+	function AwaitRow(props) {
+		_classCallCheck(this, AwaitRow);
 
-		var _this = _possibleConstructorReturn(this, (ProjectRow.__proto__ || Object.getPrototypeOf(ProjectRow)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (AwaitRow.__proto__ || Object.getPrototypeOf(AwaitRow)).call(this, props));
 
 		_this.state = {
 			leader: null
 		};
 		_this.loadLeaderInfo = _this.loadLeaderInfo.bind(_this);
 		_this.getStyleLabelViaCategory = _this.getStyleLabelViaCategory.bind(_this);
+		//this.approveProject = this.approveProject.bind(this);
 		return _this;
 	}
 
-	_createClass(ProjectRow, [{
+	_createClass(AwaitRow, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			this.loadLeaderInfo();
@@ -18554,6 +18653,35 @@ var ProjectRow = function (_React$Component) {
 				alert(msg);
 			});
 		}
+
+		// Approved
+
+	}, {
+		key: 'approveProject',
+		value: function approveProject() {
+			var self = this;
+			var request = $.ajax({
+				url: '/admin/api/project/update',
+				data: {
+					projectId: self.props.project.project.projectId,
+					notPublic: false
+				},
+				cached: false
+			});
+
+			request.done(function (msg) {
+				if (msg === 'success') {
+					toastr.success("Approved Successfully");
+					self.row.remove();
+				} else {
+					toastr.error("Approved Fail");
+				}
+			});
+
+			request.fail(function (msg) {
+				toastr.error("Error Approve");
+			});
+		}
 	}, {
 		key: 'getStyleLabelViaCategory',
 		value: function getStyleLabelViaCategory(id) {
@@ -18582,6 +18710,8 @@ var ProjectRow = function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
+
 			if (this.props.project.categories != null) {
 				var categories = [];
 				var self = this;
@@ -18590,13 +18720,18 @@ var ProjectRow = function (_React$Component) {
 					labelClass += self.getStyleLabelViaCategory(category.categoryId);
 					categories.push(_react2.default.createElement(
 						'span',
-						{ className: labelClass },
+						{
+							key: category.categoryId,
+							className: labelClass },
 						category.name
 					));
 				});
+
 				return _react2.default.createElement(
 					'tr',
-					null,
+					{ ref: function ref(row) {
+							_this2.row = row;
+						} },
 					_react2.default.createElement(
 						'td',
 						null,
@@ -18637,6 +18772,7 @@ var ProjectRow = function (_React$Component) {
 							_react2.default.createElement(
 								'button',
 								{
+									onClick: this.approveProject.bind(this),
 									className: 'btn btn-sm btn-danger' },
 								'Approve'
 							)
@@ -18650,10 +18786,339 @@ var ProjectRow = function (_React$Component) {
 		}
 	}]);
 
-	return ProjectRow;
+	return AwaitRow;
 }(_react2.default.Component);
 
-exports.default = ProjectRow;
+exports.default = AwaitRow;
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(3);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _approvedRow = __webpack_require__(31);
+
+var _approvedRow2 = _interopRequireDefault(_approvedRow);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ApprovedTable = function (_React$Component) {
+	_inherits(ApprovedTable, _React$Component);
+
+	function ApprovedTable(props) {
+		_classCallCheck(this, ApprovedTable);
+
+		return _possibleConstructorReturn(this, (ApprovedTable.__proto__ || Object.getPrototypeOf(ApprovedTable)).call(this, props));
+	}
+
+	_createClass(ApprovedTable, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			$('#table-loading').hide();
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			if (this.props.projects != null) {
+				var rows = [];
+
+				this.props.projects.forEach(function (project) {
+					rows.push(_react2.default.createElement(_approvedRow2.default, {
+						key: project.project.projectId,
+						project: project }));
+				});
+
+				return _react2.default.createElement(
+					'div',
+					{ className: 'table-responsive table-desi' },
+					_react2.default.createElement(
+						'table',
+						{ className: 'table table-hover', id: 'project-table' },
+						_react2.default.createElement(
+							'thead',
+							null,
+							_react2.default.createElement(
+								'tr',
+								null,
+								_react2.default.createElement(
+									'th',
+									null,
+									'Project'
+								),
+								_react2.default.createElement(
+									'th',
+									null,
+									'Leader'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'tbody',
+							null,
+							_react2.default.createElement(
+								'div',
+								{ id: 'table-loading', className: 'table-full-loader' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'load-container load6' },
+									_react2.default.createElement(
+										'div',
+										{ className: 'loader loader-sm' },
+										'Loading...'
+									)
+								)
+							),
+							rows
+						)
+					)
+				);
+			}
+
+			// == NULL
+			return _react2.default.createElement('div', null);
+		}
+	}]);
+
+	return ApprovedTable;
+}(_react2.default.Component);
+
+;
+
+exports.default = ApprovedTable;
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(3);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ApprovedRow = function (_React$Component) {
+	_inherits(ApprovedRow, _React$Component);
+
+	function ApprovedRow(props) {
+		_classCallCheck(this, ApprovedRow);
+
+		var _this = _possibleConstructorReturn(this, (ApprovedRow.__proto__ || Object.getPrototypeOf(ApprovedRow)).call(this, props));
+
+		_this.state = {
+			leader: null
+		};
+		_this.loadLeaderInfo = _this.loadLeaderInfo.bind(_this);
+		_this.getStyleLabelViaCategory = _this.getStyleLabelViaCategory.bind(_this);
+		return _this;
+	}
+
+	_createClass(ApprovedRow, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.loadLeaderInfo();
+		}
+	}, {
+		key: 'loadLeaderInfo',
+		value: function loadLeaderInfo() {
+			var id = this.props.project.project.memberId;
+
+			var request = $.ajax({
+				url: '/admin/api/member/get',
+				data: {
+					username: id
+				}
+			});
+			var self = this;
+			request.done(function (leader) {
+				if (leader != null) {
+					self.setState({
+						leader: leader
+					});
+				} else {
+					alert("Cannot Get Leader");
+				}
+			});
+
+			request.fail(function (msg) {
+				alert(msg);
+			});
+		}
+
+		// Approved
+
+	}, {
+		key: 'disapproveProject',
+		value: function disapproveProject() {
+			var self = this;
+			var request = $.ajax({
+				url: '/admin/api/project/update',
+				data: {
+					projectId: self.props.project.project.projectId,
+					notPublic: true
+				},
+				cached: false
+			});
+
+			request.done(function (msg) {
+				if (msg === 'success') {
+					toastr.success("Disapproved Successfully");
+					self.row.remove();
+				} else {
+					toastr.error("Disapproved Fail");
+				}
+			});
+
+			request.fail(function (msg) {
+				toastr.error("Error Disapprove");
+			});
+		}
+	}, {
+		key: 'getStyleLabelViaCategory',
+		value: function getStyleLabelViaCategory(id) {
+			var name;
+			switch (id) {
+				case 1:
+					// Web
+					name = 'pink';
+					break;
+				case 2:
+					// Mobile 
+					name = 'light-blue';
+					break;
+				case 3:
+					// Desktop 
+					name = 'purple';
+					break;
+				case 4:
+					// Embedded
+					name = 'green';
+					break;
+			}
+
+			return name;
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			if (this.props.project.categories != null) {
+				var categories = [];
+				var self = this;
+				this.props.project.categories.forEach(function (category) {
+					var labelClass = 'badge badge-pill ';
+					labelClass += self.getStyleLabelViaCategory(category.categoryId);
+					categories.push(_react2.default.createElement(
+						'span',
+						{ className: labelClass },
+						category.name
+					));
+				});
+
+				return _react2.default.createElement(
+					'tr',
+					{ ref: function ref(row) {
+							_this2.row = row;
+						} },
+					_react2.default.createElement(
+						'td',
+						null,
+						_react2.default.createElement(
+							'div',
+							null,
+							this.props.project.project.name
+						),
+						_react2.default.createElement(
+							'div',
+							null,
+							categories
+						)
+					),
+					_react2.default.createElement(
+						'td',
+						null,
+						this.props.project.project.memberId
+					),
+					_react2.default.createElement(
+						'td',
+						null,
+						_react2.default.createElement(
+							'div',
+							{ className: 'text-right' },
+							_react2.default.createElement(
+								'a',
+								{ className: 'btn btn-sm btn-info',
+									href: this.props.project.project.link,
+									target: '_blank' },
+								'Review'
+							),
+							_react2.default.createElement(
+								'a',
+								{ className: 'btn btn-sm btn-amber' },
+								'Details'
+							),
+							_react2.default.createElement(
+								'button',
+								{
+									onClick: this.disapproveProject.bind(this),
+									className: 'btn btn-sm btn-danger' },
+								'Disapprove'
+							)
+						)
+					)
+				);
+			}
+
+			// NULL 
+			return _react2.default.createElement('tr', null);
+		}
+	}]);
+
+	return ApprovedRow;
+}(_react2.default.Component);
+
+exports.default = ApprovedRow;
 
 /***/ })
 /******/ ]);

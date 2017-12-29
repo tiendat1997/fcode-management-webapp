@@ -4,8 +4,14 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <th:block th:include="fragments/adminUtil :: header"></th:block>
+<link rel="stylesheet" th:href="@{/css/loader.css}" />
 </head>
 <body>
+	<div class="full-loader" id="loading">
+		<div class="load-container load6">
+			<div class="loader loader-lg">Loading...</div>
+		</div>
+	</div>
 	<header>
 		<th:block th:include="fragments/adminUtil :: nav-fragment"></th:block>
 	</header>

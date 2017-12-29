@@ -1,7 +1,7 @@
 import React from 'react'; 
 import ReactDOM from 'react-dom'; 
 
-class ProjectRow extends React.Component{
+class AwaitRow extends React.Component{
 	constructor(props){	
 		super(props);
 		this.state = {
@@ -9,6 +9,7 @@ class ProjectRow extends React.Component{
 		}
 		this.loadLeaderInfo = this.loadLeaderInfo.bind(this);
 		this.getStyleLabelViaCategory = this.getStyleLabelViaCategory.bind(this);
+		//this.approveProject = this.approveProject.bind(this);
 	}
 	componentDidMount(){
 		this.loadLeaderInfo();
@@ -41,6 +42,39 @@ class ProjectRow extends React.Component{
 
 
 	}
+
+
+	// Approved
+	approveProject(){
+		var self = this; 
+		var request = $.ajax({
+			url: '/admin/api/project/update',
+			data: {
+				projectId: self.props.project.project.projectId,
+				notPublic: false
+			},
+			cached: false
+		});
+
+		request.done(function(msg){
+			if (msg === 'success') {
+				toastr.success("Approved Successfully");
+				self.row.remove(); 				
+			}
+			else {
+				toastr.error("Approved Fail");
+			}
+		}); 
+
+		request.fail(function(msg){
+			toastr.error("Error Approve");
+		});
+
+	}
+
+	
+
+
 	getStyleLabelViaCategory(id){		
 		var name; 
 		switch(id) {
@@ -69,13 +103,16 @@ class ProjectRow extends React.Component{
 				var labelClass = 'badge badge-pill '; 				
 				labelClass +=  self.getStyleLabelViaCategory(category.categoryId);
 				categories.push(
-					<span className={labelClass}>
+					<span 
+						key={category.categoryId}
+						className={labelClass}>
 						{category.name}
 					</span>
 				)
 			})
+
 			return(
-				<tr>
+				<tr ref={(row) => {this.row = row}}>
 					<td>
 						<div>
 							{this.props.project.project.name}
@@ -96,6 +133,7 @@ class ProjectRow extends React.Component{
 								Details
 							</a>
 							<button 							
+								onClick={this.approveProject.bind(this)}
 								className="btn btn-sm btn-danger">
 								Approve
 							</button>	
@@ -112,4 +150,4 @@ class ProjectRow extends React.Component{
 }
 
 
-export default ProjectRow; 
+export default AwaitRow; 

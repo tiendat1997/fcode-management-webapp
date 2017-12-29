@@ -1,22 +1,28 @@
 import React from 'react'; 
 import ReactDOM from 'react-dom'; 
-import ProjectRow from './projectRow.jsx';
+import ApprovedRow from './approvedRow.jsx';
 
-class ProjectTable extends React.Component{
+class ApprovedTable extends React.Component{
 	constructor(props){
 		super(props);
+	}
+	componentDidMount(){
+		$('#table-loading').hide();	
 	}
 
 	render(){
 		if (this.props.projects != null) {
 			var rows = []; 
-			this.props.projects.forEach(function(project){
-				rows.push(
-						<ProjectRow 
-						key={project.project.projectId} 
-						project={project}/>
-					)
-			});
+			
+				this.props.projects.forEach(function(project){
+					rows.push(
+							<ApprovedRow
+							key={project.project.projectId} 
+							project={project}/>
+						)
+				});	
+			
+			
 
 			return(
 				<div className="table-responsive table-desi">					
@@ -28,6 +34,11 @@ class ProjectTable extends React.Component{
 							</tr>						
 						</thead>						
 						<tbody>	
+							<div id="table-loading" className="table-full-loader">					
+								<div className="load-container load6">
+									<div className="loader loader-sm">Loading...</div>
+								</div>						
+							</div>		
 							{rows}							
 						</tbody>		
 					</table>
@@ -41,4 +52,4 @@ class ProjectTable extends React.Component{
 	}
 };
 
-export default ProjectTable;
+export default ApprovedTable;
