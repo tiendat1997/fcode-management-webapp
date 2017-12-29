@@ -9,6 +9,9 @@ class EventTable extends React.Component{
 		super(props);
 
 	}
+	componentDidMount(){
+		$('#table-loading').hide();	
+	}
 
 
 	render(){
@@ -22,7 +25,7 @@ class EventTable extends React.Component{
 			});
 			
 			return(
-				<div className="table-responsive table-desi">
+				<div className="table-responsive table-desi">					
 					<table className="table table-hover" id="event-table">					
 						<thead>
 							<tr>							
@@ -35,8 +38,13 @@ class EventTable extends React.Component{
 									</div>	
 								</th>	
 							</tr>						
-						</thead>
-						<tbody>
+						</thead>						
+						<tbody>	
+							<div id="table-loading" className="table-full-loader">					
+								<div className="load-container load6">
+									<div className="loader loader-sm">Loading...</div>
+								</div>						
+							</div>								
 							{rows}
 						</tbody>		
 					</table>
@@ -44,7 +52,7 @@ class EventTable extends React.Component{
 			);	
 		}
 		
-		return(
+		return(			
 			<div></div>
 		);
 		

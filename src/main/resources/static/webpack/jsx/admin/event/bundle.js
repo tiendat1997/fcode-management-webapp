@@ -1041,33 +1041,43 @@ var EventPanel = function (_React$Component) {
 	_createClass(EventPanel, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			this.loadUpcomingEvent();
+			this.loadUpcomingEvent(1);
 		}
 	}, {
 		key: 'loadUpcomingEvent',
-		value: function loadUpcomingEvent() {
+		value: function loadUpcomingEvent(init) {
+
 			var request = $.ajax({
 				url: '/admin/api/event/get/upcoming',
 				method: "GET",
 				cached: false
 			});
-
 			var self = this;
+
 			request.done(function (list) {
+				if (init == 1) {
+					$('#loading').fadeOut();
+				} else {
+					$('#table-loading').fadeOut();
+					$('#event-table tbody tr').fadeIn();
+				}
+
 				if (list != null) {
 					self.setState({
 						events: list
 					});
-				}
+				} else {}
 			});
 
 			request.fail(function (msg) {
 				alert(msg);
+				$('#loading').fadeOut();
 			});
 		}
 	}, {
 		key: 'loadCurrentEvent',
 		value: function loadCurrentEvent() {
+
 			var request = $.ajax({
 				url: '/admin/api/event/get/current',
 				method: "GET",
@@ -1076,11 +1086,14 @@ var EventPanel = function (_React$Component) {
 
 			var self = this;
 			request.done(function (list) {
+
 				if (list != null) {
 					self.setState({
 						events: list
 					});
 				}
+				$('#table-loading').fadeOut();
+				$('#event-table tbody tr').fadeIn();
 			});
 
 			request.fail(function (msg) {
@@ -1092,9 +1105,13 @@ var EventPanel = function (_React$Component) {
 		value: function changeEventOption(evt) {
 			if (evt.target.value == 1) {
 				// GET Upcoming Event
+				$('#event-table tbody tr').hide();
+				$('#table-loading').fadeIn();
 				this.loadUpcomingEvent();
 			} else {
 				// GET Current Event
+				$('#event-table tbody tr').fadeOut();
+				$('#table-loading').fadeIn();
 				this.loadCurrentEvent();
 			}
 		}
@@ -18470,6 +18487,11 @@ var EventTable = function (_React$Component) {
 	}
 
 	_createClass(EventTable, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			$('#table-loading').hide();
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			if (this.props.events != null) {
@@ -18516,6 +18538,19 @@ var EventTable = function (_React$Component) {
 						_react2.default.createElement(
 							'tbody',
 							null,
+							_react2.default.createElement(
+								'div',
+								{ id: 'table-loading', className: 'table-full-loader' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'load-container load6' },
+									_react2.default.createElement(
+										'div',
+										{ className: 'loader loader-sm' },
+										'Loading...'
+									)
+								)
+							),
 							rows
 						)
 					)

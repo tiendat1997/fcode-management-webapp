@@ -15,30 +15,44 @@ class EventPanel extends React.Component{
 	}
 
 	componentDidMount(){
-		this.loadUpcomingEvent();
+		this.loadUpcomingEvent(1);
 	}
 
-	loadUpcomingEvent(){
+	loadUpcomingEvent(init){
+
 		var request = $.ajax({
 			url: '/admin/api/event/get/upcoming',
 			method: "GET",
 			cached: false
-		}); 
+		}); 		
+		var self = this; 		
 
-		var self = this; 
 		request.done(function(list){
-			if (list != null) {
+			if (init == 1) {
+				$('#loading').fadeOut();
+			}
+			else {
+				$('#table-loading').fadeOut();	
+				$('#event-table tbody tr').fadeIn();
+			}			
+			
+			if (list != null) {				
 				self.setState({
 					events: list
 				});
+			}
+			else {
+				
 			}
 		}); 
 
 		request.fail(function(msg){
 			alert(msg);
+			$('#loading').fadeOut();
 		});
 	}
 	loadCurrentEvent(){
+			
 		var request = $.ajax({
 			url: '/admin/api/event/get/current',
 			method: "GET",
@@ -47,11 +61,14 @@ class EventPanel extends React.Component{
 
 		var self = this; 
 		request.done(function(list){
+			
 			if (list != null) {
 				self.setState({
 					events: list
 				});
 			}
+			$('#table-loading').fadeOut();
+			$('#event-table tbody tr').fadeIn();
 		}); 
 
 		request.fail(function(msg){
@@ -63,10 +80,14 @@ class EventPanel extends React.Component{
 	changeEventOption(evt){
 		if (evt.target.value == 1){
 			// GET Upcoming Event
+			$('#event-table tbody tr').hide();		
+			$('#table-loading').fadeIn();		
 			this.loadUpcomingEvent();
 		}
 		else {
 			// GET Current Event
+			$('#event-table tbody tr').fadeOut();			
+			$('#table-loading').fadeIn();	
 			this.loadCurrentEvent();
 
 		}
