@@ -79,158 +79,183 @@
 	  </div>
 	</div>
 	<!--  End Modal Add New Member -->
-	<header>
-		<th:block th:include="fragments/adminUtil :: nav-fragment"></th:block>			
-	</header>
-	<main>
-		<div id="page-wrapper">
-			<div class="container-fluid">				
-				<div class="row">					
-					<th:block th:include="fragments/adminUtil :: sidebar-fragment"></th:block>																	
-					<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-						<div class="row">
-							<div class="col-md-12">
-								<h1 class="page-header">Update Event</h1>
-							</div>
-						</div>					
-						<div class="row">
-							<div class="col-md-4">								
-								<div  th:object="${event}" class="card testimonial-card" id="card-event">
-									 <!--Bacground color-->
-								    <div class="card-up" style="height: 50px">
-								    	<div>
-											<a type="submit" class="btn btn-unique btn-sm" href="/admin/event">
-												<i class="fa fa-arrow-left mr-1"></i>Back 
-											</a>
-										</div>											   
-								    </div>								    								
-																	   
-								    <div class="card-body">
-								    	
-								    	<div class="form-group md-form">
-								    		<input id="eventId" style="display: none" th:value="${event.eventId}"></input>
-								    		<i class="fa fa-calendar prefix grey-text"></i>
-                                        	<input type="text" class="form-control"
-                                        			th:value="${event.dateStart + ' - ' + event.dateEnd}" 
-                                        			id="daterange" placeholder="Select value">
-                                        	<label for="form3">Date</label>
-                                    	</div>		
-								    	<div class="md-form">
-									        <i class="fa fa-universal-access prefix grey-text"></i>
-									        <input 
-									         	type="text" 
-									         	id="eventName" class="form-control" 
-									         	th:value="${event.name}"												         										         	
-									         	>
-									        <label for="">Event Name</label>
-									    </div>		
-									    <div class="md-form">
-									     	<i class="fa fa-pencil prefix grey-text"></i>
-									    	<textarea type="text" 
-									    		id="eventDescription" 
-								    			class="md-textarea"								    			 								    		
-								    			th:field="${event.description}"
-								    			rows="2">								    												    	
-									    	</textarea>
-									    	<label for="">Description</label>
-									    </div>
-									    <div class="form-group" style="margin-left: 3rem" >
-									    	<select class="form-control"
-									    		id="select-type-event"									    		
-									    		th:value="${event.eventCategory.name}">
-									    		<option value="1">workshop</option>
-									    		<option value="2">teambuilding</option>
-									    		<option value="3">training</option>
-									    		<option value="4">meeting</option>
-									    		<option value="5">competition</option>
-									    		<option value="6">seminar</option>
-									    	</select>
-									    </div>
-									    <div class="form-group">									    	
-									    	<div class="pretty p-icon p-rotate" style="margin-left: 3rem">
-									    		<div th:if="${event.notPublic}">
-									    			<input type="checkbox" id="cb-public" />
-											        <div class="state p-success">
-											            <i class="icon mdi mdi-check"></i>
-											            <label>Public</label>
-											        </div>
-									    		</div>
-									    		
-									    		<div th:unless="${event.notPublic}">
-									    			<input type="checkbox" id="cb-public" checked="checked"/>
-											        <div class="state p-success">
-											            <i class="icon mdi mdi-check"></i>
-											            <label>Public</label>
-											        </div>
-									    		</div>										        
-										    </div>
-									    </div>
-									      <div class="text-center">
-										        <button type="button" class="btn btn-unique" id="btn-update-event">
-										        	Update <i class="fa fa-paper-plane-o ml-1"></i>
-										        </button>										        
-										  </div>
-									    					   									
-									    							   									  	    							   
+	
+	<div class="wrapper container-fluid">
+		    <div class="row row-offcanvas row-offcanvas-left">
+		        <!-- sidebar -->
+		        <th:block th:include="fragments/adminUtil :: sidebar-fragment"></th:block>
+		        <!-- /sidebar -->
+		
+		        <!-- main right col -->
+		        <div class="col-md-10 col-xs-11" id="main">
+		            <!--  HEADER -->
+		        	<div class="row header">
+		        		<div class="col-md-6">
+		        			<a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-lg"></i></a>
+			            	<h3 style="display: inline-block">Edit Event</h3>
+		        		</div>
+		        		
+		        		<div class="col-md-6 text-right">
+		        			<a class="sign-out" th:href="@{/account/logout}" class="nav-link waves-effect waves-light"> 
+		              			<i class="fa fa-sign-out"></i> Log out
+							</a>
+		        		</div>
+			            
+			          
+		        	</div>
+		        	<!--  /.HEADER -->
+		        	 <hr>
+		            
+		            
+		            
+              		<!--  CONTENT -->
+					<div class="row">						
+						<!-- LEFT COLUMN -->
+						<div class="col-md-4">															
+							<div  th:object="${event}" class="card testimonial-card" id="card-event">
+								 <!--Bacground color-->
+							    <div class="card-up" style="height: 50px">
+							    	 
+										<a type="submit" class="btn btn-unique btn-sm"
+											style="z-index: 0" 
+											href="/admin/event">
+											<i class="fa fa-arrow-left mr-1"></i>Back 
+										</a>
+																		    						   
+							    </div>								    								
+																   
+							    <div class="card-body">
+							    	
+							    	<div class="form-group md-form">
+							    		<input id="eventId" style="display: none" th:value="${event.eventId}"></input>
+							    		<i class="fa fa-calendar prefix grey-text"></i>
+                                       	<input type="text" class="form-control"
+                                       			th:value="${event.dateStart + ' - ' + event.dateEnd}" 
+                                       			id="daterange" placeholder="Select value">
+                                       	<label for="form3">Date</label>
+                                   	</div>		
+							    	<div class="md-form">
+								        <i class="fa fa-universal-access prefix grey-text"></i>
+								        <input 
+								         	type="text" 
+								         	id="eventName" class="form-control" 
+								         	th:value="${event.name}"												         										         	
+								         	>
+								        <label for="">Event Name</label>
+								    </div>		
+								    <div class="md-form">
+								     	<i class="fa fa-pencil prefix grey-text"></i>
+								    	<textarea type="text" 
+								    		id="eventDescription" 
+							    			class="md-textarea"								    			 								    		
+							    			th:field="${event.description}"
+							    			rows="2">								    												    	
+								    	</textarea>
+								    	<label for="">Description</label>
 								    </div>
-								</div>	
-												
-							</div>			
-							<div class="col-md-8">
-								<div class="card testimonial-card">
-										<div class="cart-up" style="height: 50px">
-									 	<div class="row" >
-									 		<div class="col-md-12 text-right">
-									 			<button class="btn btn-primary" 
-									 					data-toggle="modal" 
-														data-target="#addNewModal">
-									 				Add New
-									 			</button>
-									 		</div>
-									 	</div>
-									 </div>
-									  <div class="card-body">
-									  	 <table class="table table-hover table-desi">
-									  	 	<thead>
-									  	 		<tr>
-										  	 		<th>NAME</th>
-										  	 		<th>Start</th>
-										  	 		<th>End</th>										  	 		
-										  	 		<th>Edit</th>
-										  	 		<th>Delete</th>									  	 						  	 		
-										  	 	</tr>										  	 	
-									  	 	</thead>
-									  	 	<tbody>
-									  	 		<tr th:each="timeline : ${event.timelines}">
-									  	 			<td th:text="${timeline.name}"></td>
-									  	 			<td th:text="${timeline.dateStart}"></td>
-									  	 			<td th:text="${timeline.dateEnd}"></td>
-									  	 			<td align="center">
-									                  <a th:href="@{/admin/timeline/edit(id=${timeline.id})}">
-									                  	<i class="fa fa-pencil"></i>
-									                  </a>                 
-									                </td>
-									                <td align="center">
-									                	<a th:onclick="${'deleteTimeline(' + timeline.id + ');'}"> 		                  		  				  							  														  								
-										                  	<i									                  		
-										                  		class="fa fa-trash">
-										                  	</i>
-									                  	</a>
-									                </td>								  	 		
-									  	 		<tr>
-									  	 	</tbody>									  	 										  	
-									  	 </table>									  	
-									  </div>	
-								</div>
+								    <div class="form-group" style="margin-left: 3rem" >
+								    	<select class="form-control"
+								    		id="select-type-event"									    		
+								    		th:value="${event.eventCategory.name}">
+								    		<option value="1">workshop</option>
+								    		<option value="2">teambuilding</option>
+								    		<option value="3">training</option>
+								    		<option value="4">meeting</option>
+								    		<option value="5">competition</option>
+								    		<option value="6">seminar</option>
+								    	</select>
+								    </div>
+								    <div class="form-group">									    	
+								    	<div class="pretty p-icon p-rotate" style="margin-left: 3rem">
+								    		<div th:if="${event.notPublic}">
+								    			<input type="checkbox" id="cb-public" />
+										        <div class="state p-success">
+										            <i class="icon mdi mdi-check"></i>
+										            <label>Public</label>
+										        </div>
+								    		</div>
+								    		
+								    		<div th:unless="${event.notPublic}">
+								    			<input type="checkbox" id="cb-public" checked="checked"/>
+										        <div class="state p-success">
+										            <i class="icon mdi mdi-check"></i>
+										            <label>Public</label>
+										        </div>
+								    		</div>										        
+									    </div>
+								    </div>
+								      <div class="text-center">
+									        <button type="button" class="btn btn-unique" id="btn-update-event">
+									        	Update <i class="fa fa-paper-plane-o ml-1"></i>
+									        </button>										        
+									  </div>
+								    					   									
+								    							   									  	    							   
+							    </div>
+							</div>	
+											
+						</div>											
+						<!-- /.LEFT COLUMN -->
+						
+						<!-- RIGHT COLUMN -->
+						<div class="col-md-8">
+							<div class="card testimonial-card">
+									<div class="cart-up" style="height: 50px">
+								 	<div class="row" >
+								 		<div class="col-md-12 text-right">
+								 			<button class="btn btn-primary" 
+								 					data-toggle="modal" 
+													data-target="#addNewModal">
+								 				Add New
+								 			</button>
+								 		</div>
+								 	</div>
+								 </div>
+								  <div class="card-body">
+								  	 <table class="table table-hover table-desi">
+								  	 	<thead>
+								  	 		<tr>
+									  	 		<th>NAME</th>
+									  	 		<th>Start</th>
+									  	 		<th>End</th>										  	 		
+									  	 		<th>Edit</th>
+									  	 		<th>Delete</th>									  	 						  	 		
+									  	 	</tr>										  	 	
+								  	 	</thead>
+								  	 	<tbody>
+								  	 		<tr th:each="timeline : ${event.timelines}">
+								  	 			<td th:text="${timeline.name}"></td>
+								  	 			<td th:text="${timeline.dateStart}"></td>
+								  	 			<td th:text="${timeline.dateEnd}"></td>
+								  	 			<td align="center">
+								                  <a th:href="@{/admin/timeline/edit(id=${timeline.id})}">
+								                  	<i class="fa fa-pencil"></i>
+								                  </a>                 
+								                </td>
+								                <td align="center">
+								                	<a th:onclick="${'deleteTimeline(' + timeline.id + ');'}"> 		                  		  				  							  														  								
+									                  	<i									                  		
+									                  		class="fa fa-trash">
+									                  	</i>
+								                  	</a>
+								                </td>								  	 		
+								  	 		<tr>
+								  	 	</tbody>									  	 										  	
+								  	 </table>									  	
+								  </div>	
 							</div>
-								 
 						</div>
-					</div>
-				</div>				
-			</div>
-		</div>
-	</main>
-	<footer></footer>
+						
+						<!-- /.RIGHT COLUMN -->	 
+					</div>					
+					
+            	     <!-- /.CONTENT --> 
+		        </div>
+		        <!-- /main -->
+		    </div>       
+		    
+	</div>		
+	
 		
     <!-- Custom Theme JavaScript -->
     <th:block th:include="fragments/adminUtil :: scriptHeader"></th:block>

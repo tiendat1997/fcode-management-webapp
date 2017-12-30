@@ -17,6 +17,13 @@ body {
   background-color: white;
 }
 
+.header h3 {
+	margin-left: 1rem;
+}
+.header .sign-out {
+	float: right; 
+}
+
 @media(min-width: 768px){
 	/*#page-wrapper{
 		position: inherit; 

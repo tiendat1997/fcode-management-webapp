@@ -51,6 +51,10 @@ public class AdminController {
 	public String getDashboardPage(ModelMap modelMap) {
 		return "adminHome";
 	}
+//	@GetMapping(value = "/dashboard")
+//	public String getDashboardPage(ModelMap modelMap) {
+//		return "sidebar-example";
+//	}
 	
 	@GetMapping(value = "/member")
 	public String getMemberPage(ModelMap modelMap) {

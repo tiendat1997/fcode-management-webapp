@@ -11,24 +11,37 @@
 <link rel="stylesheet" th:href="@{/css/adminEventNew.css}" />
 </head>
 <body>
-	<header>
-		<th:block th:include="fragments/adminUtil :: nav-fragment"></th:block>		
-	</header>
-	<main>				
-		<div id="page-wrapper">
-			<div class="container-fluid">				
-				<div class="row">					
-					<th:block th:include="fragments/adminUtil :: sidebar-fragment"></th:block>																	
-					<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-						<div class="row">
-							<div class="col-md-12">
-								<h1 class="page-header">New Event</h1>
-							</div>
-						</div>
+	<div class="wrapper container-fluid">
+		    <div class="row row-offcanvas row-offcanvas-left">
+		        <!-- sidebar -->
+		        <th:block th:include="fragments/adminUtil :: sidebar-fragment"></th:block>
+		        <!-- /sidebar -->
 		
-		
-						<div class="row">
-							<div class="col-md-12">
+		        <!-- main right col -->
+		        <div class="col-md-10 col-xs-11" id="main">
+		        	<!--  HEADER -->
+		        	<div class="row header">
+		        		<div class="col-md-6">
+		        			<a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-lg"></i></a>
+			            	<h3 style="display: inline-block">New Event</h3>
+		        		</div>
+		        		
+		        		<div class="col-md-6 text-right">
+		        			<a class="sign-out" th:href="@{/account/logout}" class="nav-link waves-effect waves-light"> 
+		              			<i class="fa fa-sign-out"></i> Log out
+							</a>
+		        		</div>
+			            
+			          
+		        	</div>
+		        	<!--  /.HEADER -->
+		        	<hr>
+		            
+		        
+		            
+		            <!--  CONTENT -->		          
+		            <div class="row">
+		              <div class="col-md-12">
 								<!--Card-->
 								<div class="card testimonial-card">
 									<div class="card-up" style="height: 50px">
@@ -171,13 +184,14 @@
 								
 																						
 							</div>			
-						</div>
-					</div>
-				</div>				
-			</div>
-		</div>
-	</main>
-	<footer></footer>
+		            </div>
+		            <!-- /.CONTENT -->
+		        </div>
+		        <!-- /main -->
+		    </div>       
+		    
+		</div>	
+	
 	
     <!-- Custom Theme JavaScript -->
     <th:block th:include="fragments/adminUtil :: scriptHeader"></th:block>
