@@ -1049,6 +1049,7 @@ var AdminPanel = function (_React$Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			this.loadAllAdmin();
+			$('#loading').fadeOut();
 		}
 	}, {
 		key: 'loadAllAdmin',
@@ -18864,6 +18865,7 @@ var ModerPanel = function (_React$Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			this.loadAllModerator();
+			$('#loading').fadeOut();
 		}
 	}, {
 		key: 'loadAllModerator',

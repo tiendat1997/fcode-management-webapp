@@ -11,7 +11,7 @@ export default class MemberTable extends React.Component{
 		};			
 	}
 	componentDidMount(){
-
+		$('#member-loading').hide();
 	}
 	componentWillMount(){
 		
@@ -54,7 +54,7 @@ export default class MemberTable extends React.Component{
 		
 		return(				
 				<div className="table-responsive table-desi">
-					<table className="table table-hover">
+					<table className="table table-hover" id="member-table">
 						<thead>
         					<tr className="filters">					                        
 		                        <th className="hidden-xs">#</th>
@@ -107,6 +107,11 @@ export default class MemberTable extends React.Component{
         					</tr> 
 	                  	</thead>
 	                  	<tbody>
+	                  		<div id="member-loading" className="table-full-loader">					
+								<div className="load-container load6">
+									<div className="loader loader-sm">Loading...</div>
+								</div>						
+							</div>		
 	                  		 {rows}
 	                  	</tbody>
 	                  

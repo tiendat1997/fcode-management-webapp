@@ -1049,6 +1049,7 @@ var MemberPanel = function (_React$Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			this.loadMembersFromServer(0, this.state.defaultSize, 3);
+			$('#loading').fadeOut();
 		}
 	}, {
 		key: 'filterMembersFromServer',
@@ -1097,6 +1098,8 @@ var MemberPanel = function (_React$Component) {
 		value: function loadMembersFromServer(page, size, option) {
 			var _this3 = this;
 
+			$('#member-loading').fadeIn();
+
 			var expired = this.state.optionExpired;
 			if (option != null) {
 				expired = option;
@@ -1115,6 +1118,7 @@ var MemberPanel = function (_React$Component) {
 
 			request.done(function (data) {
 				_this3.setState({ page: data });
+				$('#member-loading').fadeOut();
 			});
 
 			request.fail(function (msg) {
@@ -18679,7 +18683,9 @@ var MemberTable = function (_React$Component) {
 
 	_createClass(MemberTable, [{
 		key: 'componentDidMount',
-		value: function componentDidMount() {}
+		value: function componentDidMount() {
+			$('#member-loading').hide();
+		}
 	}, {
 		key: 'componentWillMount',
 		value: function componentWillMount() {}
@@ -18726,7 +18732,7 @@ var MemberTable = function (_React$Component) {
 				{ className: 'table-responsive table-desi' },
 				_react2.default.createElement(
 					'table',
-					{ className: 'table table-hover' },
+					{ className: 'table table-hover', id: 'member-table' },
 					_react2.default.createElement(
 						'thead',
 						null,
@@ -18817,6 +18823,19 @@ var MemberTable = function (_React$Component) {
 					_react2.default.createElement(
 						'tbody',
 						null,
+						_react2.default.createElement(
+							'div',
+							{ id: 'member-loading', className: 'table-full-loader' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'load-container load6' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'loader loader-sm' },
+									'Loading...'
+								)
+							)
+						),
 						rows
 					)
 				)

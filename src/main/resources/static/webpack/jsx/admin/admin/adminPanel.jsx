@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import AdminTable from './adminTable.jsx';
 
-class AdminPanel extends React.Component{
+class AdminPanel extends React.Component {
 	constructor(){
 		super();
 		this.state = {
@@ -16,8 +16,9 @@ class AdminPanel extends React.Component{
 	    this.resetUl = this.resetUl.bind(this);
 	    this.addNewAdmin = this.addNewAdmin.bind(this);
 	}
-	componentDidMount(){
+	componentDidMount(){		
 		this.loadAllAdmin();
+		$('#loading').fadeOut();
 	}
 
 	loadAllAdmin(){

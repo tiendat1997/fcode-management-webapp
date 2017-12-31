@@ -7,9 +7,10 @@
 	th:href="@{/vendor/bootstrap4/css/bootstrap.min.css}" />
 <link rel="stylesheet" th:href="@{/vendor/metisMenu/metisMenu.min.css}" />
 <link rel="stylesheet"
-	th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css">
+	th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" />		
+	<link rel="stylesheet"
+		th:href="@{/vendor/toastr/toastr.min.css}">  	 
+
 <link rel="stylesheet" th:href="@{/vendor/mdb/mdb.css}"/>
 <link rel="stylesheet" th:href="@{/css/adminHome.css}"/>
 <link rel="stylesheet" th:href="@{/css/sidebar-example.css}" />
@@ -195,8 +196,9 @@
 		 
 
 		<!--  Toastr for Notifcation -->
-		 <script
-			src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js"></script> 
+		
+		 <script th:src="@{/vendor/toastr/toastr.min.js}"></script>  		
+		 
 				
 	</div>
 

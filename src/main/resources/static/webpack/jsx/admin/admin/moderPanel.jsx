@@ -18,6 +18,7 @@ class ModerPanel extends React.Component{
 	}
 	componentDidMount() {
 		this.loadAllModerator();
+		$('#loading').fadeOut();
 	}
 
 	loadAllModerator(){

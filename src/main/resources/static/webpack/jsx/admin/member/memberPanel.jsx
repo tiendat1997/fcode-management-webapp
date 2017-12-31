@@ -21,8 +21,9 @@ class MemberPanel extends React.Component{
 	}
 
 
-	componentDidMount(){
+	componentDidMount(){		
  		this.loadMembersFromServer(0, this.state.defaultSize, 3);
+ 		$('#loading').fadeOut();
  	}
 
     filterMembersFromServer(filterValue, page, size, option){
@@ -68,6 +69,10 @@ class MemberPanel extends React.Component{
 
 
 	loadMembersFromServer(page, size, option){
+		
+		$('#member-loading').fadeIn();
+
+
 		var expired = this.state.optionExpired;
 		if (option != null) {
 			expired = option;
@@ -86,6 +91,7 @@ class MemberPanel extends React.Component{
 
 		request.done((data) => {						
 			this.setState({page: data});
+			$('#member-loading').fadeOut();
 		});
 
 		request.fail((msg) => {
