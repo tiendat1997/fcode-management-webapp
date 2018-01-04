@@ -5,6 +5,12 @@
     font-weight: 400;
     text-align: center;
 }
+.sub-title {
+    margin-bottom: 30px;
+    color: #4679bd;
+    font-weight: 400;
+    text-align: center;   
+}
 .today{
 	
 	text-align: center;

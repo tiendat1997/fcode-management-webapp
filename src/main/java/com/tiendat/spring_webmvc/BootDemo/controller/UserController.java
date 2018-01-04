@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.ModelAndViewResolverMethodReturnValueHandler;
 
 import com.tiendat.spring_webmvc.BootDemo.respository.AccountRepository;
 
@@ -29,10 +30,24 @@ public class UserController {
     	return mv;    	
     }
     
+    
+    // GET UPCOMING - DEFAULT
     @GetMapping(value = "/event")
     public ModelAndView getEventPage(ModelMap modelMap) {
     	ModelAndView mv = new ModelAndView("userEvent");
     	return mv;    	
+    }
+    @GetMapping(value = "/event/current")
+    public ModelAndView getCurrentEventPage(ModelMap modelMap) {
+    	ModelAndView mv = new ModelAndView("userCurrentEvent");
+    	return mv;    	
+    }
+    
+    
+    @GetMapping(value = "/timeline")
+    public ModelAndView getTimelinePage(ModelMap modelMap) {
+    	ModelAndView mv = new ModelAndView("userTimeline"); 
+    	return mv; 
     }
     
     @GetMapping(value = "/project")
