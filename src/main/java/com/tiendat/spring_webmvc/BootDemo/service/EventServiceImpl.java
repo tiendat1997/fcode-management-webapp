@@ -3,18 +3,20 @@ package com.tiendat.spring_webmvc.BootDemo.service;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Event;
 import com.tiendat.spring_webmvc.BootDemo.model.EventAction;
+import com.tiendat.spring_webmvc.BootDemo.model.EventCategory;
 import com.tiendat.spring_webmvc.BootDemo.model.EventInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.Timeline;
+import com.tiendat.spring_webmvc.BootDemo.model.UserEvent;
 import com.tiendat.spring_webmvc.BootDemo.respository.EventActionRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.EventCategoryRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.EventRepository;
@@ -154,4 +156,51 @@ public class EventServiceImpl implements EventService {
         return false;
     }
 
+//    ************USER SERVICE****************
+    private UserEvent getEventForUser(Event event) {
+    	EventCategory category = eventCategoryRepository.findById(event.getCategoryId());
+    	SimpleDateFormat format = new SimpleDateFormat("d/M/y");
+    	return new UserEvent(
+    			event.getEventId(), 
+    			event.getName(),
+    			format.format(event.getDateStart()),
+    			format.format(event.getDateEnd()), 
+    			event.getDescription(), 
+    			category);
+    }
+    
+    private List<UserEvent> getListEventForUser(List<Event> events){
+    	List<UserEvent> eventsForUser = null;
+    	for (Event event: events) {
+    		if (eventsForUser == null) {
+    			eventsForUser = new ArrayList<>();
+    		}
+    		eventsForUser.add(getEventForUser(event));
+    	}
+    	return eventsForUser;
+    }
+    
+	@Override
+	public List<UserEvent> getUpcommingEventForUser(int duration) {
+		Date now = new Date(System.currentTimeMillis());
+		Calendar c = Calendar.getInstance();
+		c.setTime(now);
+		c.add(Calendar.DATE, duration);
+		Date toDate = new Date(c.getTimeInMillis());
+		System.out.println(now.toString());
+		System.out.println(1000*60*60*24*duration);
+		List<Event> events = eventRepository.findUpcommingEvent(
+				now,
+				toDate);
+		return getListEventForUser(events);
+	}
+
+	@Override
+	public List<UserEvent> getCurrentEventForUser() {
+		List<Event> events = eventRepository.findCurrentEvent(new Date(System.currentTimeMillis()));
+		return getListEventForUser(events);
+	}
+
+	
+	
 }

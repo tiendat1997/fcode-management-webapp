@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Event;
 import com.tiendat.spring_webmvc.BootDemo.model.EventInformation;
+import com.tiendat.spring_webmvc.BootDemo.model.UserEvent;
 
 public interface EventService {
 
@@ -26,5 +27,11 @@ public interface EventService {
 	boolean update(Event event, String username);
 
 	boolean delete(int eventId, String username);
+	
+//	*****************************
+//	api user
+//	*****************************
+	List<UserEvent> getUpcommingEventForUser(int duration);
+	List<UserEvent> getCurrentEventForUser();
 	
 }
