@@ -49,7 +49,7 @@ public class AccountController {
 					
 				} else if (role.getRoleId() == 2){
 					// Normal User
-					return "welcome";
+					return "redirect:/user/home";
 				}
 					
 			return "home";
