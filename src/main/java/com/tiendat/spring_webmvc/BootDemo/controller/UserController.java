@@ -29,6 +29,12 @@ public class UserController {
     	return mv;    	
     }
     
+    @GetMapping(value = "/event")
+    public ModelAndView getEventPage(ModelMap modelMap) {
+    	ModelAndView mv = new ModelAndView("userEvent");
+    	return mv;    	
+    }
+    
     @GetMapping(value = "/project")
     public ModelAndView getProjectPage(ModelMap modelMap) {
     	ModelAndView mv = new ModelAndView("userProject");

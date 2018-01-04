@@ -9,8 +9,30 @@
 <meta name="author" content="">
 
 <title>Scheduler</title>
-
+<link th:href="@{/vendor/fullcalendar-3.8.0/fullcalendar.min.css}" rel="stylesheet" />
+<link th:href='@{/vendor/fullcalendar-3.8.0/fullcalendar.print.min.css}' rel='stylesheet' media='print' />
 <th:block th:include="fragments/userUtil :: header"></th:block>
+<style>
+
+  body {
+    /*
+    margin: 40px 10px;
+    padding: 0;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    font-size: 14px;
+    */
+  }
+
+  #calendar {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  #calendar .fc-content{
+  	color: white; 
+  	
+  }
+
+</style>
 </head>
 <body id="page-top">
 	<!--  NAV SIDEBAR -->
@@ -18,59 +40,106 @@
     <!--  /NAV SIDEBAR -->
     <div class="container-fluid p-0">
     	<section class="resume-section p-3 p-lg-5 d-flex flex-column" id="experience">
-        <div class="my-auto">
-          <h2 class="mb-5">Experience</h2>
-
-          <div class="resume-item d-flex flex-column flex-md-row mb-5">
-            <div class="resume-content mr-auto">
-              <h3 class="mb-0">Senior Web Developer</h3>
-              <div class="subheading mb-3">Intelitec Solutions</div>
-              <p>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.</p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">March 2013 - Present</span>
-            </div>
-          </div>
-
-          <div class="resume-item d-flex flex-column flex-md-row mb-5">
-            <div class="resume-content mr-auto">
-              <h3 class="mb-0">Web Developer</h3>
-              <div class="subheading mb-3">Intelitec Solutions</div>
-              <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">December 2011 - March 2013</span>
-            </div>
-          </div>
-
-          <div class="resume-item d-flex flex-column flex-md-row mb-5">
-            <div class="resume-content mr-auto">
-              <h3 class="mb-0">Junior Web Designer</h3>
-              <div class="subheading mb-3">Shout! Media Productions</div>
-              <p>Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.</p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">July 2010 - December 2011</span>
-            </div>
-          </div>
-
-          <div class="resume-item d-flex flex-column flex-md-row">
-            <div class="resume-content mr-auto">
-              <h3 class="mb-0">Web Design Intern</h3>
-              <div class="subheading mb-3">Shout! Media Productions</div>
-              <p>Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.</p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">September 2008 - June 2010</span>
-            </div>
-          </div>
-
-        </div>
-
+        <div class="my-auto">        
+          <div id='calendar'></div>
+		</div>
       </section>
     </div>
 	
 
 <th:block th:include="fragments/userUtil :: script"></th:block>
+<script th:src="@{/vendor/fullcalendar-3.8.0/moment.min.js}"></script>
+<script th:src="@{/vendor/fullcalendar-3.8.0/fullcalendar.min.js}"></script>
+
+<script>
+
+  $(document).ready(function() {
+	
+	var today = moment(new Date()).format("MM/DD/YYYY");
+	
+
+    $('#calendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,listWeek'
+      },
+
+      // customize the button names,
+      // otherwise they'd all just say "list"
+      //listDay: { buttonText: 'list day' },
+      views: {        
+        listWeek: { buttonText: 'list week' }
+      },
+
+      defaultView: 'month',
+      defaultDate: today,
+      navLinks: true, // can click day/week names to navigate views
+      editable: false,
+      eventLimit: true, // allow "more" link when too many events
+      events: [
+        {
+          title: 'All Day Event',
+          start: '1/4/2018'
+        },
+        {
+          title: 'AHIHi',
+          start: '1/4/2018'
+        },
+        {
+          title: 'Long Event',
+          start: '1/5/2018',          
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: '1/7/2018'
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: '1/9/2018'
+        },
+        {
+          title: 'Conference',
+          start: '2017-12-11',
+          end: '2017-12-13'
+        },
+        {
+          title: 'Meeting',
+          start: '2017-12-12T10:30:00',
+          end: '2017-12-12T12:30:00'
+        },
+        {
+          title: 'Lunch',
+          start: '2017-12-12T12:00:00'
+        },
+        {
+          title: 'Meeting',
+          start: '2017-12-12T14:30:00'
+        },
+        {
+          title: 'Happy Hour',
+          start: '2017-12-12T17:30:00'
+        },
+        {
+          title: 'Dinner',
+          start: '2017-12-12T20:00:00'
+        },
+        {
+          title: 'Birthday Party',
+          start: '2017-12-13T07:00:00'
+        },
+        {
+          title: 'Click for Google',
+          url: 'http://google.com/',
+          start: '2017-12-28'
+        }
+      ]
+    });
+
+  });
+
+</script>
 </body>
 </html>
