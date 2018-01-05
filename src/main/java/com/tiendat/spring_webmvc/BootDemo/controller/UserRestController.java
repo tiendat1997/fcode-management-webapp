@@ -60,6 +60,7 @@ public class UserRestController {
 	@GetMapping(value = "/project/get/own")
 	public List<ProjectInformation> getListOwnProject(HttpSession session){
 		String memberId = getUsername(session);
+		System.out.println(memberId);
 		if (memberId != null) {
 			return this.projectService.findMemberProject(memberId);	
 		}
@@ -69,6 +70,7 @@ public class UserRestController {
 	@GetMapping(value = "/project/get/participant")
 	public List<ProjectInformation> getListParticitpantProject(HttpSession session){
 		String memberId = getUsername(session);
+		System.out.println(memberId);
 		if (memberId != null) {
 			return this.projectService.getListProjectParticipant(memberId);
 		}
@@ -100,8 +102,13 @@ public class UserRestController {
         String username = null;
         if (session != null) {
             Account account = (Account) session.getAttribute("account");
-           if (account == null)
+           if (account == null) {
         	   username = "tiendat";
+           }
+           else {
+        	   username = account.getUsername(); 
+           }
+        	   
         }else {
         	username = "tiendat";
         }
