@@ -20,6 +20,18 @@ public class Project {
 	private String imgUrl;
 	private boolean notPublic;
 
+	
+	
+	public Project(String name, String description, String memberId, String link, String imgUrl, boolean notPublic) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.memberId = memberId;
+		this.link = link;
+		this.imgUrl = imgUrl;
+		this.notPublic = notPublic;
+	}
+
 	public int getProjectId() {
 		return projectId;
 	}

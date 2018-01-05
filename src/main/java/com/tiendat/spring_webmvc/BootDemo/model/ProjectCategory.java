@@ -15,6 +15,14 @@ public class ProjectCategory {
 	private int id;
 	private int projectId;
 	private int categoryId;
+	
+	
+
+	public ProjectCategory(int projectId, int categoryId) {
+		super();
+		this.projectId = projectId;
+		this.categoryId = categoryId;
+	}
 
 	public int getId() {
 		return id;

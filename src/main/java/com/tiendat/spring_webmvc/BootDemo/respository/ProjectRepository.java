@@ -17,6 +17,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long>{
 	Project findByProjectId(int projectId);
 	
 	Project save(Project project);
+	Project saveAndFlush(Project project);
 	
 //	************USER***********************
 	List<Project> findByMemberId(String memberId);

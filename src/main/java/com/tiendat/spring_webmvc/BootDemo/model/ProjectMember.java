@@ -16,6 +16,14 @@ public class ProjectMember {
 	private String memberId;
 	private int projectId;
 
+	
+	
+	public ProjectMember(String memberId, int projectId) {
+		super();
+		this.memberId = memberId;
+		this.projectId = projectId;
+	}
+
 	public int getId() {
 		return id;
 	}

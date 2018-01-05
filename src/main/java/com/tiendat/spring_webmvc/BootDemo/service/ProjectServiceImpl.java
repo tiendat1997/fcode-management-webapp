@@ -115,9 +115,15 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public boolean addProject(Project project, List<Integer> categories, List<String> members) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean addProject(Project project, int[] categories, String[] members) {
+    	this.projectRepository.saveAndFlush(project);
+    	for (int i = 0; i < categories.length; i++) {
+    		this.projectCategoryRepository.save(new ProjectCategory(project.getProjectId(), categories[i]));
+    	}
+    	for (int i = 0; i < members.length; i++) {
+    		this.projectMemberRepository.save(new ProjectMember(members[i], project.getProjectId()));
+    	}
+    	return true;
     }
 
 	@Override

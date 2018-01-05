@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Account;
+import com.tiendat.spring_webmvc.BootDemo.model.Project;
 import com.tiendat.spring_webmvc.BootDemo.model.ProjectInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.TimelineInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.UserEvent;
@@ -22,6 +23,9 @@ import com.tiendat.spring_webmvc.BootDemo.service.TimelineService;
 @RestController
 @RequestMapping("/user/api")
 public class UserRestController {
+	
+	private static final String FAIL="fail";
+	private static final String SUCCESS = "success";
 
 	@Autowired
 	private EventService eventService;
@@ -78,7 +82,26 @@ public class UserRestController {
 		return null;
 	}
 	
-	
+	@GetMapping(value = "/project/add", params= {"name","description","link","imgUrl","notPublic","categories","participants"})
+	public String addProject(
+			@RequestParam("name") String name,
+			@RequestParam("description") String description,
+			@RequestParam("link") String link,
+			@RequestParam("imgUrl") String imgUrl,
+			@RequestParam("notPublic") boolean notPublic,
+			@RequestParam("categories") int[] categories,
+			@RequestParam("participants") String[] participants,
+			HttpSession session) {
+		String memberId = getUsername(session);
+		if (memberId != null) {
+			Project project = new Project(name, description, memberId, link, imgUrl, notPublic);
+			boolean result = this.projectService.addProject(project, categories, participants);
+			if (result)
+				return SUCCESS;
+		}
+		
+		return FAIL;
+	}
 	
 	
 //	**************************
