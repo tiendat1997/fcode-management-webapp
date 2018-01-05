@@ -33,9 +33,21 @@ public interface EventRepository extends JpaRepository<Event, Long>{
 //	*****************
 //	USER
 //	*****************
-	@Query("select e from event e where dateStart >= ?1 and dateStart <= ?2 and notPublic = 0 order by dateStart asc ")
+	@Query("select e "
+			+ "from event e "
+			+ "where dateStart >= ?1 and "
+					+ "dateStart <= ?2 and "
+					+ "notPublic = 0 and "
+					+ "categoryId IN (1,2,5,6) "
+			+ "order by dateStart asc ")
 	List<Event> findUpcommingEvent(Date now, Date toDate);
-	@Query ("select e from event e where dateStart <= ?1 and dateEnd >= ?1 and notPublic = false")
+	@Query ("select e "
+			+ "from event e "
+			+ "where dateStart <= ?1 and "
+					+ "dateEnd >= ?1 and "
+					+ "notPublic = 0 and "
+					+ "categoryId IN (1,2,5,6) "
+			+ "order by dateStart asc ")
 	List<Event> findCurrentEvent(Date date);
 	
 }

@@ -38,4 +38,5 @@ public class UserRestController {
 		return this.timelineService.getEventTimeline(eventId);
 	}
 	
+	
 }
