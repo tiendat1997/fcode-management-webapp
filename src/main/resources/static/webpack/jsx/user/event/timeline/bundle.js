@@ -986,9 +986,9 @@ module.exports = focusNode;
 "use strict";
 
 
-var _upcomingEventTree = __webpack_require__(16);
+var _timelineTree = __webpack_require__(16);
 
-var _upcomingEventTree2 = _interopRequireDefault(_upcomingEventTree);
+var _timelineTree2 = _interopRequireDefault(_timelineTree);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1009,9 +1009,9 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _event = __webpack_require__(28);
+var _timeline = __webpack_require__(28);
 
-var _event2 = _interopRequireDefault(_event);
+var _timeline2 = _interopRequireDefault(_timeline);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1021,34 +1021,36 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var UpEventTree = function (_React$Component) {
-	_inherits(UpEventTree, _React$Component);
+var TimelineTree = function (_React$Component) {
+	_inherits(TimelineTree, _React$Component);
 
-	function UpEventTree() {
-		_classCallCheck(this, UpEventTree);
+	function TimelineTree() {
+		_classCallCheck(this, TimelineTree);
 
-		var _this = _possibleConstructorReturn(this, (UpEventTree.__proto__ || Object.getPrototypeOf(UpEventTree)).call(this));
+		var _this = _possibleConstructorReturn(this, (TimelineTree.__proto__ || Object.getPrototypeOf(TimelineTree)).call(this));
 
 		_this.state = {
-			events: []
+			timelines: []
 		};
-		_this.loadEventFromServer = _this.loadEventFromServer.bind(_this);
+		_this.loadTimelineFromServer = _this.loadTimelineFromServer.bind(_this);
 		return _this;
 	}
 
-	_createClass(UpEventTree, [{
+	_createClass(TimelineTree, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			this.loadEventFromServer(120);
+			this.loadTimelineFromServer();
 		}
 	}, {
-		key: 'loadEventFromServer',
-		value: function loadEventFromServer(duration) {
+		key: 'loadTimelineFromServer',
+		value: function loadTimelineFromServer() {
+			var eventId = $('#eventId').text();
+
 			var request = $.ajax({
-				url: '/user/api/event/get/upcomming',
+				url: '/user/api/timeline/get/event',
 				method: 'GET',
 				data: {
-					duration: duration
+					eventId: eventId
 				},
 				cached: false
 			});
@@ -1056,26 +1058,26 @@ var UpEventTree = function (_React$Component) {
 			var self = this;
 			request.done(function (list) {
 				if (list != null) {
-					console.log(list);
 					self.setState({
-						events: list
+						timelines: list
 					});
+					console.log(list);
 				} else {
-					toastr.error("Load Event Failure");
+					toastr.error('Get Timeline Failure');
 				}
 			});
 
-			request.fail(function () {
-				toastr.error('Event Get Fail');
+			request.fail(function (msg) {
+				toastr.error(msg);
 			});
 		}
 	}, {
 		key: 'render',
 		value: function render() {
 			var list = [];
-			if (this.state.events.length > 0) {
-				this.state.events.forEach(function (event, index) {
-					list.push(_react2.default.createElement(_event2.default, { event: event, index: index }));
+			if (this.state.timelines.length > 0) {
+				this.state.timelines.forEach(function (timeline, index) {
+					list.push(_react2.default.createElement(_timeline2.default, { timeline: timeline, index: index }));
 				});
 			} else {
 				list.push(_react2.default.createElement(
@@ -1090,7 +1092,7 @@ var UpEventTree = function (_React$Component) {
 							_react2.default.createElement(
 								'a',
 								null,
-								'There are no event'
+								'There are no Timlines'
 							)
 						)
 					)
@@ -1098,59 +1100,18 @@ var UpEventTree = function (_React$Component) {
 			}
 
 			return _react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(
-					'h4',
-					{ className: 'sub-title' },
-					_react2.default.createElement(
-						'a',
-						{ href: '/user/event/current' },
-						'Current Event'
-					)
-				),
-				_react2.default.createElement(
-					'h2',
-					{ className: 'title' },
-					'Upcomming Event'
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'row' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'col-md-12 text-center' },
-						_react2.default.createElement(
-							'button',
-							{ className: 'btn btn-sm btn-primary', onClick: this.loadEventFromServer.bind(this, 7) },
-							'Week'
-						),
-						_react2.default.createElement(
-							'button',
-							{ className: 'btn btn-sm btn-primary', onClick: this.loadEventFromServer.bind(this, 30) },
-							'2 Months'
-						),
-						_react2.default.createElement(
-							'button',
-							{ className: 'btn btn-sm btn-primary', onClick: this.loadEventFromServer.bind(this, 120) },
-							'4 Months'
-						)
-					)
-				),
-				_react2.default.createElement(
-					'ul',
-					{ className: 'timeline' },
-					list,
-					_react2.default.createElement('li', { className: 'clearfix no-float' })
-				)
+				'ul',
+				{ className: 'timeline' },
+				list,
+				_react2.default.createElement('li', { className: 'clearfix no-float' })
 			);
 		}
 	}]);
 
-	return UpEventTree;
+	return TimelineTree;
 }(_react2.default.Component);
 
-_reactDom2.default.render(_react2.default.createElement(UpEventTree, null), document.getElementById('react-upcoming-event'));
+_reactDom2.default.render(_react2.default.createElement(TimelineTree, null), document.getElementById('react-timeline'));
 
 /***/ }),
 /* 17 */
@@ -18443,16 +18404,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Event = function (_React$Component) {
-	_inherits(Event, _React$Component);
+var Timeline = function (_React$Component) {
+	_inherits(Timeline, _React$Component);
 
-	function Event(props) {
-		_classCallCheck(this, Event);
+	function Timeline(props) {
+		_classCallCheck(this, Timeline);
 
-		return _possibleConstructorReturn(this, (Event.__proto__ || Object.getPrototypeOf(Event)).call(this, props));
+		return _possibleConstructorReturn(this, (Timeline.__proto__ || Object.getPrototypeOf(Timeline)).call(this, props));
 	}
 
-	_createClass(Event, [{
+	_createClass(Timeline, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {}
 	}, {
@@ -18483,11 +18444,7 @@ var Event = function (_React$Component) {
 						_react2.default.createElement(
 							'h4',
 							{ className: 'col-md-8' },
-							_react2.default.createElement(
-								'a',
-								{ href: '/user/timeline?eventId=' + this.props.event.eventId + '&eventName=' + this.props.event.name + '&dateStart=' + this.props.event.dateStart + '&dateEnd=' + this.props.event.dateEnd },
-								this.props.event.name
-							)
+							this.props.timeline.name
 						),
 						_react2.default.createElement(
 							'ul',
@@ -18528,21 +18485,16 @@ var Event = function (_React$Component) {
 						_react2.default.createElement(
 							'p',
 							null,
-							this.props.event.description
+							this.props.timeline.description
 						)
 					),
 					_react2.default.createElement(
 						'div',
 						{ className: 'timeline-footer' },
 						_react2.default.createElement(
-							'span',
-							{ className: 'text-left badge badge-pill pink' },
-							this.props.event.eventCategory.name
-						),
-						_react2.default.createElement(
-							'p',
+							'h5',
 							{ className: 'text-right' },
-							this.props.event.dateStart
+							this.props.timeline.dateStart + '  -  ' + this.props.timeline.dateEnd
 						)
 					)
 				)
@@ -18550,10 +18502,10 @@ var Event = function (_React$Component) {
 		}
 	}]);
 
-	return Event;
+	return Timeline;
 }(_react2.default.Component);
 
-exports.default = Event;
+exports.default = Timeline;
 
 /***/ })
 /******/ ]);

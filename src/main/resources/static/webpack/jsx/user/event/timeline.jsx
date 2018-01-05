@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'; 
 
-class Event extends React.Component{
+class Timeline extends React.Component{
 	constructor(props){
 		super(props);
 	}
@@ -24,13 +24,7 @@ class Event extends React.Component{
 			        <div className="timeline-panel">
 			            <div className="row timeline-heading">
 			                <h4 className="col-md-8">
-			                	
-			                	<a href={'/user/timeline?eventId=' + this.props.event.eventId + 
-			                			'&eventName=' + this.props.event.name +
-			                			'&dateStart=' + this.props.event.dateStart + 
-			                			'&dateEnd=' + this.props.event.dateEnd}>
-			                		{this.props.event.name}
-			                	</a>
+			                	{this.props.timeline.name}
 			                </h4>
 			                <ul className="list-inline list-social-icons mb-0 col-md-4 text-right">			                	
 			                	  <li className="list-inline-item">
@@ -52,16 +46,12 @@ class Event extends React.Component{
 			                </ul>
 			            </div>
 			            <div className="timeline-body">			                
-			                <p>{this.props.event.description}</p>
+			                <p>{this.props.timeline.description}</p>
 			            </div>
-			            <div className="timeline-footer">
-			                
-			                	<span className="text-left badge badge-pill pink">{this.props.event.eventCategory.name}</span>			                
-			              
-			                	 <p className="text-right">			                	
-			                		{this.props.event.dateStart}
-			                	</p>
-			                		               
+			            <div className="timeline-footer">			                			                				              
+		                	<h5 className="text-right">			                	
+		                		{this.props.timeline.dateStart + '  -  ' + this.props.timeline.dateEnd}
+		                	</h5>			                		               
 			            </div>
 			        </div>
 			  </li>
@@ -73,4 +63,4 @@ class Event extends React.Component{
 
 }
 
-export default Event;
+export default Timeline;

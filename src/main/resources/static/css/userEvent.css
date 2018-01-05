@@ -16,7 +16,7 @@
 	text-align: center;
 }
 
-#react-current-event, #react-upcoming-event{
+#react-current-event, #react-upcoming-event, #react-timeline-auto{
     width: 100%;
 }
 
@@ -156,6 +156,9 @@ p.footer {
     margin-bottom: 0; 
     display: inline-block;
     float:right;
+}
+.timeline-footer h5 {
+    font-weight: 300;
 }
 .timeline-footer > a {
     cursor: pointer;

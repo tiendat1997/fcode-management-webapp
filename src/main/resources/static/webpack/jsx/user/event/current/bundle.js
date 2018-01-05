@@ -18462,7 +18462,7 @@ var Event = function (_React$Component) {
 							{ className: 'col-md-8' },
 							_react2.default.createElement(
 								'a',
-								null,
+								{ href: '/user/timeline?eventId=' + this.props.event.eventId + '&eventName=' + this.props.event.name + '&dateStart=' + this.props.event.dateStart + '&dateEnd=' + this.props.event.dateEnd },
 								this.props.event.name
 							)
 						),

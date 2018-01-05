@@ -1,7 +1,7 @@
 module.exports = {
-	entry: "./jsx/user/event/upcoming/entry.js",
+	entry: "./jsx/user/event/timeline/entry.js",
     output: {
-        path: __dirname + "/jsx/user/event/upcoming",
+        path: __dirname + "/jsx/user/event/timeline",
         filename: "bundle.js"
     },
     module: {
