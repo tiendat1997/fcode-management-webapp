@@ -2,6 +2,7 @@ package com.tiendat.spring_webmvc.BootDemo.service;
 
 import java.util.List;
 
+import com.tiendat.spring_webmvc.BootDemo.model.Category;
 import com.tiendat.spring_webmvc.BootDemo.model.Project;
 import com.tiendat.spring_webmvc.BootDemo.model.ProjectInformation;
 
@@ -20,5 +21,6 @@ public interface ProjectService {
 //****************USER*********************
 	List<ProjectInformation> findMemberProject(String memberId);
 	List<ProjectInformation> getListProjectParticipant(String memberId);
+	List<Category> getListCategory();
 	
 }

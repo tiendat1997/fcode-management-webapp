@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Account;
+import com.tiendat.spring_webmvc.BootDemo.model.Category;
 import com.tiendat.spring_webmvc.BootDemo.model.Project;
 import com.tiendat.spring_webmvc.BootDemo.model.ProjectInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.TimelineInformation;
@@ -103,6 +104,10 @@ public class UserRestController {
 		return FAIL;
 	}
 	
+	@GetMapping(value = "/category/get/all")
+	public List<Category> getListCategory(){
+		return this.projectService.getListCategory();
+	}
 	
 //	**************************
 //	Profile

@@ -8,12 +8,15 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tiendat.spring_webmvc.BootDemo.model.Category;
+import com.tiendat.spring_webmvc.BootDemo.model.EventCategory;
 import com.tiendat.spring_webmvc.BootDemo.model.Project;
 import com.tiendat.spring_webmvc.BootDemo.model.ProjectCategory;
 import com.tiendat.spring_webmvc.BootDemo.model.ProjectInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.ProjectMember;
 import com.tiendat.spring_webmvc.BootDemo.respository.AccountRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.CategoryRepository;
+import com.tiendat.spring_webmvc.BootDemo.respository.EventCategoryRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.ProjectCategoryRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.ProjectMemberRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.ProjectRepository;
@@ -36,6 +39,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private AccountRepository accountRepository;
+    
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     private ProjectInformation findAllInfomation(Project project) {
 
@@ -149,6 +155,11 @@ public class ProjectServiceImpl implements ProjectService {
 		List<Project> projects = projectRepository.findProjectParticipant(memberId);
 		List<ProjectInformation> projectsParticipant = this.findListAllInformation(projects);
 		return projectsParticipant;
+	}
+
+	@Override
+	public List<Category> getListCategory() {
+		return this.categoryRepository.findAll();
 	}
 
 	

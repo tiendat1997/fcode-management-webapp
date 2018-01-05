@@ -16,7 +16,11 @@ public class ProjectCategory {
 	private int projectId;
 	private int categoryId;
 	
-	
+		
+
+	public ProjectCategory() {
+		super();
+	}
 
 	public ProjectCategory(int projectId, int categoryId) {
 		super();

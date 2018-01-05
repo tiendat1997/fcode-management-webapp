@@ -10,6 +10,7 @@ public interface ProjectCategoryRepository extends JpaRepository<ProjectCategory
 
 	List<ProjectCategory> findByProjectId(int projectId);
 	List<ProjectCategory> findByCategoryId(int categoryId);
+	List<ProjectCategory> findAll();
 	
 	ProjectCategory save(ProjectCategory projectCategory);
 	
