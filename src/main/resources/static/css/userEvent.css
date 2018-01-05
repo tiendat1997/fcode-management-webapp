@@ -16,6 +16,10 @@
 	text-align: center;
 }
 
+#react-current-event, #react-upcoming-event{
+    width: 100%;
+}
+
 p.footer {
     margin-bottom: 20px;
     color: #999999;
@@ -148,7 +152,11 @@ p.footer {
     padding: 5px 15px;
     background-color:#f4f4f4;
 }
-.timeline-footer p { margin-bottom: 0; }
+.timeline-footer p { 
+    margin-bottom: 0; 
+    display: inline-block;
+    float:right;
+}
 .timeline-footer > a {
     cursor: pointer;
     text-decoration: none;

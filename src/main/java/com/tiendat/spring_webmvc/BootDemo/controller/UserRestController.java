@@ -14,7 +14,7 @@ import com.tiendat.spring_webmvc.BootDemo.service.EventService;
 import com.tiendat.spring_webmvc.BootDemo.service.TimelineService;
 
 @RestController
-@RequestMapping("user/api")
+@RequestMapping("/user/api")
 public class UserRestController {
 
 	@Autowired

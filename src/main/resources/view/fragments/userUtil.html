@@ -4,6 +4,9 @@
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" th:href="@{/vendor/bootstrap4/css/bootstrap.css}">
 
+<!--  Toastr  -->
+<link rel="stylesheet" th:href="@{/vendor/toastr/toastr.min.css}">
+
 <!-- MDB - material design Bootstrap 4 -->
  <link rel="stylesheet" th:href="@{/vendor/mdb/mdb.css}"/>
 
@@ -25,7 +28,7 @@
 	      <a class="navbar-brand js-scroll-trigger" href="#page-top">
 	        <span class="d-block d-lg-none">Start Bootstrap</span>
 	        <span class="d-none d-lg-block">
-	          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" th:src="@{/img/huy-profile.jpg}" alt="">
+	          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" th:src="${session.account.imageUrl}" alt="">
 	        </span>
 	      </a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,6 +67,10 @@
 	    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
 	    <script th:src="@{/vendor/mdb/popper.min.js}"></script>
 	    <script th:src="@{/vendor/bootstrap4/js/bootstrap.min.js}"></script>
+	    
+	    <!--  Toastr for Notifcation -->
+		
+		 <script th:src="@{/vendor/toastr/toastr.min.js}"></script>
 	
 	    <!-- Plugin JavaScript -->
 	    <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
