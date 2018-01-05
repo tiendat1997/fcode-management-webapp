@@ -14,6 +14,7 @@ import com.tiendat.spring_webmvc.BootDemo.model.Account;
 import com.tiendat.spring_webmvc.BootDemo.model.ProjectInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.TimelineInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.UserEvent;
+import com.tiendat.spring_webmvc.BootDemo.service.AccountService;
 import com.tiendat.spring_webmvc.BootDemo.service.EventService;
 import com.tiendat.spring_webmvc.BootDemo.service.ProjectService;
 import com.tiendat.spring_webmvc.BootDemo.service.TimelineService;
@@ -30,6 +31,9 @@ public class UserRestController {
 	
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private AccountService accountService;
 	
 //	*****************************
 //	Event
@@ -73,6 +77,18 @@ public class UserRestController {
 	}
 	
 	
+//	**************************
+//	Profile
+//	**************************
+	
+	@GetMapping(value="/profile/get")
+	public Account getProfile(HttpSession session) {
+		String memberId = getUsername(session);
+		if (session != null) {
+			return this.accountService.findByUsername(memberId);
+		}
+		return null;
+	}
 	
 	// *************************
     // JUST FOR TEST
