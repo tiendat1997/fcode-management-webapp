@@ -138,4 +138,13 @@ public class ProjectServiceImpl implements ProjectService {
 		return false;
 	}
 
+	@Override
+	public List<ProjectInformation> getListProjectParticipant(String memberId) {
+		List<Project> projects = projectRepository.findProjectParticipant(memberId);
+		List<ProjectInformation> projectsParticipant = this.findListAllInformation(projects);
+		return projectsParticipant;
+	}
+
+	
+
 }

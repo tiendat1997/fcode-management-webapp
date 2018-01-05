@@ -11,11 +11,14 @@ public interface ProjectService {
 	List<ProjectInformation> findPublicProject();
 	List<ProjectInformation> findNotPublicProject();
 	ProjectInformation findProjectById(int projectId);
-	List<ProjectInformation> findMemberProject(String memberId);
+	
 	List<ProjectInformation> findProjectByCategory(int categoryId);
 	
 	boolean addProject(Project project, List<Integer> categories, List<String> members);
 	boolean approveProject(int projectId, boolean notPublic);
 	
+//****************USER*********************
+	List<ProjectInformation> findMemberProject(String memberId);
+	List<ProjectInformation> getListProjectParticipant(String memberId);
 	
 }
