@@ -23,4 +23,6 @@ public interface ProjectService {
 	List<ProjectInformation> getListProjectParticipant(String memberId);
 	List<Category> getListCategory();
 	
+	boolean updateProject(Project project, int[] categories, String[] members);
+	
 }

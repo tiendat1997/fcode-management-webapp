@@ -162,6 +162,20 @@ public class ProjectServiceImpl implements ProjectService {
 		return this.categoryRepository.findAll();
 	}
 
+	@Override
+	public boolean updateProject(Project project, int[] categories, String[] members) {
+		this.projectRepository.save(project);
+		this.projectCategoryRepository.deleteByProjectId(project.getProjectId());
+		this.projectMemberRepository.deleteByProjectId(project.getProjectId());
+		for (int i = 0; i < categories.length; i++) {
+    		this.projectCategoryRepository.save(new ProjectCategory(project.getProjectId(), categories[i]));
+    	}
+    	for (int i = 0; i < members.length; i++) {
+    		this.projectMemberRepository.save(new ProjectMember(members[i], project.getProjectId()));
+    	}
+		return true;
+	}
+
 	
 
 }

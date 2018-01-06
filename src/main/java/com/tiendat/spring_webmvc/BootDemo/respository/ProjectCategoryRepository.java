@@ -13,6 +13,6 @@ public interface ProjectCategoryRepository extends JpaRepository<ProjectCategory
 	List<ProjectCategory> findAll();
 	
 	ProjectCategory save(ProjectCategory projectCategory);
-	
+	Long deleteByProjectId(int projectId);
 	
 }

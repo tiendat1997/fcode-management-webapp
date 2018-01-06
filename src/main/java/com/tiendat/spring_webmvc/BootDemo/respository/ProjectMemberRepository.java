@@ -11,5 +11,5 @@ public interface ProjectMemberRepository extends JpaRepository<ProjectMember, Lo
 	List<ProjectMember> findByProjectId(int projectId);
 	
 	ProjectMember save(ProjectMember member);
-	
+	Long deleteByProjectId(int projectId);
 }

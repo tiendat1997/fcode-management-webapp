@@ -18,6 +18,10 @@ public class ProjectMember {
 
 	
 	
+	public ProjectMember() {
+		super();
+	}
+
 	public ProjectMember(String memberId, int projectId) {
 		super();
 		this.memberId = memberId;

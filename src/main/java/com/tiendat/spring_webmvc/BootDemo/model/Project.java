@@ -22,6 +22,22 @@ public class Project {
 
 	
 	
+	public Project() {
+		super();
+	}
+
+	public Project(int projectId, String name, String description, String memberId, String link, String imgUrl,
+			boolean notPublic) {
+		super();
+		this.projectId = projectId;
+		this.name = name;
+		this.description = description;
+		this.memberId = memberId;
+		this.link = link;
+		this.imgUrl = imgUrl;
+		this.notPublic = notPublic;
+	}
+
 	public Project(String name, String description, String memberId, String link, String imgUrl, boolean notPublic) {
 		super();
 		this.name = name;

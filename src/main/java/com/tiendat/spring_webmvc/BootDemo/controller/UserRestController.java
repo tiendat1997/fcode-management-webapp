@@ -104,6 +104,28 @@ public class UserRestController {
 		return FAIL;
 	}
 	
+	@GetMapping(value = "/project/update", params= {"projectId","name","description","link","imgUrl","notPublic","categories","participants"})
+	public String addProject(
+			@RequestParam("projectId") int projectId,
+			@RequestParam("name") String name,
+			@RequestParam("description") String description,
+			@RequestParam("link") String link,
+			@RequestParam("imgUrl") String imgUrl,
+			@RequestParam("notPublic") boolean notPublic,
+			@RequestParam("categories") int[] categories,
+			@RequestParam("participants") String[] participants,
+			HttpSession session) {
+		String memberId = getUsername(session);
+		if (memberId != null) {
+			Project project = new Project(projectId,name, description, memberId, link, imgUrl, notPublic);
+			boolean result = this.projectService.updateProject(project, categories, participants);
+			if (result)
+				return SUCCESS;
+		}
+		
+		return FAIL;
+	}
+	
 	@GetMapping(value = "/category/get/all")
 	public List<Category> getListCategory(){
 		return this.projectService.getListCategory();
