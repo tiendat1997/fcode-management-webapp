@@ -41,6 +41,20 @@ public class UserRestController {
 	private AccountService accountService;
 	
 //	*****************************
+//	Scheduler
+//	*****************************
+	
+	@GetMapping(value = "/scheduler/get/timeline")
+	public List<TimelineInformation> getListTimeline(){
+		return this.timelineService.getListTimelineScheduler();
+	}
+	
+	@GetMapping(value = "/scheduler/get/timeline",params= {"month","year"})
+	public List<TimelineInformation> getListTimelineByMonth(@RequestParam("month") int month, @RequestParam("year") int year){
+		return this.timelineService.getListTimelineSchedulerByMonth(month, year);
+	}
+	
+//	*****************************
 //	Event
 //	*****************************
 	
@@ -142,6 +156,27 @@ public class UserRestController {
 			return this.accountService.findByUsername(memberId);
 		}
 		return null;
+	}
+	
+	@GetMapping(value = "/profile/update", params= {"password","fullname","email","phone","imageUrl","grade","major"})
+	public String updateProfile(
+			HttpSession session,
+			@RequestParam("password") String password,
+			@RequestParam("fullname") String fullname,
+			@RequestParam("email") String email,
+			@RequestParam("phone") String phone,
+			@RequestParam("imageUrl") String imageUrl,
+			@RequestParam("grade") int grade,
+			@RequestParam("majow") String major) {
+		
+		
+		String username = getUsername(session);
+		if (username != null) {
+			Account account = accountService.findByUsername(username);
+			accountService.updateAccount(new Account(username, password, fullname, email, phone, account.getRoleId(), account.getStudentCode(), account.isExpired()));
+			return SUCCESS;
+		}
+		return FAIL;
 	}
 	
 	// *************************

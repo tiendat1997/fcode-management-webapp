@@ -16,4 +16,9 @@ public interface TimelineService {
 	boolean updateTimeline(Timeline timeline, String username);
 	
 	boolean deleteTimeline(int id, String username);
+	
+	List<TimelineInformation> getListTimelineScheduler();
+	
+	List<TimelineInformation> getListTimelineSchedulerByMonth(int month, int year);
+	
 }

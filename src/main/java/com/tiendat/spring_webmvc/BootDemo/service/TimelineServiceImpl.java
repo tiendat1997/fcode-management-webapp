@@ -110,4 +110,16 @@ public class TimelineServiceImpl implements TimelineService {
         return getAllInfomation(timelineRepository.findById(id));
     }
 
+	@Override
+	public List<TimelineInformation> getListTimelineScheduler() {
+		List<Timeline> timelines = this.timelineRepository.getListScheduler();
+		return getAllListInfomation(timelines);
+	}
+
+	@Override
+	public List<TimelineInformation> getListTimelineSchedulerByMonth(int month, int year) {
+		List<Timeline> timelines = this.timelineRepository.getListSchedulerByMonth(month, year);
+		return getAllListInfomation(timelines);
+	}
+
 }

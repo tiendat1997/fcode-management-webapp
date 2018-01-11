@@ -1030,7 +1030,8 @@ var ProjectPanel = function (_React$Component) {
 		var _this = _possibleConstructorReturn(this, (ProjectPanel.__proto__ || Object.getPrototypeOf(ProjectPanel)).call(this));
 
 		_this.state = {
-			projects: []
+			projects: [],
+			type: 1 // 1 : owner - 2 : participant 
 		};
 		_this.loadOwnProjectFromServer = _this.loadOwnProjectFromServer.bind(_this);
 		return _this;
@@ -1044,6 +1045,13 @@ var ProjectPanel = function (_React$Component) {
 	}, {
 		key: 'loadOwnProjectFromServer',
 		value: function loadOwnProjectFromServer() {
+			this.setState({
+				type: 1
+			});
+
+			$('#btn-part').removeClass('active');
+			$('#btn-own').addClass('active');
+
 			var request = $.ajax({
 				url: '/user/api/project/get/own',
 				method: 'GET',
@@ -1069,6 +1077,13 @@ var ProjectPanel = function (_React$Component) {
 	}, {
 		key: 'loadParticipantProjectFromServer',
 		value: function loadParticipantProjectFromServer() {
+			this.setState({
+				type: 2
+			});
+
+			$('#btn-own').removeClass('active');
+			$('#btn-part').addClass('active');
+
 			var request = $.ajax({
 				url: '/user/api/project/get/participant',
 				method: 'GET',
@@ -1096,8 +1111,9 @@ var ProjectPanel = function (_React$Component) {
 		value: function render() {
 			var list = [];
 			if (this.state.projects.length > 0) {
+				var self = this;
 				this.state.projects.forEach(function (project) {
-					list.push(_react2.default.createElement(_project2.default, { project: project }));
+					list.push(_react2.default.createElement(_project2.default, { type: self.state.type, project: project }));
 				});
 			} else {
 				list.push(_react2.default.createElement(
@@ -1125,64 +1141,81 @@ var ProjectPanel = function (_React$Component) {
 						'div',
 						{ className: 'col-md-8' },
 						_react2.default.createElement(
-							'h2',
-							{ className: 'header' },
-							'Project'
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'h2',
+								{ className: 'header' },
+								'Project'
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'badge badge-pill badge-success' },
+								this.state.projects.length
+							)
 						),
 						_react2.default.createElement(
-							'span',
-							{ className: 'badge badge-pill badge-success' },
-							this.state.projects.length
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'a',
+								{ href: '/user/project/new', className: 'nav-link waves-effect waves-light', id: 'new-project' },
+								_react2.default.createElement('i', { className: 'fa fa-plus fa-lg', 'aria-hidden': 'true' }),
+								'\xA0New'
+							)
 						)
 					),
 					_react2.default.createElement(
 						'div',
 						{ className: 'col-md-4' },
 						_react2.default.createElement(
-							'nav',
-							{ className: 'mb-1 navbar navbar-expand-lg navbar-dark cyan' },
-							_react2.default.createElement(
-								'button',
-								{
-									className: 'navbar-toggler', type: 'button', 'data-toggle': 'collapse', 'data-target': '#navbarSupportedContent-4',
-									'aria-controls': 'navbarSupportedContent-4',
-									'aria-expanded': 'false',
-									'aria-label': 'Toggle navigation' },
-								_react2.default.createElement('span', { className: 'navbar-toggler-icon' })
-							),
+							'div',
+							{ className: 'row' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'collapse navbar-collapse', id: 'navbarSupportedContent-4' },
+								{ className: 'col-md-12' },
 								_react2.default.createElement(
-									'ul',
-									{ className: 'navbar-nav' },
+									'nav',
+									{ className: 'mb-1 navbar navbar-expand-lg navbar-dark cyan' },
 									_react2.default.createElement(
-										'li',
-										{ className: 'nav-item active' },
-										_react2.default.createElement(
-											'a',
-											{
-												onClick: this.loadOwnProjectFromServer.bind(this),
-												className: 'nav-link waves-effect waves-light' },
-											_react2.default.createElement('i', { className: 'fa fa-user-secret fa-lg', 'aria-hidden': 'true' }),
-											'Your Own',
-											_react2.default.createElement(
-												'span',
-												{ className: 'sr-only' },
-												'(current)'
-											)
-										)
+										'button',
+										{
+											className: 'navbar-toggler', type: 'button', 'data-toggle': 'collapse', 'data-target': '#navbarSupportedContent-4',
+											'aria-controls': 'navbarSupportedContent-4',
+											'aria-expanded': 'false',
+											'aria-label': 'Toggle navigation' },
+										_react2.default.createElement('span', { className: 'navbar-toggler-icon' })
 									),
 									_react2.default.createElement(
-										'li',
-										{ className: 'nav-item' },
+										'div',
+										{ className: 'collapse navbar-collapse', id: 'navbarSupportedContent-4' },
 										_react2.default.createElement(
-											'a',
-											{
-												onClick: this.loadParticipantProjectFromServer.bind(this),
-												className: 'nav-link waves-effect waves-light' },
-											_react2.default.createElement('i', { className: 'fa fa-user-plus fa-lg', 'aria-hidden': 'true' }),
-											'Contribute To'
+											'ul',
+											{ className: 'navbar-nav' },
+											_react2.default.createElement(
+												'li',
+												{ className: 'nav-item active', id: 'btn-own' },
+												_react2.default.createElement(
+													'a',
+													{
+														onClick: this.loadOwnProjectFromServer.bind(this),
+														className: 'nav-link waves-effect waves-light' },
+													_react2.default.createElement('i', { className: 'fa fa-user-secret fa-lg', 'aria-hidden': 'true' }),
+													'Your Own'
+												)
+											),
+											_react2.default.createElement(
+												'li',
+												{ className: 'nav-item', id: 'btn-part' },
+												_react2.default.createElement(
+													'a',
+													{
+														onClick: this.loadParticipantProjectFromServer.bind(this),
+														className: 'nav-link waves-effect waves-light' },
+													_react2.default.createElement('i', { className: 'fa fa-user-plus fa-lg', 'aria-hidden': 'true' }),
+													'Contribute To'
+												)
+											)
 										)
 									)
 								)
@@ -18523,15 +18556,44 @@ var Project = function (_React$Component) {
 				this.props.project.members.forEach(function (member) {
 					members.push(_react2.default.createElement(
 						'span',
-						{ className: 'badge badge-default' },
+						{ className: 'badge badge-default member-name' },
 						member.fullname
 					));
 				});
+			} else {
+				members.push(_react2.default.createElement(
+					'span',
+					{ className: 'badge badge-default member-name' },
+					'Collaboration'
+				));
+			}
+
+			var btnUpdate = [];
+			if (this.props.type != null) {
+				if (this.props.type == 1) {
+					// Owner 
+					// ADD More member 
+					members.push(_react2.default.createElement(
+						'span',
+						{ className: 'add-member' },
+						_react2.default.createElement(
+							'a',
+							{ href: '/user/project/member/add?projectId=' + this.props.project.project.projectId },
+							_react2.default.createElement('i', { className: 'fa fa-plus-square-o', 'aria-hidden': 'true' })
+						)
+					));
+
+					btnUpdate.push(_react2.default.createElement(
+						'button',
+						{ className: 'btn btn-primary btn-sm' },
+						'Edit'
+					));
+				}
 			}
 
 			return _react2.default.createElement(
 				'div',
-				{ className: 'resume-item d-flex flex-column flex-md-row mb-5' },
+				{ className: 'resume-item d-flex flex-column flex-md-row mb-5 bottom-border' },
 				_react2.default.createElement(
 					'div',
 					{ className: 'resume-content mr-auto' },
@@ -18554,7 +18616,8 @@ var Project = function (_React$Component) {
 						'div',
 						{ className: 'subheading mb-3' },
 						members
-					)
+					),
+					btnUpdate
 				),
 				_react2.default.createElement(
 					'div',

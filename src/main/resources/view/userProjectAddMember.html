@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Add Member</title>
+
+<th:block th:include="fragments/userUtil :: header"></th:block>
+<link rel="stylesheet" th:href="@{/css/mdbCard.css}"/>
+<link rel="stylesheet" th:href="@{/css/mdbRadio.css}"/>
+<style>
+	.bottom-border{
+		border-bottom: 1px solid #eee;
+	}
+	.img-frame {
+		margin-right: 10px !important;
+	}
+	.img-profile{	
+		width: 70px;
+		height: auto;
+	}
+</style>
+</head>
+<body id="page-top">
+	<!--  NAV SIDEBAR -->
+   		 <th:block th:include="fragments/userUtil :: nav"></th:block>
+    <!--  /NAV SIDEBAR -->
+
+       <div class="container-fluid p-0">
+    	<section class="resume-section p-3 p-lg-5 d-flex flex-column">
+        <div class="my-auto">
+        	<h2 class="mb-5">Add Collaborator</h2>
+        	<hr>  
+       		       		  	        		  	
+       		  		<div class="row">
+       		  			<div class="col-md-12">
+       		  				<!--  NEW PROJECT FORM -->   
+       		  				<form method="post">
+        		  				<div class="md-form">
+        		  				 	<div class="row">
+        		  				 		 <div class="col-md-5">
+        		  				 			<input type="text" id="in1" class="form-control"
+									        name="name">
+		        		  				 </div>
+		        		  				 <div class="col-md-4">
+								        	<button type="submit" class="btn btn-primary">Add collaborator</button>
+								        </div>
+        		  				 	</div>        		  											        								       						    								            
+								 </div>									 
+							</form>
+							<!--  /.NEW PROJECT FORM -->
+       		  			</div>	 
+       		  			<div class="col-md-12">       		  			
+		        			<div class="resume-item d-flex flex-column flex-md-row mb-5 bottom-border">
+			        			<div class="resume-content img-frame">
+			        				<img class="img-profile" th:src="@{/img/huy-profile.jpg}"/>	
+			        			</div>			        			
+					            <div class="resume-content mr-auto">						              
+					              <h3 class="mb-0">Tran Tien Dat</h3>
+					              <div class="subheading mb-3">
+					              	 dylantran
+					              </div>
+					              <div></div>
+					             <div class="subheading mb-3">              						  
+					              </div>	     	              
+					            </div>
+					            <div class="resume-date text-md-right">
+					              <div>
+					              	<a><i class="fa fa-times" aria-hidden="true"></i></a>
+					              </div>					             
+					            </div>	            
+					        </div>		
+					        
+					        
+					        <div class="resume-item d-flex flex-column flex-md-row mb-5 bottom-border">
+			        			<div class="resume-content img-frame">
+			        				<img class="img-profile" th:src="@{/img/huy-profile.jpg}"/>	
+			        			</div>			        			
+					            <div class="resume-content mr-auto">						              
+					              <h3 class="mb-0">Tran Tien Dat</h3>
+					              <div class="subheading mb-3">
+					              	 dylantran
+					              </div>
+					              <div></div>
+					             <div class="subheading mb-3">              						  
+					              </div>	     	              
+					            </div>
+					            <div class="resume-date text-md-right">
+					              <div>
+					              	<a><i class="fa fa-times" aria-hidden="true"></i></a>
+					              </div>					             
+					            </div>	            
+					        </div>	
+					        <div class="resume-item d-flex flex-column flex-md-row mb-5 bottom-border">
+			        			<div class="resume-content img-frame">
+			        				<img class="img-profile" th:src="@{/img/huy-profile.jpg}"/>	
+			        			</div>			        			
+					            <div class="resume-content mr-auto">						              
+					              <h3 class="mb-0">Tran Tien Dat</h3>
+					              <div class="subheading mb-3">
+					              	 dylantran
+					              </div>
+					              <div></div>
+					             <div class="subheading mb-3">              						  
+					              </div>	     	              
+					            </div>
+					            <div class="resume-date text-md-right">
+					              <div>
+					              	<a><i class="fa fa-times" aria-hidden="true"></i></a>
+					              </div>					             
+					            </div>	            
+					        </div>		
+					        <div class="resume-item d-flex flex-column flex-md-row mb-5 bottom-border">
+			        			<div class="resume-content img-frame">
+			        				<img class="img-profile" th:src="@{/img/huy-profile.jpg}"/>	
+			        			</div>			        			
+					            <div class="resume-content mr-auto">						              
+					              <h3 class="mb-0">Tran Tien Dat</h3>
+					              <div class="subheading mb-3">
+					              	 dylantran
+					              </div>
+					              <div></div>
+					             <div class="subheading mb-3">              						  
+					              </div>	     	              
+					            </div>
+					            <div class="resume-date text-md-right">
+					              <div>
+					              	<a><i class="fa fa-times" aria-hidden="true"></i></a>
+					              </div>					             
+					            </div>	            
+					        </div>			
+			        	</div>
+       		  	
+       		  			
+       		  			
+       		  			       		  			       		  		
+       		  		</div>       		  	       		  
+       		  		<!-- /.ROW -->
+        		
+        		
+        		
+        		
+        		 	
+        </div>
+      </section>
+    </div>
+	
+	
+    <th:block th:include="fragments/userUtil :: script"></th:block>
+    
+    <!-- MDB --> 	
+	<script th:src="@{/vendor/mdb/mdb.js}"></script>
+</body>
+</html>

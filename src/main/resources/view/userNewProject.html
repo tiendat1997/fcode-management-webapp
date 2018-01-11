@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>New Project</title>
+
+<th:block th:include="fragments/userUtil :: header"></th:block>
+<link rel="stylesheet" th:href="@{/css/mdbCard.css}"/>
+<link rel="stylesheet" th:href="@{/css/mdbRadio.css}"/>
+<link rel="stylesheet" th:href="@{/vendor/selecty/css/selecty.css}">
+<style>
+	.selecty .selecty-selected{
+		margin-left: 3rem;
+		width: auto !important;
+	}
+		
+</style>
+
+</head>
+<body id="page-top">
+	<!--  NAV SIDEBAR -->
+   	<th:block th:include="fragments/userUtil :: nav"></th:block>
+    <!--  /NAV SIDEBAR -->
+    <div class="container-fluid p-0">
+    	<section class="resume-section p-3 p-lg-5 d-flex flex-column">
+        <div class="my-auto">
+        	<h2 class="mb-5">Create a New Project</h2>
+        	
+        	<hr>
+        	<div class="card testimonial-card">
+        		  <div class="card-body">
+        		  	<!--  NEW PROJECT FORM -->
+        		  	<form action="/user/project/new" method="post">
+        		  		<input style="display:none" th:value="${session.account.username}" name="ownerId"/>
+        		  		<div class="row">
+        		  			<div class="col-md-12">
+        		  				
+        		  				<div class="md-form">
+								        <i class="fa fa-user-o prefix grey-text"></i>
+								        <input type="text" id="in1" class="form-control" required
+								        name="name">
+								        <label for="in1">Project Name</label>
+								 </div>
+								 
+								 <div class="md-form">
+								 		<i class="fa fa-commenting-o prefix grey-text" aria-hidden="true"></i>								        
+								        <input type="text" id="in2" class="form-control"
+								        name="description"
+								        >
+								        <label for="in2">Description (optional)</label>
+								 </div>
+								 <div class="md-form">
+								        <i class="fa fa-github prefix grey-text" aria-hidden="true"></i>	
+								        <input type="text" id="in3" class="form-control"
+								        name="link" required
+								        >
+								        <label for="in3">Github Link</label>
+								 </div>
+								 <div class="md-form">
+								 		<i class="fa fa-filter prefix grey-text" aria-hidden="true"></i>								  		
+								  		<select class="form-control" id="select-category" multiple
+								  			name="category"
+								  		>									     
+									    </select>								 		
+								 </div>
+								 <div>								  								  					
+								 	<div class="row">
+								 		<div class="col-md-12 text-right">
+									 		<div class="form-group radio-group" >
+											    <input name="notPublic" type="radio" id="radio1" checked>
+											    <label for="radio1">Public</label>
+																													
+											    <input name="group1" type="radio" id="radio2">
+											    <label for="notPublic">Private</label>
+											</div>
+								 		</div>								 									   									   		
+								  	</div>								  				   								   		
+								</div>
+								
+								
+								  <div class="text-center">
+							        <button class="btn btn-unique" id="">
+							        	Create <i class="fa fa-paper-plane-o ml-1"></i>
+							        </button>
+							    </div>					   										
+        		  			</div>        		  			
+        		  		</div>
+        		  	</form>
+        		  	
+        		  	<!--  /.NEW PROJECT FORM -->
+        		  </div>
+        	</div>        		 	
+        </div>
+      </section>
+    </div>
+	
+
+<th:block th:include="fragments/userUtil :: script"></th:block>
+<!-- MDB --> 	
+<script th:src="@{/vendor/mdb/mdb.js}"></script>
+		
+<script th:src="@{/vendor/selecty/js/selecty.js}"></script>
+<script th:src="@{/js/userNewProject.js}"></script>
+ 
+</body>
+</html>

@@ -22,83 +22,92 @@
         <div class="my-auto">
         	 <h2 class="mb-5">Profile</h2>
         	 <!--Card-->
-								<div class="card testimonial-card">
-								
-								    <!--Bacground color
-								    <div class="card-up indigo lighten-1">
+				<div class="card testimonial-card">
+				
+				    <!--Bacground color
+				    <div class="card-up indigo lighten-1">
+				    </div>
+					-->
+				    <!--Avatar
+				    <div th:object="${member}" class="avatar"><img th:src="${member.imageUrl}" class="rounded-circle">
+				    </div>
+				    -->
+				
+				    <div class="card-body">
+								        <!-- Form contact -->
+						<form
+							th:object="${member}" 
+							th:action="@{/user/profile/update}" method="post" >
+							<input  th:field="*{username}" style="display:none"/>											
+						    <div class="row">
+						    	<input th:value="${session.account.username}" style="display:none"/>
+						    	<div class="col-md-6">
+						    		<div class="md-form">
+								        <i class="fa fa-id-badge prefix grey-text"></i>
+								        <input 
+								         	type="text" 
+								         	id="form3" class="form-control" 								         	
+								         	th:field="*{studentCode}"												         	
+								         	disabled="disabled"
+								         	>
+								        <label for="form3">Student ID</label>
+								    </div>							    
+								    
+								    <div class="md-form">
+								        <i class="fa fa-user-o prefix grey-text"></i>
+								        <input type="text" id="form3" class="form-control" 								        
+								        	th:field="*{fullname}"
+								        	required
+								        	>
+								        <label for="form3">Fullname</label>
 								    </div>
-									-->
-								    <!--Avatar
-								    <div th:object="${member}" class="avatar"><img th:src="${member.imageUrl}" class="rounded-circle">
+								    <div class="md-form">
+								    	<i class="fa fa-line-chart prefix grey-text"></i>
+								        <input 
+								        	type="number" id="form32" class="form-control validate"
+								        	min="1" 														        				        													       								        
+								        	th:field="*{grade}">
+								        <label data-error="" data-success="" for="">Grade</label>
+								    </div>																								  
+						    	</div>
+						    	<div class="col-md-6">
+						    		<div class="md-form">
+								        <i class="fa fa-graduation-cap prefix grey-text"></i>
+								        <input type="text" id="form32" class="form-control" 
+								        	th:field="*{major}">
+								        <label for="form34">Major</label>
 								    </div>
-								    -->
-								
-								    <div class="card-body">
-												        <!-- Form contact -->
-										<form  th:action="@{/admin/member/update}" method="post">											
-										    <div class="row">
-										    	<input th:value="${session.account.username}" style="display:none"/>
-										    	<div class="col-md-6">
-										    		<div class="md-form">
-												        <i class="fa fa-id-badge prefix grey-text"></i>
-												        <input 
-												         	type="text" 
-												         	id="form3" class="form-control" 
-												         	th:value="${session.account.studentCode}"												         	
-												         	disabled="disabled"
-												         	>
-												        <label for="form3">Student ID</label>
-												    </div>							    
-												    
-												    <div class="md-form">
-												        <i class="fa fa-user-o prefix grey-text"></i>
-												        <input type="text" id="form3" class="form-control" 
-												        	th:value="${session.account.fullname}">
-												        <label for="form3">Fullname</label>
-												    </div>
-												    <div class="md-form">
-												    	<i class="fa fa-line-chart prefix grey-text"></i>
-												        <input 
-												        	type="number" id="form32" class="form-control validate"
-												        	min="1" 														        				        													       
-												        	th:value="${session.account.grade}">
-												        <label data-error="" data-success="" for="">Grade</label>
-												    </div>																								  
-										    	</div>
-										    	<div class="col-md-6">
-										    		<div class="md-form">
-												        <i class="fa fa-graduation-cap prefix grey-text"></i>
-												        <input type="text" id="form32" class="form-control" 
-												        	th:value="${session.account.major}">
-												        <label for="form34">Major</label>
-												    </div>
-												    <div class="md-form">
-												        <i class="fa fa-envelope prefix grey-text"></i>
-												        <input type="email" id="form2" class="form-control validate" 
-												        	th:value="${session.account.email}">
-												        <label data-error="" data-success="" for="">Email</label>													      
-												    </div>
-												    <div class="md-form">
-												        <i class="fa fa-phone-square prefix grey-text"></i>
-												        <input type="text" id="form8" class="form-control validate" 
-												            pattern="\d{9,11}"
-												        	th:value="${session.account.phone}">
-												        <label data-error="" data-success="" for="">Phone</label>
-												    </div>												   												    				
-										    	</div>
-										    </div>			
-										    <div class="text-center">
-										        <button type="submit" class="btn btn-unique">
-										        	Update <i class="fa fa-paper-plane-o ml-1"></i>
-										        </button>
-										    </div>
-										
-										</form>
-										<!-- Form contact -->
+								    <div class="md-form">
+								        <i class="fa fa-envelope prefix grey-text"></i>
+								        <input type="email" id="form2" class="form-control validate" 								        
+								        	th:field="*{email}"
+								        	required
+								        	>
+								        <label data-error="" data-success="" for="" >Email</label>													      
 								    </div>
-								
-								</div>
-								<!--/.Card-->
+								    <div class="md-form">
+								        <i class="fa fa-phone-square prefix grey-text"></i>
+								        <input type="text" id="form8" class="form-control validate" 
+								            pattern="\d{9,11}"								        	
+								        	th:field="*{phone}"
+								        	required
+								        	>
+								        <label data-error="" data-success="" for="">Phone</label>
+								    </div>										  			   												    			
+						    	</div>
+						    </div>			
+						    <div class="text-center">
+						        <button type="submit" class="btn btn-unique">
+						        	Update <i class="fa fa-paper-plane-o ml-1"></i>
+						        </button>
+						    </div>
+						
+						</form>
+						<!-- Form contact -->
+				    </div>
+				
+				</div>
+				<!--/.Card-->
 
           
         </div>

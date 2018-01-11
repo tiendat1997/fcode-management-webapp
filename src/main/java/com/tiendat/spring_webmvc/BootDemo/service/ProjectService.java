@@ -16,6 +16,7 @@ public interface ProjectService {
 	List<ProjectInformation> findProjectByCategory(int categoryId);
 	
 	boolean addProject(Project project, int[] categories, String[] members);
+	boolean addProject(Project project, int[] categories);
 	boolean approveProject(int projectId, boolean notPublic);
 	
 //****************USER*********************

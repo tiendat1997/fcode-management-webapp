@@ -119,6 +119,21 @@ public class ProjectServiceImpl implements ProjectService {
 
         return listProjectInformation;
     }
+    @Override
+    public boolean addProject(Project project, int[] categories) {
+    	project = this.projectRepository.saveAndFlush(project);
+    	System.out.println(project.getProjectId());
+    	for (int i : categories) {
+			System.out.println(i);
+		}
+    	
+    	int projectId = project.getProjectId();     	    
+    	for (int i = 0; i < categories.length; i++) {
+    		this.projectCategoryRepository.save(new ProjectCategory(projectId, categories[i]));
+    	}    	
+    	return true;
+    }
+    
 
     @Override
     public boolean addProject(Project project, int[] categories, String[] members) {
