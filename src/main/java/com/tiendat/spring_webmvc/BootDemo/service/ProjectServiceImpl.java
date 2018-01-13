@@ -191,6 +191,27 @@ public class ProjectServiceImpl implements ProjectService {
 		return true;
 	}
 
+	@Override
+	public boolean addCollaborators(String[] members, int projectId) {
+		for (String member: members) {
+			
+			ProjectMember pm = projectMemberRepository.save(new ProjectMember(member, projectId));
+			if (pm == null) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean deleteCollaborator(String member, int projectId) {
+		long result = projectMemberRepository.deleteByProjectIdAndMemberId(projectId, member);
+		if (result > 0) {
+			return true;
+		}
+		return false;
+	}
+
 	
 
 }

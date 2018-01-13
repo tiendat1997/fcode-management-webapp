@@ -26,4 +26,7 @@ public interface ProjectService {
 	
 	boolean updateProject(Project project, int[] categories, String[] members);
 	
+	boolean addCollaborators(String[] members, int projectId);
+	boolean deleteCollaborator(String member, int projectId);
+	
 }

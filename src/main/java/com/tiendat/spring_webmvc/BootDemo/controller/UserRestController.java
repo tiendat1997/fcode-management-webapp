@@ -145,6 +145,24 @@ public class UserRestController {
 		return this.projectService.getListCategory();
 	}
 	
+	@GetMapping(value = "/project/add/collaborators", params= {"projectId", "members"})
+	public String addCollaborators(@RequestParam("projectId") int projectId, @RequestParam("members") String[] members) {
+		boolean result = projectService.addCollaborators(members, projectId);
+		if (result) {
+			return SUCCESS;
+		}
+		return FAIL;
+	}
+	
+	@GetMapping(value = "/project/delete/collaborators", params= {"projectId", "member"})
+	public String deleteCollaborators(@RequestParam("projectId") int projectId, @RequestParam("member") String member) {
+		boolean result = projectService.deleteCollaborator(member, projectId);
+		if (result) {
+			return SUCCESS;
+		}
+		return FAIL;
+	}
+	
 //	**************************
 //	Profile
 //	**************************
