@@ -1,5 +1,6 @@
 package com.tiendat.spring_webmvc.BootDemo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -7,12 +8,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Account;
 import com.tiendat.spring_webmvc.BootDemo.model.Role;
+import com.tiendat.spring_webmvc.BootDemo.model.UserAccount;
 import com.tiendat.spring_webmvc.BootDemo.respository.AccountRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.RoleRespository;
 
@@ -161,5 +161,18 @@ public class AccountServiceImpl implements AccountService {
     public int countMemberByRoleId(int roleId) {
         return this.accountRespository.countByRoleId(roleId);
     }
+
+	@Override
+	public List<UserAccount> findTop10ByFullnameForUser(String fullname) {
+		List<Account> list = accountRespository.findTop10ByFullnameContaining(fullname);
+		List<UserAccount> listAccount = null;
+		for(Account account: list) {
+			if (listAccount == null) {
+				listAccount = new ArrayList<>();
+			}
+			listAccount.add(new UserAccount(account.getUsername(), account.getFullname(), account.getStudentCode()));
+		}
+		return listAccount;
+	}
 
 }

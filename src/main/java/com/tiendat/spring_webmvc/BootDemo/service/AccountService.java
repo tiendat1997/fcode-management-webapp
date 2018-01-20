@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.tiendat.spring_webmvc.BootDemo.model.Account;
 import com.tiendat.spring_webmvc.BootDemo.model.Role;
+import com.tiendat.spring_webmvc.BootDemo.model.UserAccount;
 
 public interface AccountService {
 
@@ -39,6 +40,7 @@ public interface AccountService {
 	
 	List<Account> findAdminAndModerator(int roleAdmin, int roleModerator);
 	List<Account> findTop10ByFullname(String fullname);
+	List<UserAccount> findTop10ByFullnameForUser(String fullname);
 	
 	int countMemberByRoleId(int roleId);
 }

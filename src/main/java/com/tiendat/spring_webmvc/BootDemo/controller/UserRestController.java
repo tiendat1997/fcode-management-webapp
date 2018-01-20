@@ -15,6 +15,7 @@ import com.tiendat.spring_webmvc.BootDemo.model.Category;
 import com.tiendat.spring_webmvc.BootDemo.model.Project;
 import com.tiendat.spring_webmvc.BootDemo.model.ProjectInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.TimelineInformation;
+import com.tiendat.spring_webmvc.BootDemo.model.UserAccount;
 import com.tiendat.spring_webmvc.BootDemo.model.UserEvent;
 import com.tiendat.spring_webmvc.BootDemo.service.AccountService;
 import com.tiendat.spring_webmvc.BootDemo.service.EventService;
@@ -161,6 +162,11 @@ public class UserRestController {
 			return SUCCESS;
 		}
 		return FAIL;
+	}
+	
+	@GetMapping(value = "/project/find/collaborators", params= {"name"})
+	public List<UserAccount> findCollaborators(@RequestParam("name") String name) {
+		return accountService.findTop10ByFullnameForUser(name);
 	}
 	
 //	**************************
