@@ -169,6 +169,11 @@ public class UserRestController {
 		return accountService.findTop10ByFullnameForUser(name);
 	}
 	
+	@GetMapping(value = "/project/get/collaborators", params = {"projectId"})
+	public List<UserAccount> getProjectListCollaborators(@RequestParam("projectId") int projectId){
+		return projectService.getListProjectCollaborators(projectId);
+	}
+	
 //	**************************
 //	Profile
 //	**************************

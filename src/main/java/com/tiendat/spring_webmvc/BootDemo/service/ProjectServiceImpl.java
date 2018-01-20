@@ -8,15 +8,15 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tiendat.spring_webmvc.BootDemo.model.Account;
 import com.tiendat.spring_webmvc.BootDemo.model.Category;
-import com.tiendat.spring_webmvc.BootDemo.model.EventCategory;
 import com.tiendat.spring_webmvc.BootDemo.model.Project;
 import com.tiendat.spring_webmvc.BootDemo.model.ProjectCategory;
 import com.tiendat.spring_webmvc.BootDemo.model.ProjectInformation;
 import com.tiendat.spring_webmvc.BootDemo.model.ProjectMember;
+import com.tiendat.spring_webmvc.BootDemo.model.UserAccount;
 import com.tiendat.spring_webmvc.BootDemo.respository.AccountRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.CategoryRepository;
-import com.tiendat.spring_webmvc.BootDemo.respository.EventCategoryRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.ProjectCategoryRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.ProjectMemberRepository;
 import com.tiendat.spring_webmvc.BootDemo.respository.ProjectRepository;
@@ -210,6 +210,20 @@ public class ProjectServiceImpl implements ProjectService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<UserAccount> getListProjectCollaborators(int projectId) {
+		List<ProjectMember> list = projectMemberRepository.findByProjectId(projectId);
+		List<UserAccount> listAccount = null;
+		for (ProjectMember pm: list) {
+			if (listAccount == null) {
+				listAccount = new ArrayList<>();
+			}
+			Account account = accountRepository.findByUsername(pm.getMemberId());
+			listAccount.add(new UserAccount(account.getUsername(), account.getFullname(), account.getStudentCode()));
+		}
+		return listAccount;
 	}
 
 	

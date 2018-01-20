@@ -5,6 +5,7 @@ import java.util.List;
 import com.tiendat.spring_webmvc.BootDemo.model.Category;
 import com.tiendat.spring_webmvc.BootDemo.model.Project;
 import com.tiendat.spring_webmvc.BootDemo.model.ProjectInformation;
+import com.tiendat.spring_webmvc.BootDemo.model.UserAccount;
 
 public interface ProjectService {
 
@@ -28,5 +29,7 @@ public interface ProjectService {
 	
 	boolean addCollaborators(String[] members, int projectId);
 	boolean deleteCollaborator(String member, int projectId);
+	
+	List<UserAccount> getListProjectCollaborators(int projectId);
 	
 }
