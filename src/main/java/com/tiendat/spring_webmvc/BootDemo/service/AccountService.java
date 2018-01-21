@@ -41,6 +41,7 @@ public interface AccountService {
 	List<Account> findAdminAndModerator(int roleAdmin, int roleModerator);
 	List<Account> findTop10ByFullname(String fullname);
 	List<UserAccount> findTop10ByFullnameForUser(String fullname);
+	List<UserAccount> findTop10ByUsernameForUser(String username);
 	
 	int countMemberByRoleId(int roleId);
 }

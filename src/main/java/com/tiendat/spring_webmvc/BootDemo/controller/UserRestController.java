@@ -155,6 +155,15 @@ public class UserRestController {
 		return FAIL;
 	}
 	
+	@GetMapping(value = "/project/add/collaborators", params= {"projectId", "studentCodes"})
+	public String addCollaboratorsUsingStudentCode(@RequestParam("projectId") int projectId, @RequestParam("studentCodes") String[] studentCodes) {
+		boolean result = projectService.addCollaboratorsUsingStudentCode(studentCodes, projectId);
+		if (result) {
+			return SUCCESS;
+		}
+		return FAIL;
+	}
+	
 	@GetMapping(value = "/project/delete/collaborators", params= {"projectId", "member"})
 	public String deleteCollaborators(@RequestParam("projectId") int projectId, @RequestParam("member") String member) {
 		boolean result = projectService.deleteCollaborator(member, projectId);
@@ -164,10 +173,16 @@ public class UserRestController {
 		return FAIL;
 	}
 	
-	@GetMapping(value = "/project/find/collaborators", params= {"name"})
-	public List<UserAccount> findCollaborators(@RequestParam("name") String name) {
+	@GetMapping(value = "/project/find/collaborators/fullname", params= {"name"})
+	public List<UserAccount> findCollaboratorsUsingFullname(@RequestParam("name") String name) {
 		return accountService.findTop10ByFullnameForUser(name);
 	}
+	
+	@GetMapping(value = "/project/find/collaborators/username", params= {"username"})
+	public List<UserAccount> findCollaboratorsUsingUsername(@RequestParam("username") String username) {
+		return accountService.findTop10ByUsernameForUser(username);
+	}
+	
 	
 	@GetMapping(value = "/project/get/collaborators", params = {"projectId"})
 	public List<UserAccount> getProjectListCollaborators(@RequestParam("projectId") int projectId){

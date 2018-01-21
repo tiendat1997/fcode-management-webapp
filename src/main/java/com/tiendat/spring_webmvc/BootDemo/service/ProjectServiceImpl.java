@@ -25,127 +25,129 @@ import com.tiendat.spring_webmvc.BootDemo.respository.ProjectRepository;
 @Transactional
 public class ProjectServiceImpl implements ProjectService {
 
-    @Autowired
-    private ProjectRepository projectRepository;
+	@Autowired
+	private ProjectRepository projectRepository;
 
-    @Autowired
-    private CategoryRepository categoryReposity;
+	@Autowired
+	private CategoryRepository categoryReposity;
 
-    @Autowired
-    private ProjectCategoryRepository projectCategoryRepository;
+	@Autowired
+	private ProjectCategoryRepository projectCategoryRepository;
 
-    @Autowired
-    private ProjectMemberRepository projectMemberRepository;
+	@Autowired
+	private ProjectMemberRepository projectMemberRepository;
 
-    @Autowired
-    private AccountRepository accountRepository;
-    
-    @Autowired
-    private CategoryRepository categoryRepository;
+	@Autowired
+	private AccountRepository accountRepository;
 
-    private ProjectInformation findAllInfomation(Project project) {
+	@Autowired
+	private CategoryRepository categoryRepository;
 
-        if (project != null) {
-            ProjectInformation projectInformation = new ProjectInformation();
+	private ProjectInformation findAllInfomation(Project project) {
 
-            projectInformation.setProject(project);
+		if (project != null) {
+			ProjectInformation projectInformation = new ProjectInformation();
 
-            List<ProjectMember> projectMembers = projectMemberRepository.findByProjectId(project.getProjectId());
+			projectInformation.setProject(project);
 
-            if (projectMembers != null) {
-                for (ProjectMember projectMember : projectMembers) {
-                    projectInformation.addMember(accountRepository.findByUsername(projectMember.getMemberId()));
-                }
-            }
+			List<ProjectMember> projectMembers = projectMemberRepository.findByProjectId(project.getProjectId());
 
-            List<ProjectCategory> projectCategories = projectCategoryRepository.findByProjectId(project.getProjectId());
-            if (projectCategories != null) {
-                for (ProjectCategory projectCategory : projectCategories) {
-                    projectInformation.addCategory(categoryReposity.findByCategoryId(projectCategory.getCategoryId()));
-                }
+			if (projectMembers != null) {
+				for (ProjectMember projectMember : projectMembers) {
+					projectInformation.addMember(accountRepository.findByUsername(projectMember.getMemberId()));
+				}
+			}
 
-            }
+			List<ProjectCategory> projectCategories = projectCategoryRepository.findByProjectId(project.getProjectId());
+			if (projectCategories != null) {
+				for (ProjectCategory projectCategory : projectCategories) {
+					projectInformation.addCategory(categoryReposity.findByCategoryId(projectCategory.getCategoryId()));
+				}
 
-            return projectInformation;
-        }
+			}
 
-        return null;
-    }
+			return projectInformation;
+		}
 
-    private List<ProjectInformation> findListAllInformation(List<Project> projects){
-    	List<ProjectInformation> listProjectInformation = null;
-        for (Project project : projects) {
-            if (listProjectInformation == null) {
-                listProjectInformation = new ArrayList<>();
-            }
-            listProjectInformation.add(findAllInfomation(project));
-        }
-        return listProjectInformation;
-    }
-    @Override
-    public List<ProjectInformation> findAllProject() {
-        List<Project> projects = projectRepository.findAll();
-        return findListAllInformation(projects);
-    }
+		return null;
+	}
 
-    @Override
-    public List<ProjectInformation> findPublicProject() {
-        List<Project> projects = projectRepository.findByNotPublicIsFalse();
-        return findListAllInformation(projects);
-    }
+	private List<ProjectInformation> findListAllInformation(List<Project> projects) {
+		List<ProjectInformation> listProjectInformation = null;
+		for (Project project : projects) {
+			if (listProjectInformation == null) {
+				listProjectInformation = new ArrayList<>();
+			}
+			listProjectInformation.add(findAllInfomation(project));
+		}
+		return listProjectInformation;
+	}
 
-    @Override
-    public ProjectInformation findProjectById(int projectId) {
-        return findAllInfomation(projectRepository.findByProjectId(projectId));
-    }
+	@Override
+	public List<ProjectInformation> findAllProject() {
+		List<Project> projects = projectRepository.findAll();
+		return findListAllInformation(projects);
+	}
 
-    @Override
-    public List<ProjectInformation> findMemberProject(String memberId) {
-        List<Project> projects = projectRepository.findByMemberId(memberId);
-       return findListAllInformation(projects);
+	@Override
+	public List<ProjectInformation> findPublicProject() {
+		List<Project> projects = projectRepository.findByNotPublicIsFalse();
+		return findListAllInformation(projects);
+	}
 
-    }
+	@Override
+	public ProjectInformation findProjectById(int projectId) {
+		return findAllInfomation(projectRepository.findByProjectId(projectId));
+	}
 
-    @Override
-    public List<ProjectInformation> findProjectByCategory(int categoryId) {
-        List<ProjectCategory> projectCategories = projectCategoryRepository.findByCategoryId(categoryId);
-        List<ProjectInformation> listProjectInformation = null;
-        for (ProjectCategory projectCategory : projectCategories) {
-            if (listProjectInformation == null) {
-                listProjectInformation = new ArrayList<>();
-            }
-            listProjectInformation.add(findAllInfomation(projectRepository.findByProjectId(projectCategory.getProjectId())));
-        }
+	@Override
+	public List<ProjectInformation> findMemberProject(String memberId) {
+		List<Project> projects = projectRepository.findByMemberId(memberId);
+		return findListAllInformation(projects);
 
-        return listProjectInformation;
-    }
-    @Override
-    public boolean addProject(Project project, int[] categories) {
-    	project = this.projectRepository.saveAndFlush(project);
-    	System.out.println(project.getProjectId());
-    	for (int i : categories) {
+	}
+
+	@Override
+	public List<ProjectInformation> findProjectByCategory(int categoryId) {
+		List<ProjectCategory> projectCategories = projectCategoryRepository.findByCategoryId(categoryId);
+		List<ProjectInformation> listProjectInformation = null;
+		for (ProjectCategory projectCategory : projectCategories) {
+			if (listProjectInformation == null) {
+				listProjectInformation = new ArrayList<>();
+			}
+			listProjectInformation
+					.add(findAllInfomation(projectRepository.findByProjectId(projectCategory.getProjectId())));
+		}
+
+		return listProjectInformation;
+	}
+
+	@Override
+	public boolean addProject(Project project, int[] categories) {
+		project = this.projectRepository.saveAndFlush(project);
+		System.out.println(project.getProjectId());
+		for (int i : categories) {
 			System.out.println(i);
 		}
-    	
-    	int projectId = project.getProjectId();     	    
-    	for (int i = 0; i < categories.length; i++) {
-    		this.projectCategoryRepository.save(new ProjectCategory(projectId, categories[i]));
-    	}    	
-    	return true;
-    }
-    
 
-    @Override
-    public boolean addProject(Project project, int[] categories, String[] members) {
-    	this.projectRepository.saveAndFlush(project);
-    	for (int i = 0; i < categories.length; i++) {
-    		this.projectCategoryRepository.save(new ProjectCategory(project.getProjectId(), categories[i]));
-    	}
-    	for (int i = 0; i < members.length; i++) {
-    		this.projectMemberRepository.save(new ProjectMember(members[i], project.getProjectId()));
-    	}
-    	return true;
-    }
+		int projectId = project.getProjectId();
+		for (int i = 0; i < categories.length; i++) {
+			this.projectCategoryRepository.save(new ProjectCategory(projectId, categories[i]));
+		}
+		return true;
+	}
+
+	@Override
+	public boolean addProject(Project project, int[] categories, String[] members) {
+		this.projectRepository.saveAndFlush(project);
+		for (int i = 0; i < categories.length; i++) {
+			this.projectCategoryRepository.save(new ProjectCategory(project.getProjectId(), categories[i]));
+		}
+		for (int i = 0; i < members.length; i++) {
+			this.projectMemberRepository.save(new ProjectMember(members[i], project.getProjectId()));
+		}
+		return true;
+	}
 
 	@Override
 	public List<ProjectInformation> findNotPublicProject() {
@@ -161,7 +163,7 @@ public class ProjectServiceImpl implements ProjectService {
 			projectRepository.save(project);
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -183,18 +185,18 @@ public class ProjectServiceImpl implements ProjectService {
 		this.projectCategoryRepository.deleteByProjectId(project.getProjectId());
 		this.projectMemberRepository.deleteByProjectId(project.getProjectId());
 		for (int i = 0; i < categories.length; i++) {
-    		this.projectCategoryRepository.save(new ProjectCategory(project.getProjectId(), categories[i]));
-    	}
-    	for (int i = 0; i < members.length; i++) {
-    		this.projectMemberRepository.save(new ProjectMember(members[i], project.getProjectId()));
-    	}
+			this.projectCategoryRepository.save(new ProjectCategory(project.getProjectId(), categories[i]));
+		}
+		for (int i = 0; i < members.length; i++) {
+			this.projectMemberRepository.save(new ProjectMember(members[i], project.getProjectId()));
+		}
 		return true;
 	}
 
 	@Override
 	public boolean addCollaborators(String[] members, int projectId) {
-		for (String member: members) {
-			
+		for (String member : members) {
+
 			ProjectMember pm = projectMemberRepository.save(new ProjectMember(member, projectId));
 			if (pm == null) {
 				return false;
@@ -216,7 +218,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<UserAccount> getListProjectCollaborators(int projectId) {
 		List<ProjectMember> list = projectMemberRepository.findByProjectId(projectId);
 		List<UserAccount> listAccount = null;
-		for (ProjectMember pm: list) {
+		for (ProjectMember pm : list) {
 			if (listAccount == null) {
 				listAccount = new ArrayList<>();
 			}
@@ -226,6 +228,17 @@ public class ProjectServiceImpl implements ProjectService {
 		return listAccount;
 	}
 
-	
+	@Override
+	public boolean addCollaboratorsUsingStudentCode(String[] studentCodes, int projectId) {
+		for (String studentCode : studentCodes) {
+			String username = accountRepository.findUsernameByStudentCode(studentCode);
+			ProjectMember pm = projectMemberRepository.save(new ProjectMember(username, projectId));
+			if (pm == null) {
+				return false;
+			}
+		}
+		return true;
+		
+	}
 
 }

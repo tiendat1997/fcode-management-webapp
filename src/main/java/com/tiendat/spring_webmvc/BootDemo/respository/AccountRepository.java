@@ -15,6 +15,7 @@ public interface AccountRepository extends JpaRepository<Account, Long>{
 	
 	Account findByUsernameAndPassword(String username, String password);
 	Account findByUsername(String username);
+	String findUsernameByStudentCode(String studentCode);
 	Account save(Account account);	
 	
 	
@@ -114,6 +115,7 @@ public interface AccountRepository extends JpaRepository<Account, Long>{
 			@Param("roleModerator") int roleModerator);
 	
 	List<Account> findTop10ByFullnameContaining(String fullname);
+	List<Account> findTop10ByUsernameContaining(String username);
 	
 	int countByRoleId(int roleId);
 	

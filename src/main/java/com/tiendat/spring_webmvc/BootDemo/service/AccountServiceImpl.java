@@ -175,4 +175,18 @@ public class AccountServiceImpl implements AccountService {
 		return listAccount;
 	}
 
+	@Override
+	public List<UserAccount> findTop10ByUsernameForUser(String username) {
+		List<Account> list = accountRespository.findTop10ByUsernameContaining(username);
+		List<UserAccount> listAccount = null;
+		for(Account account: list) {
+			if (listAccount == null) {
+				listAccount = new ArrayList<>();
+			}
+			listAccount.add(new UserAccount(account.getUsername(), account.getFullname(), account.getStudentCode()));
+		}
+		return listAccount;
+		
+	}
+
 }
