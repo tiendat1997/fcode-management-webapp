@@ -201,10 +201,13 @@ class CollaPanel extends React.Component{
 
 		// check if existed collaboration 
 		var existed = false; 
-		this.state.listColla.forEach(function(colla){
+		if (this.state.listColla != null && this.state.listColla.length > 0) {
+			this.state.listColla.forEach(function(colla){
 			if (colla.username == username) existed = true;
 			
-		});
+		});	
+		}
+		
 		console.log(existed);
 		if (existed) {
 			toastr.warning("This member has already be a collaborator");
