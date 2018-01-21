@@ -196,11 +196,22 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public boolean addCollaborators(String[] members, int projectId) {
 		for (String member : members) {
-
-			ProjectMember pm = projectMemberRepository.save(new ProjectMember(member, projectId));
-			if (pm == null) {
+			List<ProjectMember> projectMember = projectMemberRepository.findByProjectIdAndMemberId(projectId, member);
+			
+			if (projectMember.isEmpty()) {
+				if(!member.equals(projectRepository.findByProjectId(projectId).getMemberId())){
+					ProjectMember pm = projectMemberRepository.save(new ProjectMember(member, projectId));
+					if (pm == null) {
+						return false;
+					}
+				}else {
+					return false;
+				}
+				
+			}else {
 				return false;
 			}
+			
 		}
 		return true;
 	}
@@ -232,14 +243,14 @@ public class ProjectServiceImpl implements ProjectService {
 	public boolean addCollaboratorsUsingStudentCode(String[] studentCodes, int projectId) {
 		for (String studentCode : studentCodes) {
 			String username = accountRepository.findUsernameByStudentCode(studentCode).get(0).getUsername();
-			
+
 			ProjectMember pm = projectMemberRepository.save(new ProjectMember(username, projectId));
 			if (pm == null) {
 				return false;
 			}
 		}
 		return true;
-		
+
 	}
 
 }

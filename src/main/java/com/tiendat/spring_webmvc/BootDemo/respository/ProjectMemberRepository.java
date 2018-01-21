@@ -9,6 +9,7 @@ import com.tiendat.spring_webmvc.BootDemo.model.ProjectMember;
 public interface ProjectMemberRepository extends JpaRepository<ProjectMember, Long>{
 
 	List<ProjectMember> findByProjectId(int projectId);
+	List<ProjectMember> findByProjectIdAndMemberId(int projectId,String memberId);
 	
 	ProjectMember save(ProjectMember member);
 	Long deleteByProjectId(int projectId);

@@ -155,14 +155,14 @@ public class UserRestController {
 		return FAIL;
 	}
 	
-	@GetMapping(value = "/project/add/collaborators", params= {"projectId", "studentCodes"})
-	public String addCollaboratorsUsingStudentCode(@RequestParam("projectId") int projectId, @RequestParam("studentCodes") String[] studentCodes) {
-		boolean result = projectService.addCollaboratorsUsingStudentCode(studentCodes, projectId);
-		if (result) {
-			return SUCCESS;
-		}
-		return FAIL;
-	}
+//	@GetMapping(value = "/project/add/collaborators", params= {"projectId", "studentCodes"})
+//	public String addCollaboratorsUsingStudentCode(@RequestParam("projectId") int projectId, @RequestParam("studentCodes") String[] studentCodes) {
+//		boolean result = projectService.addCollaboratorsUsingStudentCode(studentCodes, projectId);
+//		if (result) {
+//			return SUCCESS;
+//		}
+//		return FAIL;
+//	}
 	
 	@GetMapping(value = "/project/delete/collaborators", params= {"projectId", "member"})
 	public String deleteCollaborators(@RequestParam("projectId") int projectId, @RequestParam("member") String member) {
