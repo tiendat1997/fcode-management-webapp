@@ -1,0 +1,5 @@
+$(documnet).ready(function(){
+
+		
+
+});

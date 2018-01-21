@@ -1,0 +1,1 @@
+import CollaPanel from './collaPanel.jsx';

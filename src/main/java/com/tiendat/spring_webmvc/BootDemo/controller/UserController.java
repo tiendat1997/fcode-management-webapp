@@ -122,7 +122,8 @@ public class UserController {
     }
     @GetMapping(value = "/project/member/add", params= {"projectId"})
     public ModelAndView goToAddMemberToProject(ModelMap modelMap, @RequestParam("projectId") int projectId) {
-    	ModelAndView mv = new ModelAndView("userProjectAddMember"); 
+    	ModelAndView mv = new ModelAndView("userProjectAddMember");
+    	mv.addObject("projectId", projectId);
     	    	
     	return mv;
     	
