@@ -231,7 +231,8 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public boolean addCollaboratorsUsingStudentCode(String[] studentCodes, int projectId) {
 		for (String studentCode : studentCodes) {
-			String username = accountRepository.findUsernameByStudentCode(studentCode);
+			String username = accountRepository.findUsernameByStudentCode(studentCode).get(0).getUsername();
+			
 			ProjectMember pm = projectMemberRepository.save(new ProjectMember(username, projectId));
 			if (pm == null) {
 				return false;
