@@ -92,6 +92,7 @@ class CollaPanel extends React.Component{
 		this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
 		this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
 		this.addCollaborator = this.addCollaborator.bind(this);
+		
 
 	}
 	componentDidMount(){
@@ -245,13 +246,16 @@ class CollaPanel extends React.Component{
 		//this.forceUpdate();
 	}	
 
+
+	
+
 	render(){
 		const { value, suggestions } = this.state;
 		 // Autosuggest will pass through all these props to the input.
 	    const inputProps = {
 	      id: 'username',
 	      className: 'form-control',
-	      placeholder: 'Type a programming language',
+	      placeholder: 'Search fullname',
 	      value,
 	      onChange: this.onChange
 	    };
@@ -260,8 +264,9 @@ class CollaPanel extends React.Component{
 
 		var rows = []; 
 		if (this.state.listColla != null && this.state.listColla.length > 0) {
+			var self = this; 
 			this.state.listColla.forEach(function(colla){
-				rows.push(<Collaboration colla={colla}/>)
+				rows.push(<Collaboration colla={colla} loadCollaborations={self.loadCollaborations.bind(self)}/>)
 			});
 		}
 		else {
@@ -294,11 +299,7 @@ class CollaPanel extends React.Component{
 							</div>
 						</div>
 					
-				</div>       	
-				<div className="col-md-12">
-					 
-					
-				</div>	  				
+				</div>       				
 				{/* END FORM ADD */}
 
 				{/* LIST COLLABORATION */}

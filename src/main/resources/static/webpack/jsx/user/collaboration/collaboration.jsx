@@ -6,6 +6,39 @@ class Collaboration extends React.Component{
 	constructor(props){
 		super(props);
 	}
+
+	// DELETE 
+	removeCollaborator(colla){
+		var sessionUsername = $('#session-username').text();
+		var projectId = $('#projectId').text();
+
+		var request = $.ajax({
+			url: '/user/api/project/delete/collaborators',
+			method: 'GET',
+			data: {
+				projectId: projectId,
+				member: colla.username
+			},
+			cached: false
+		}); 	
+		var self = this;	
+		request.done(function(msg){
+			if (msg === 'success') {
+				toastr.success("Delete Successfully");
+				 
+				 self.props.loadCollaborations();
+				
+			}
+			else {
+				toastr.error("Delete Fail");
+			}
+		});
+
+		request.fail(function(msg){
+			toastr.error(msg);
+		});
+	}
+
 	render(){
 		return(
 			<div className="col-md-12">
@@ -24,7 +57,7 @@ class Collaboration extends React.Component{
 		            </div>
 		            <div className="resume-date text-md-right">
 		              <div>
-		              	<a><i className="fa fa-times" aria-hidden="true"></i></a>
+		              	<a href="#" onClick={this.removeCollaborator.bind(this, this.props.colla)}><i className="fa fa-times" aria-hidden="true"></i></a>
 		              </div>					             
 		            </div>	            
 		        </div>		

@@ -1409,15 +1409,16 @@ var CollaPanel = function (_React$Component) {
 			var inputProps = {
 				id: 'username',
 				className: 'form-control',
-				placeholder: 'Type a programming language',
+				placeholder: 'Search fullname',
 				value: value,
 				onChange: this.onChange
 			};
 
 			var rows = [];
 			if (this.state.listColla != null && this.state.listColla.length > 0) {
+				var self = this;
 				this.state.listColla.forEach(function (colla) {
-					rows.push(_react2.default.createElement(_collaboration2.default, { colla: colla }));
+					rows.push(_react2.default.createElement(_collaboration2.default, { colla: colla, loadCollaborations: self.loadCollaborations.bind(self) }));
 				});
 			} else {
 				rows.push(_react2.default.createElement(
@@ -1464,7 +1465,6 @@ var CollaPanel = function (_React$Component) {
 						)
 					)
 				),
-				_react2.default.createElement('div', { className: 'col-md-12' }),
 				rows
 			);
 		}
@@ -18756,7 +18756,40 @@ var Collaboration = function (_React$Component) {
 		return _possibleConstructorReturn(this, (Collaboration.__proto__ || Object.getPrototypeOf(Collaboration)).call(this, props));
 	}
 
+	// DELETE 
+
+
 	_createClass(Collaboration, [{
+		key: 'removeCollaborator',
+		value: function removeCollaborator(colla) {
+			var sessionUsername = $('#session-username').text();
+			var projectId = $('#projectId').text();
+
+			var request = $.ajax({
+				url: '/user/api/project/delete/collaborators',
+				method: 'GET',
+				data: {
+					projectId: projectId,
+					member: colla.username
+				},
+				cached: false
+			});
+			var self = this;
+			request.done(function (msg) {
+				if (msg === 'success') {
+					toastr.success("Delete Successfully");
+
+					self.props.loadCollaborations();
+				} else {
+					toastr.error("Delete Fail");
+				}
+			});
+
+			request.fail(function (msg) {
+				toastr.error(msg);
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
@@ -18794,7 +18827,7 @@ var Collaboration = function (_React$Component) {
 							null,
 							_react2.default.createElement(
 								'a',
-								null,
+								{ href: '#', onClick: this.removeCollaborator.bind(this, this.props.colla) },
 								_react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
 							)
 						)
