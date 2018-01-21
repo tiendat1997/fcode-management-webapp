@@ -20,7 +20,11 @@ public interface TimelineRepository extends JpaRepository<Timeline, Long>{
 	@Transactional
 	Long deleteById(int id);
 	
-	@Query("select t from timeline t where eventId in (select eventId from event where categoryId in (3,4))")
+	@Query("select t " + 
+			"from timeline t " + 
+			"where eventId in (select eventId from event where categoryId in (3,4)) " + 
+					"AND dateStart >= dateadd(dd,-30,getdate()) " + 
+					"order by dateStart asc")
 	List<Timeline> getListScheduler();
 	
 	@Query("select t from timeline t where MONTH(dateStart) = ?1 and YEAR(dateStart) = ?2 and eventId in (select eventId from event where categoryId in (3,4))")
